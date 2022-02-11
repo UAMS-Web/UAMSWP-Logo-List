@@ -169,21 +169,21 @@ if( !empty($layout) ) {
                         <div class="item-img">
                             <picture>
                                 <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>  
-                                    <source srcset="<?php echo image_sizer($image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($image, 910, 512, 'center', 'center'); ?> 2x" 
+                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
                                         media="(min-width: 1921px)">
-                                    <source srcset="<?php echo image_sizer($image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($image, 866, 487, 'center', 'center'); ?> 2x" 
+                                    <source srcset="<?php echo image_sizer($item_image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 866, 487, 'center', 'center'); ?> 2x" 
                                         media="(min-width: 1500px)">
-                                    <source srcset="<?php echo image_sizer($image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($image, 910, 512, 'center', 'center'); ?> 2x" 
+                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
                                         media="(min-width: 992px)">
-                                    <source srcset="<?php echo image_sizer($image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($image, 866, 487, 'center', 'center'); ?> 2x" 
+                                    <source srcset="<?php echo image_sizer($item_image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 866, 487, 'center', 'center'); ?> 2x" 
                                         media="(min-width: 768px)">
-                                    <source srcset="<?php echo image_sizer($image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($image, 910, 512, 'center', 'center'); ?> 2x" 
+                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
                                         media="(min-width: 1px)">
                                     <!-- Fallback -->
-                                    <img src="<?php echo image_sizer($image, 455, 256, 'center', 'center'); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
+                                    <img src="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
                                 <?php } else { ?>
                                     <!-- Fallback -->
-                                    <img src="<?php echo wp_get_attachment_image_url( $image, 'aspect-16-9' ); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
+                                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
                                 <?php } //endif ?>
                             </picture>
                         </div>
