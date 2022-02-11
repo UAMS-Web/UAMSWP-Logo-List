@@ -151,7 +151,7 @@ if( !empty($layout) ) {
                     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
                     $item_image_alt_override = $item_heading . ' logo'; 
                     $item_label = 'Test Organization Title';
-                    $item_shortdesc = 'Test Organization Title';
+                    $item_shortdescr = 'Test Organization Title';
                     $item_longdescr = 'Test Organization Title';
                     $item_button_text = 'Visit the website for ' . $item_heading;
                     $item_button_link = '';
@@ -188,7 +188,7 @@ if( !empty($layout) ) {
                         <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_heading; ?></h3>
                         <p class="item-label"><?php echo $item_label; ?></p>
                         <?php if ( $layout == 'grid' ) { ?>
-                            <p class="item-text"><?php echo $item_shortdesc; ?></p>
+                            <p class="item-text"><?php echo $item_shortdescr; ?></p>
                         <?php } elseif ( $layout == 'vertical' ) { ?>
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
