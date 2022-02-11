@@ -52,6 +52,7 @@ if ( empty( $id ) && isset($block) ) {
     $titles_query = false; // Default display behavior for item titles. If true, always display item titles.
     $links_display = false; // Default display behavior for item links
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
+        $links_display = false;
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Set width of item list within block
         }
@@ -60,6 +61,7 @@ if ( empty( $id ) && isset($block) ) {
         }
         $titles_query = get_field('block_logo_list_titles'); // If true, display all item titles
     } elseif ( $layout == 'vertical' ) {
+        $links_display = true; // Always display links in this layout, if links are enabled for the block
         $titles_query = true; // Always display item titles in this layout
     }
     if ( empty($desaturate) ) {
@@ -74,14 +76,6 @@ if ( empty( $id ) && isset($block) ) {
     $links_class = '';
     if ($links) {
         // If links are enabled, load values
-        if ( empty($links_display) ) {
-            // Determine if the link element should be visible
-            if ( $layout == 'grid' ) {
-                $links_display = false;
-            } elseif ( $layout == 'vertical' ) {
-                $links_display = true;
-            }
-        }
         if ( $links_display ) {
             $links_class = 'btn btn-' . $button_color; // Format the link as a button
         } else {
