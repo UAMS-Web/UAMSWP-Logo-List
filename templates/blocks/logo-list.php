@@ -196,7 +196,7 @@ if( !empty($layout) ) {
             <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { 
                 // If all values aren't present, don't display the section
                 ?>
-                <div class="more">
+                <div class="col-12 more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
                         <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'. $more_button_target . '"' : '' ?>><?php echo $more_button_text; ?></a>
