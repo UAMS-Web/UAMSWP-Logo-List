@@ -63,13 +63,15 @@ if ( empty( $id ) && isset($block) ) {
     $links_query = false; // Fallback value for if link elements should be added to items
     $links_query = get_field('block_logo_list_links'); // Check if link elements should be added to items
     $links_class = '';
+    $links_class_inner = '';
     $links_target_query = true; // Fallback value for if item links should open in a new window
     if ($links_query) {
         // If links are enabled, load values
         if ( $links_display_query ) {
             $links_class = 'btn btn-' . $button_color; // Format the item link as a button
         } else {
-            $links_class = 'sr-only stretched-link'; // Visually hide the item link and make the containing block clickable
+            $links_class = 'stretched-link'; // Make the containing block clickable
+            $links_class_inner = 'sr-only'; // Visually hide the item link text
         }
         if ( empty($links_target_query) ) {
             $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
@@ -213,7 +215,7 @@ if( !empty($layout) ) {
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
                         <?php if ( $links_query ) { ?>
-                            <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title"><span>Visit the website for Organization Title</span></a>
+                            <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for Organization Title</span></a>
                         <?php } //endif ?>
                     </div>
                 </div>
