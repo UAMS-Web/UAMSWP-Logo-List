@@ -89,11 +89,16 @@ if ( empty( $id ) && isset($block) ) {
         if ( empty($more_button_text) ) {
             $more_button_text = get_field('block_logo_list_more_button_text'); // Button text in 'more' section
         }
-        if ( empty($more_button_url) ) {
-            $more_button_url = get_field('block_logo_list_more_button_url'); // Button URL of link in 'more' section
+        if ( empty($more_button_link) ) {
+            $more_button_link = get_field('block_logo_list_more_button_url'); // Button URL of link in 'more' section
         }
-        if ( empty($more_button_target) )  {
-            $more_button_target = $more_button_url['target']; // Button target value in 'more' section
+        if ( $more_button_link ) {
+            if ( empty($more_button_link_url) )  {
+                $more_button_link_url = $more_button_link['url']; // Button URL value in 'more' section
+            }
+            if ( empty($more_button_target) )  {
+                $more_button_target = $more_button_link['target']; // Button target value in 'more' section
+            }
         }
         if ( empty($more_button_description) ) {
             $more_button_description = get_field('block_logo_list_more_button_description'); // Button link description in 'more' section
@@ -188,7 +193,7 @@ if( !empty($layout) ) {
                 <div class="more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
-                        <a href="<?php echo $more_button_url['url']; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'. $more_button_target . '"' : '' ?>><?php echo $more_button_text; ?></a>
+                        <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'. $more_button_target . '"' : '' ?>><?php echo $more_button_text; ?></a>
                     </div>
                 </div>
             <?php } // endif ?>
