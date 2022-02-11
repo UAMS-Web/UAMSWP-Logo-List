@@ -71,7 +71,6 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($links) ) {
         $links = get_field('block_logo_list_links'); // If true, add links to items
     }
-    $links_display = '';
     $links_class = '';
     if ($links) {
         // If links are enabled, load values
