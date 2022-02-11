@@ -49,7 +49,7 @@ if ( empty( $id ) && isset($block) ) {
     }
     $width = '';
     $shortdescr = '';
-    $titles_query = '';
+    $titles_query = false; // Default display behavior for item titles. If true, always display item titles.
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Set width of item list within block
@@ -57,9 +57,9 @@ if ( empty( $id ) && isset($block) ) {
         if ( empty($shortdescr) ) {
             $shortdescr = get_field('block_logo_list_shortdescr'); // If true, add short descriptions to items
         }
-        if ( empty($titles_query) ) {
-            $titles_query = get_field('block_logo_list_titles'); // If true, always display item titles
-        }
+        $titles_query = get_field('block_logo_list_titles'); // If true, display all item titles
+    } elseif ( $layout == 'vertical' ) {
+        $titles_query = true; // Always display item titles in this layout
     }
     if ( empty($desaturate) ) {
         $desaturate = get_field('block_logo_list_desaturate'); // If true, desaturate logos
