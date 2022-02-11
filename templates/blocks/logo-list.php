@@ -30,6 +30,11 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($background_color) ) {
         $background_color = get_field('block_logo_list_background_color');
     }
+    if ( empty($button_color) && ( $background_color == 'bg-white' || $background_color == 'bg-gray' || $background_color == 'bg-auto' ) ) {
+        $button_color = 'primary';
+    } else {
+        $button_color = 'white';
+    }
 
     // List Configuration
     $filter_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get list of categories
@@ -96,11 +101,6 @@ if ( empty( $id ) && isset($block) ) {
             $more_button_description = get_field('block_logo_list_more_button_description');
             $more_button_description_attr = str_replace('"', '\'', $more_button_description);
             $more_button_description_attr = html_entity_decode(str_replace('&nbsp;', ' ', htmlentities($more_button_description_attr, null, 'utf-8')));
-        }
-        if ( empty($more_button_color) && ( $background_color == 'bg-white' || $background_color == 'bg-gray' || $background_color == 'bg-auto' ) ) {
-            $more_button_color = 'primary';
-        } else {
-            $more_button_color = 'white';
         }
     }
 
@@ -179,7 +179,7 @@ if( !empty($background_color) ) {
                 <div class="more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
-                        <a href="<?php echo $more_button_url['url']; ?>" class="btn btn-outline-<?php echo $more_button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'. $more_button_target . '"' : '' ?>><?php echo $more_button_text; ?></a>
+                        <a href="<?php echo $more_button_url['url']; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'. $more_button_target . '"' : '' ?>><?php echo $more_button_text; ?></a>
                     </div>
                 </div>
             <?php } // endif ?>
