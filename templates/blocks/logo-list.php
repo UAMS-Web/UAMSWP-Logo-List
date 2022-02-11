@@ -177,9 +177,13 @@ if( !empty($layout) ) {
                     <?php } //endif ?>
                     <div class="item-body">
                         <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_heading; ?></h3>
-                        <p class="item-label"><?php echo $item_label; ?></p>
+                        <?php if ( $labels_query ) { ?>
+                            <p class="item-label"><?php echo $item_label; ?></p>
+                        <?php } //endif ?>
                         <?php if ( $layout == 'grid' ) { ?>
-                            <p class="item-text"><?php echo $item_shortdescr; ?></p>
+                            <?php if ( $shortdescr_query ) { ?>
+                                <p class="item-text"><?php echo $item_shortdescr; ?></p>
+                            <?php } //endif ?>
                         <?php } elseif ( $layout == 'vertical' ) { ?>
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
