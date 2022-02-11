@@ -116,6 +116,7 @@ if( !empty($background_color) ) {
 
 // Display the Block
 ?>
+<section class="uams-module logo-list alignfull<?php echo $className; ?>" id="<?php echo $id; ?>">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12<?php echo ($hide_heading && empty($description)) ? " sr-only" : ""; ?>">
