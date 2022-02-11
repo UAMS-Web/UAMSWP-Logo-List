@@ -29,7 +29,7 @@ if ( empty( $id ) && isset($block) ) {
     $background_color = 'bg-auto'; // Fallback value for the block background color
     $background_color = get_field('block_logo_list_background_color'); // Get the block background color
     // Set button color based on block background color
-    if ( empty($button_color) && ( $background_color == 'bg-white' || $background_color == 'bg-gray' || $background_color == 'bg-auto' ) ) {
+    if ( in_array($background_color, array('bg-white','bg-gray','bg-auto'), true ) ) {
         $button_color = 'primary';
     } else {
         $button_color = 'white';
