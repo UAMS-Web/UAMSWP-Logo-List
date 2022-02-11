@@ -141,9 +141,9 @@ if( !empty($layout) ) {
                     $item_image = '';
                     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
                     $item_image_alt_override = $item_heading . ' logo'; 
-                    $item_label = 'Test Organization Title';
-                    $item_shortdescr = 'Test Organization Title';
-                    $item_longdescr = 'Test Organization Title';
+                    $item_label = 'Test Organization Label';
+                    $item_shortdescr = 'Test organization short description';
+                    $item_longdescr = '<p>Test organization long description</p><p>Second paragraph of organization long description</p>';
                     $item_button_text = 'Visit the website for ' . $item_heading;
                     $item_button_link = '';
                     if ( $item_button_link ) {
