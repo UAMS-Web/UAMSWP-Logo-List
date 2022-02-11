@@ -84,20 +84,20 @@ if ( empty( $id ) && isset($block) ) {
     if ( $more_query ) {
         // If 'more' section is enabled, load values
         if ( empty($more_text) ) {
-            $more_text = get_field('block_logo_list_more_text'); // Message about availability of more information
+            $more_text = get_field('block_logo_list_more_text'); // Get message about availability of more information
         }
         if ( empty($more_button_text) ) {
-            $more_button_text = get_field('block_logo_list_more_button_text'); // Button text in 'more' section
+            $more_button_text = get_field('block_logo_list_more_button_text'); // Get button text in 'more' section
         }
         if ( empty($more_button_link) ) {
-            $more_button_link = get_field('block_logo_list_more_button_url'); // Button URL of link in 'more' section
+            $more_button_link = get_field('block_logo_list_more_button_url'); // Get button link in 'more' section
         }
         if ( $more_button_link ) {
             if ( empty($more_button_link_url) )  {
-                $more_button_link_url = $more_button_link['url']; // Button URL value in 'more' section
+                $more_button_link_url = $more_button_link['url']; // Get button URL value in 'more' section
             }
             if ( empty($more_button_target) )  {
-                $more_button_target = $more_button_link['target']; // Button target value in 'more' section
+                $more_button_target = $more_button_link['target']; // Get button target value in 'more' section
             }
         }
         if ( empty($more_button_description) ) {
