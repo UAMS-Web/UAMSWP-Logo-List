@@ -49,7 +49,7 @@ if ( empty( $id ) && isset($block) ) {
     }
     $width = '';
     $shortdescr = '';
-    $titles = '';
+    $titles_query = '';
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Set width of item list within block
@@ -57,8 +57,8 @@ if ( empty( $id ) && isset($block) ) {
         if ( empty($shortdescr) ) {
             $shortdescr = get_field('block_logo_list_shortdescr'); // If true, add short descriptions to items
         }
-        if ( empty($titles) ) {
-            $titles = get_field('block_logo_list_titles'); // If true, always display item titles
+        if ( empty($titles_query) ) {
+            $titles_query = get_field('block_logo_list_titles'); // If true, always display item titles
         }
     }
     if ( empty($desaturate) ) {
@@ -189,7 +189,7 @@ if( !empty($layout) ) {
                         </div>
                     <?php } //endif ?>
                     <div class="item-body">
-                        <h3 class="item-title"><?php echo $item_heading; ?></h3>
+                        <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_heading; ?></h3>
                         <p class="item-label"><?php echo $item_label; ?></p>
                         <?php if ( $layout == 'grid' ) { ?>
                             <p class="item-text"><?php echo $item_shortdesc; ?></p>
