@@ -43,48 +43,48 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($filter_logic) ) {
         $filter_logic = get_field('block_logo_list_filter_logic'); // Filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     }
-    if ( empty($featured) ) {
-        $featured = get_field('block_logo_list_featured'); // Check for if featured display behavior should be used
+    if ( empty($featured_query) ) {
+        $featured_query = get_field('block_logo_list_featured'); // Check for if featured display behavior should be used
     }
     if ( empty($layout) ) {
         $layout = get_field('block_logo_list_layout'); // List layout
     }
     $width = 'full'; // Fallback list width
-    $shortdescr = false; // Fallback display behavior for item short descriptions
+    $shortdescr_query = false; // Fallback display behavior for item short descriptions
     $titles_query = false; // Fallback display behavior for item titles. If true, always display item titles.
-    $links_display = false; // Default display behavior for item links. If false, visually hide item link elements.
+    $links_display_query = false; // Default display behavior for item links. If false, visually hide item link elements.
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
-        $links_display = false;
+        $links_display_query = false;
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Width of item list within block
         }
-        if ( empty($shortdescr) ) {
-            $shortdescr = get_field('block_logo_list_shortdescr'); // Check for if short description elements should be added
+        if ( empty($shortdescr_query) ) {
+            $shortdescr_query = get_field('block_logo_list_shortdescr'); // Check for if short description elements should be added
         }
         $titles_query = get_field('block_logo_list_titles'); // Check for if titles should always be displayed
     } elseif ( $layout == 'vertical' ) { // Configuration specific to the vertical list layout
-        $links_display = true;
+        $links_display_query = true;
         $titles_query = true;
     }
-    if ( empty($desaturate) ) {
-        $desaturate = get_field('block_logo_list_desaturate'); // Check for if logos should be programmatically desaturated
+    if ( empty($desaturate_query) ) {
+        $desaturate_query = get_field('block_logo_list_desaturate'); // Check for if logos should be programmatically desaturated
     }
-    if ( empty($labels) ) {
-        $labels = get_field('block_logo_list_labels'); // Check for if label elements should be added
+    if ( empty($labels_query) ) {
+        $labels_query = get_field('block_logo_list_labels'); // Check for if label elements should be added
     }
-    if ( empty($links) ) {
-        $links = get_field('block_logo_list_links'); // Check for if links elements should be added
+    if ( empty($links_query) ) {
+        $links_query = get_field('block_logo_list_links'); // Check for if links elements should be added
     }
     $links_class = '';
-    if ($links) {
+    if ($links_query) {
         // If links are enabled, load values
-        if ( $links_display ) {
+        if ( $links_display_query ) {
             $links_class = 'btn btn-' . $button_color; // Format the link as a button
         } else {
             $links_class = 'sr-only stretched-link'; // Visually hide the link and make the containing block clickable
         }
-        if ( empty($links_target) ) {
-            $links_target = get_field('block_logo_list_links_target'); // Check for if item links should open in a new window
+        if ( empty($links_target_query) ) {
+            $links_target_query = get_field('block_logo_list_links_target'); // Check for if item links should open in a new window
         }
     }
     if ( empty($order) ) {
@@ -92,10 +92,10 @@ if ( empty( $id ) && isset($block) ) {
     }
 
     // More Section Configuration
-    if ( empty($more) ) {
-        $more = get_field('block_logo_list_more'); // Check for if the 'more' section should be added
+    if ( empty($more_query) ) {
+        $more_query = get_field('block_logo_list_more'); // Check for if the 'more' section should be added
     }
-    if ( $more ) {
+    if ( $more_query ) {
         // If 'more' section is enabled, load values
         if ( empty($more_text) ) {
             $more_text = get_field('block_logo_list_more_text'); // Message about availability of more information
@@ -192,13 +192,13 @@ if( !empty($layout) ) {
                         <?php } elseif ( $layout == 'vertical' ) { ?>
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
-                        <?php if ( $links ) { ?>
-                            <a href="#"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title">Visit the website for Organization Title</a>
+                        <?php if ( $links_query ) { ?>
+                            <a href="#"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title">Visit the website for Organization Title</a>
                         <?php } //endif ?>
                     </div>
                 </div>
             </div>
-            <?php if ( $more ) { ?>
+            <?php if ( $more_query ) { ?>
                 <div class="more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
