@@ -107,6 +107,31 @@ if ( empty( $id ) && isset($block) ) {
         }
     }
 
+$list_items = array (
+    array (
+        'heading' => 'Apple',
+        'image' => '',
+        'label' => 'Test organization label',
+        'shortdescr' => 'Test organization short description',
+        'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
+        'button_text' => 'Test organization button text',
+        'button_link' => array (
+            'url' => 'https://www.google.com/',
+        )
+    ),
+    array (
+        'heading' => 'Orange',
+        'image' => '',
+        'label' => 'Test organization label',
+        'shortdescr' => 'Test organization short description',
+        'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
+        'button_text' => 'Test organization button text',
+        'button_link' => array (
+            'url' => 'https://www.cnn.com/',
+        )
+    )
+);
+
 // Create class attribute
 $className = '';
 if( !empty($block['className']) ) {
@@ -136,19 +161,19 @@ if( !empty($layout) ) {
             </div>
             <div class="col-12 item-list">
                 <?php
+                foreach($list_items as $list_item) {
                     // Load values.
-                    $item_heading = 'Test Organization Title';
-                    $item_image = '';
+                    $item_heading = $list_item['heading'];
+                    $item_image = $list_item['image'];
                     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
                     $item_image_alt_override = $item_heading . ' logo'; 
-                    $item_label = 'Test Organization Label';
-                    $item_shortdescr = 'Test organization short description';
-                    $item_longdescr = '<p>Test organization long description</p><p>Second paragraph of organization long description</p>';
-                    $item_button_text = 'Visit the website for ' . $item_heading;
-                    $item_button_link = '';
+                    $item_label = $list_item['label'];
+                    $item_shortdescr = $list_item['shortdescr'];
+                    $item_longdescr = $list_item['longdescr'];
+                    $item_button_text = $list_item['button_text'];
+                    $item_button_link = $list_item['button_link'];
                     if ( $item_button_link ) {
-                        $item_button_url = '';
-                        $item_button_target = '';
+                        $item_button_url = $item_button_link['url'];
                     }
                 ?>
                 <div class="item">
@@ -188,10 +213,11 @@ if( !empty($layout) ) {
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
                         <?php if ( $links_query ) { ?>
-                            <a href="#"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title">Visit the website for Organization Title</a>
+                            <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title"><span>Visit the website for Organization Title</span></a>
                         <?php } //endif ?>
                     </div>
                 </div>
+                <?php } // end foreach ?>
             </div>
             <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { 
                 // If all values aren't present, don't display the section
