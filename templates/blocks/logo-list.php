@@ -114,6 +114,11 @@ if( !empty($background_color) ) {
 } else {
     $className .= ' bg-auto'; // Add fallback background color value
 }
+if( !empty($layout) ) {
+    $className .= ' logo-list-layout-' . $layout; // Add background color value from block input
+} else {
+    $className .= ' logo-list-layout-grid'; // Add fallback background color value
+}
 
 // Display the Block
 ?>
