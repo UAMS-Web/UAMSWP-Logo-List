@@ -74,11 +74,12 @@ if ( empty( $id ) && isset($block) ) {
         $order = get_field('block_logo_list_order');
     }
 
-    // List Configuration
+    // More Section Configuration
     if ( empty($more) ) {
         $more = get_field('block_logo_list_more');
     }
     if ( $more ) {
+        // If 'more' section is enabled, load values
         if ( empty($more_text) ) {
             $more_text = get_field('block_logo_list_more_text');
         }
