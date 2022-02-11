@@ -113,7 +113,7 @@ $list_items = array (
     array (
         'heading' => 'Apple',
         'image' => '',
-        'label' => 'Test organization label',
+        'label' => 'Fruit',
         'shortdescr' => 'Test organization short description',
         'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
         'button_text' => 'Test organization button text',
@@ -122,14 +122,47 @@ $list_items = array (
         )
     ),
     array (
-        'heading' => 'Orange',
+        'heading' => 'Carrot',
         'image' => '',
-        'label' => 'Test organization label',
+        'label' => 'Vegetable',
         'shortdescr' => 'Test organization short description',
         'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
         'button_text' => 'Test organization button text',
         'button_link' => array (
             'url' => 'https://www.cnn.com/',
+        )
+    ),
+    array (
+        'heading' => 'Banana',
+        'image' => '',
+        'label' => 'Fruit',
+        'shortdescr' => 'Test organization short description',
+        'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
+        'button_text' => 'Test organization button text',
+        'button_link' => array (
+            'url' => 'https://www.apple.com/',
+        )
+    ),
+    array (
+        'heading' => 'Strawberry',
+        'image' => '',
+        'label' => 'Fruit',
+        'shortdescr' => 'Test organization short description',
+        'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
+        'button_text' => 'Test organization button text',
+        'button_link' => array (
+            'url' => 'https://www.bestbuy.com/',
+        )
+    ),
+    array (
+        'heading' => 'Celery',
+        'image' => '',
+        'label' => 'Vegetable',
+        'shortdescr' => 'Test organization short description',
+        'longdescr' => '<p>Test organization long description</p><p>Second paragraph of organization long description</p>',
+        'button_text' => 'Test organization button text',
+        'button_link' => array (
+            'url' => 'https://www.microsoft.com/',
         )
     )
 );
