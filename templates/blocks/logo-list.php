@@ -126,6 +126,22 @@ if( !empty($background_color) ) {
                 <?php echo $description ? '<div class="module-description"><p>'. $description .'</p></div>' : ''; ?>
             </div>
             <div class="col-12 item-list">
+                <?php
+                    // Load values.
+                    $item_heading = 'Test Organization Title';
+                    $item_image = '';
+                    $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
+                    $item_image_alt_override = $item_heading . ' logo'; 
+                    $item_label = 'Test Organization Title';
+                    $item_shortdesc = 'Test Organization Title';
+                    $item_longdescr = 'Test Organization Title';
+                    $item_button_text = 'Visit the website for ' . $item_heading;
+                    $item_button_link = '';
+                    if ( $item_button_link ) {
+                        $item_button_url = '';
+                        $item_button_target = '';
+                    }
+                ?>
                 <div class="item">
                     <div class="item-img">
                         <picture>
