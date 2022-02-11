@@ -70,7 +70,23 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($links) ) {
         $links = get_field('block_logo_list_links'); // If true, add links to items
     }
+    $links_display = '';
+    $links_class = '';
     if ($links) {
+        // If links are enabled, load values
+        if ( empty($links_display) ) {
+            // Determine if the link element should be visible
+            if ( $layout == 'grid' ) {
+                $links_display = false;
+            } elseif ( $layout == 'vertical' ) {
+                $links_display = true;
+            }
+        }
+        if ( $links_display ) {
+            $links_class = 'btn btn-' . $button_color; // Format the link as a button
+        } else {
+            $links_class = 'sr-only stretched-link'; // Visually hide the link and make the containing block clickable
+        }
         if ( empty($links_target) ) {
             $links_target = get_field('block_logo_list_links_target'); // If true, open links in new window
         }
