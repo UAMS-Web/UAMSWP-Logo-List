@@ -187,11 +187,15 @@ if( !empty($layout) ) {
                         </picture>
                     </div>
                     <div class="item-body">
-                        <h3 class="item-title">Organization Title</h3>
-                        <p class="item-label">Organization Label</p>
-                        <p class="item-text">Organization Short Description</p>
-                        <?php if ( $links ) { ?>  
-                            <a href="#" class="sr-only stretched-link"<?php echo $links_target ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title">Visit the website for Organization Title</a>
+                        <h3 class="item-title"><?php echo $item_heading; ?></h3>
+                        <p class="item-label"><?php echo $item_label; ?></p>
+                        <?php if ( $layout == 'grid' ) { ?>
+                            <p class="item-text"><?php echo $item_shortdesc; ?></p>
+                        <?php } elseif ( $layout == 'vertical' ) { ?>
+                            <?php echo $item_longdesc; ?>
+                        <?php } //endif ?>
+                        <?php if ( $links ) { ?>
+                            <a href="#"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title">Visit the website for Organization Title</a>
                         <?php } //endif ?>
                     </div>
                 </div>
