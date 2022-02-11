@@ -15,13 +15,6 @@ if ( empty( $id ) && isset($block) ) {
     }
 }
 
-// Create class attribute
-
-$className = '';
-if( !empty($block['className']) ) {
-    $className .= ' ' . $block['className'];
-}
-
 // Load values.
 
     // Block Configuration
@@ -110,9 +103,19 @@ if( !empty($block['className']) ) {
         }
     }
 
+// Create class attribute
+$className = '';
+if( !empty($block['className']) ) {
+    $className .= ' ' . $block['className']; // Add additional CSS class(es) from block
+}
+if( !empty($background_color) ) {
+    $className .= ' ' . $background_color; // Add background color value from block input
+} else {
+    $className .= ' bg-auto'; // Add fallback background color value
+}
+
 // Display the Block
 ?>
-<section class="uams-module logo-list alignfull <?php echo $background_color ? $background_color : 'bg-auto'; ?>" id="<?php echo $id; ?>">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12<?php echo ($hide_heading && empty($description)) ? " sr-only" : ""; ?>">
