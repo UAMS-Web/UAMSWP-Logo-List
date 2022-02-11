@@ -47,9 +47,10 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($layout) ) {
         $layout = get_field('block_logo_list_layout'); // Define which layout to use
     }
-    $width = '';
-    $shortdescr = '';
+    $width = 'full'; // Default list width
+    $shortdescr = false; // Default display behavior for item short descriptions
     $titles_query = false; // Default display behavior for item titles. If true, always display item titles.
+    $links_display = false; // Default display behavior for item links
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Set width of item list within block
