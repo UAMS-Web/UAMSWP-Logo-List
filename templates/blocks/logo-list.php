@@ -9,9 +9,9 @@
 $id = '';
 if ( empty( $id ) && isset($block) ) {
     if ( !empty( $block['anchor'] ) ) {
-        $id = sanitize_title_with_dashes( $block['anchor'] );
+        $id = sanitize_title_with_dashes( $block['anchor'] ); // Define ID attribute value using HTML anchor from block
     } else {
-        $id = 'logo-list-' . $block['id'];
+        $id = 'logo-list-' . $block['id']; // Generate a unique ID attribute value by using the block ID
     }
 }
 
