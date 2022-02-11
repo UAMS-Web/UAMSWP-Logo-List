@@ -51,6 +51,7 @@ if( !empty($block['className']) ) {
     }
     $width = '';
     $shortdescr = '';
+    $titles = '';
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
         if ( empty($width) ) {
             $width = get_field('block_logo_list_width'); // Set width of item list within block
@@ -58,12 +59,12 @@ if( !empty($block['className']) ) {
         if ( empty($shortdescr) ) {
             $shortdescr = get_field('block_logo_list_shortdescr'); // If true, add short descriptions to items
         }
+        if ( empty($titles) ) {
+            $titles = get_field('block_logo_list_titles'); // If true, always display item titles
+        }
     }
     if ( empty($desaturate) ) {
         $desaturate = get_field('block_logo_list_desaturate'); // If true, desaturate logos
-    }
-    if ( empty($titles) ) {
-        $titles = get_field('block_logo_list_titles'); // If true, always display item titles
     }
     if ( empty($labels) ) {
         $labels = get_field('block_logo_list_labels'); // If true, add labels to items
