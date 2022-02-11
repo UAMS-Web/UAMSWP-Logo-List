@@ -518,7 +518,7 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_more_text',
-                'label' => 'Heading',
+                'label' => 'Message about availability of more information',
                 'name' => 'block_logo_list_more_text',
                 'type' => 'text',
                 'instructions' => '',
