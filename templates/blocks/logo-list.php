@@ -193,7 +193,9 @@ if( !empty($layout) ) {
                     </div>
                 </div>
             </div>
-            <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { ?>
+            <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { 
+                // If all values aren't present, don't display the section
+                ?>
                 <div class="more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
