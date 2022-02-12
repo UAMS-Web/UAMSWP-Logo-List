@@ -223,7 +223,8 @@ if( !empty($layout) ) {
                 </h2>
                 <?php echo $description ? '<div class="module-description"><p>'. $description .'</p></div>' : ''; ?>
             </div>
-            <div class="col-12 item-list">
+            <div class="col-12">
+            <div class="item-list">
                 <?php
                 foreach($list_items as $list_item) {
                     // Load values.
@@ -281,6 +282,7 @@ if( !empty($layout) ) {
                     </div>
                 </div>
                 <?php } // end foreach ?>
+            </div>
             </div>
             <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { 
                 // If all values aren't present, don't display the section
