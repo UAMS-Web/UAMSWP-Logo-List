@@ -43,7 +43,7 @@ if ( empty( $id ) && isset($block) ) {
     $featured_query = get_field('block_logo_list_featured'); // Get which featured display behavior should be used
     $layout = 'grid'; // Fallback value for list layout
     $layout = get_field('block_logo_list_layout'); // Get the list layout
-    $width = 'alignfull'; // Fallback value for the list width
+    $width = ''; // Fallback value for the list width
     $shortdescr_query = false; // Fallback value for if short description elements should be added to items
     $titles_query = false; // Fallback value for if titles should always be visually displayed in items
     $links_display_query = false; // Default value for if links should be visually displayed in items
