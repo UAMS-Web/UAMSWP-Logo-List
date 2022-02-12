@@ -247,7 +247,7 @@ if( !empty($layout) ) {
                         $item_button_url = $item_button_link['url'];
                     }
                 ?>
-                <div class="item">
+                <div class="item<?php echo $links_query ? ' item-has-link' : ''; ?>">
                     <?php if ( !empty($item_image) ) { ?>
                         <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
                             <picture>
