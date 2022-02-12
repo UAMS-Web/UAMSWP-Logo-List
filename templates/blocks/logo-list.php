@@ -56,6 +56,7 @@ if ( empty( $id ) && isset($block) ) {
         $links_display_query = true; // Visually display item links in this layout
         $titles_query = true; // Visually display item titles in this layout
     }
+    $width_class = !empty($width) ? ' ' . $width : ''; // Set class name for list width
     $desaturate_query = false; // Fallback value for if item logos should be programmatically desaturated
     // $desaturate_query = get_field('block_logo_list_desaturate'); // Check if if item logos should be programmatically desaturated
     $labels_query = false; // Fallback value for if label elements should be added to items
@@ -224,7 +225,7 @@ if( !empty($layout) ) {
                 <?php echo $description ? '<div class="module-description"><p>'. $description .'</p></div>' : ''; ?>
             </div>
             <div class="col-12">
-            <div class="item-list-container">
+            <div class="item-list-container<?php echo $width_class; ?>">
             <div class="item-list">
                 <?php
                 foreach($list_items as $list_item) {
