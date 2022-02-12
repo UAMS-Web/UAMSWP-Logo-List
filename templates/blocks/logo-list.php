@@ -264,7 +264,7 @@ if( !empty($layout) ) {
                         </div>
                     <?php } //endif ?>
                     <div class="item-body">
-                        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'sr-only'; ?>"><?php echo $item_title; ?></h3>
+                        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'item-title sr-only'; ?>"><?php echo $item_title; ?></h3>
                         <?php if ( $labels_query ) { ?>
                             <p class="item-label"><?php echo $item_label; ?></p>
                         <?php } //endif ?>
