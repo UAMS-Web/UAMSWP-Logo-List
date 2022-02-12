@@ -293,12 +293,12 @@ if( function_exists('acf_add_local_field_group') ):
                     'id' => '',
                 ),
                 'choices' => array(
-                    'center' => 'Standard',
-                    'wide' => 'Wide',
-                    'full' => 'Full',
+                    'aligncenter' => 'Standard',
+                    'alignwide' => 'Wide',
+                    'alignfull' => 'Full',
                 ),
                 'default_value' => array(
-                    0 => 'full',
+                    0 => 'alignfull',
                 ),
                 'allow_null' => 0,
                 'multiple' => 0,
