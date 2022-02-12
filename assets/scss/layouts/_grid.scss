@@ -39,9 +39,11 @@
 
             .item-body {
                 .item-title {
-                    font-size: $h5-font-size;
-                    margin: 0;
-                    min-width: 4rem;
+                    &:not(.sr-only) {
+                        font-size: $h5-font-size;
+                        margin: 0;
+                        min-width: 4rem;
+                    }
                 }
                 .item-label {
                     margin: 0.5rem 0 0;
