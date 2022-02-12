@@ -1,4 +1,22 @@
 .logo-list-layout-grid {
+    .item-list-container {
+        width: $content-width;
+        max-width: 100%;
+        margin: 0 auto;
+
+        &.alignwide {
+            @include media-breakpoint-up(md) {
+                width: $content-width * $alignwide-ratio-md;
+            }
+            @include media-breakpoint-up(lg) {
+                width: $content-width * $alignwide-ratio-lg;
+            }
+        }
+
+        &.alignfull {
+            width:100%;
+        }
+    }
     .item-list {
         display: flex;
         flex-wrap: wrap;
