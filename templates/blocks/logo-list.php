@@ -229,6 +229,10 @@ if( !empty($layout) ) {
                     // Load values.
                     $item_title = $list_item['heading'];
                     $item_image = $list_item['image'];
+                    $item_title_query = '';
+                    if ( empty($item_image) ) {
+                        $item_title_query = true;
+                    }
                     $image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
                     $image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
                     $image_fly_fallback = $image_fly_1_1x;
@@ -260,7 +264,7 @@ if( !empty($layout) ) {
                         </div>
                     <?php } //endif ?>
                     <div class="item-body">
-                        <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_title; ?></h3>
+                        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'sr-only'; ?>"><?php echo $item_title; ?></h3>
                         <?php if ( $labels_query ) { ?>
                             <p class="item-label"><?php echo $item_label; ?></p>
                         <?php } //endif ?>
