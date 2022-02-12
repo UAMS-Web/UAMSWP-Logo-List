@@ -272,7 +272,7 @@ if( !empty($layout) ) {
                             <?php echo $item_longdesc; ?>
                         <?php } //endif ?>
                         <?php if ( $links_query ) { ?>
-                            <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="Organization Title"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for Organization Title</span></a>
+                            <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for <?php echo $item_title; ?></span></a>
                         <?php } //endif ?>
                     </div>
                 </div>
