@@ -32,17 +32,10 @@
             text-align: center;
             border-radius: $border-radius;
 
-            .item-img {
-                // img {
-                // }
-
-                &.item-img-desaturate {
-                    img {
-                        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-                        filter: grayscale(100%);
-                    }
-                }
-            }
+            // .item-img {
+            //     img {
+            //     }
+            // }
 
             .item-body {
                 .item-title {
