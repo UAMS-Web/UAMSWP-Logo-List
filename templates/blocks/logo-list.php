@@ -109,6 +109,35 @@ if ( empty( $id ) && isset($block) ) {
         }
     }
 
+    // Image Calculations
+    $grid_image_ratio = 4/3;
+    $grid_image_width = 200;
+    $grid_image_height = $grid_image_width / $grid_image_ratio;
+    $grid_image_width_featured = 400;
+    $grid_image_height_featured = $grid_image_width_featured / $grid_image_ratio;
+    $vertical_image_ratio = 4/3;
+    $vertical_image_width = 500;
+    $vertical_image_height = $vertical_image_width / $vertical_image_ratio;
+    $vertical_image_width = 1000;
+    $vertical_image_height = $vertical_image_width / $vertical_image_ratio;
+    if ( $layout == 'grid' ) {
+        if ( $featured_query ) {
+            $image_width = $grid_image_width_featured;
+            $image_height = $grid_image_height_featured;
+        } else {
+            $image_width = $grid_image_width;
+            $image_height = $grid_image_height;
+        }
+    } elseif ( $layout == 'vertical' ) {
+        if ( $featured_query ) {
+            $image_width = $vertical_image_width_featured;
+            $image_height = $vertical_image_height_featured;
+        } else {
+            $image_width = $vertical_image_width;
+            $image_height = $vertical_image_height;
+        }
+    }
+
 $list_items = array (
     array (
         'heading' => 'Apple',
@@ -200,6 +229,9 @@ if( !empty($layout) ) {
                     // Load values.
                     $item_heading = $list_item['heading'];
                     $item_image = $list_item['image'];
+                    $image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
+                    $image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
+                    $image_fly_fallback = $image_fly_1_1x;
                     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
                     $item_image_alt_override = $item_heading . ' logo'; 
                     $item_label = $list_item['label'];
@@ -215,19 +247,11 @@ if( !empty($layout) ) {
                     <?php if ( !empty($item_image) ) { ?>
                         <div class="item-img">
                             <picture>
-                                <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>  
-                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
-                                        media="(min-width: 1921px)">
-                                    <source srcset="<?php echo image_sizer($item_image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 866, 487, 'center', 'center'); ?> 2x" 
-                                        media="(min-width: 1500px)">
-                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
-                                        media="(min-width: 992px)">
-                                    <source srcset="<?php echo image_sizer($item_image, 433, 244, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 866, 487, 'center', 'center'); ?> 2x" 
-                                        media="(min-width: 768px)">
-                                    <source srcset="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?> 1x, <?php echo image_sizer($item_image, 910, 512, 'center', 'center'); ?> 2x" 
+                                <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
+                                    <source srcset="<?php echo $image_fly_1_1x['src']; ?> 1x, <?php echo $image_fly_1_2x['src']; ?> 2x" 
                                         media="(min-width: 1px)">
                                     <!-- Fallback -->
-                                    <img src="<?php echo image_sizer($item_image, 455, 256, 'center', 'center'); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
+                                    <img src="<?php echo $image_fly_fallback['src']; ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
                                 <?php } else { ?>
                                     <!-- Fallback -->
                                     <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
