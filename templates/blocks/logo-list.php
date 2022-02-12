@@ -249,7 +249,7 @@ if( !empty($layout) ) {
                 ?>
                 <div class="item">
                     <?php if ( !empty($item_image) ) { ?>
-                        <div class="item-img">
+                        <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
                             <picture>
                                 <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
                                     <source srcset="<?php echo $image_fly_1_1x['src']; ?> 1x, <?php echo $image_fly_1_2x['src']; ?> 2x" 
