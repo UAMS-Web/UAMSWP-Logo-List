@@ -51,6 +51,22 @@
             "library": "all"
         },
         {
+            "key": "field_logo_link",
+            "label": "URL for Organization's Website",
+            "name": "logo_link",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
             "key": "field_logo_label",
             "label": "Label for Organization",
             "name": "logo_label",
