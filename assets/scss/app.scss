@@ -1,0 +1,19 @@
+// Bootstrap Core Variable Override
+@import "../../../../themes/uams-2020/assets/scss/supporting/variables-bootstrap-core-override";
+
+// Bootstrap Genesis Theme Variables
+@import "../../../../themes/uams-2020/assets/scss/supporting/variables-bootstrap-genesis";
+
+// UAMS Bootstrap Variables Override
+@import "../../../../themes/uams-2020/assets/scss/uams-supporting/variables";
+
+// UAMS Bootstrap Mixins Override
+@import "../../../../themes/uams-2020/assets/scss/uams-supporting/mixins";
+
+// Import Bootstrap Core Functions, Variables and Mixins
+@import "../../../../themes/uams-2020/node_modules/bootstrap/scss/functions";
+@import "../../../../themes/uams-2020/node_modules/bootstrap/scss/variables";
+@import "../../../../themes/uams-2020/node_modules/bootstrap/scss/mixins";
+
+// Layouts
+@import "layouts";
