@@ -9,6 +9,11 @@ Author: UAMS, Todd McKee, Josh Daugherty
 Author URI: http://www.uams.edu/
 */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 // This plugin uses namespaces and requires PHP 5.3 or greater.
 if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
 	add_action( 'admin_notices', create_function( '', // phpcs:ignore WordPress.PHP.RestrictedPHPFunctions.create_function_create_function
