@@ -57,7 +57,7 @@ if ( empty( $id ) && isset($block) ) {
         $titles_query = true; // Visually display item titles in this layout
     }
     $desaturate_query = false; // Fallback value for if item logos should be programmatically desaturated
-    $desaturate_query = get_field('block_logo_list_desaturate'); // Check if if item logos should be programmatically desaturated
+    // $desaturate_query = get_field('block_logo_list_desaturate'); // Check if if item logos should be programmatically desaturated
     $labels_query = false; // Fallback value for if label elements should be added to items
     $labels_query = get_field('block_logo_list_labels'); // Check if if label elements should be added to items
     $links_query = false; // Fallback value for if link elements should be added to items
