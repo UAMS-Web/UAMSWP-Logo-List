@@ -262,7 +262,7 @@ if( function_exists('acf_add_local_field_group') ):
                     'vertical' => 'Vertical List',
                 ),
                 'default_value' => array(
-                    0 => 'full',
+                    0 => 'grid',
                 ),
                 'allow_null' => 0,
                 'multiple' => 0,
