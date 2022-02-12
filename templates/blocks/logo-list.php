@@ -278,6 +278,9 @@ if( !empty($layout) ) {
 } else {
     $className .= ' logo-list-layout-grid'; // Add fallback background color value
 }
+if ( $featured_query ) {
+    $className .= ' logo-list-featured'; // Add class to indicate featured
+}
 
 // Display the Block
 ?>
