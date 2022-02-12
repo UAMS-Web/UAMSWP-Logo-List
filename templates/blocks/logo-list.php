@@ -224,6 +224,7 @@ if( !empty($layout) ) {
                 <?php echo $description ? '<div class="module-description"><p>'. $description .'</p></div>' : ''; ?>
             </div>
             <div class="col-12">
+            <div class="item-list-container">
             <div class="item-list">
                 <?php
                 foreach($list_items as $list_item) {
@@ -282,6 +283,7 @@ if( !empty($layout) ) {
                     </div>
                 </div>
                 <?php } // end foreach ?>
+            </div>
             </div>
             </div>
             <?php if ( $more_query && !empty($more_text) && !empty($more_button_link) ) { 
