@@ -227,13 +227,13 @@ if( !empty($layout) ) {
                 <?php
                 foreach($list_items as $list_item) {
                     // Load values.
-                    $item_heading = $list_item['heading'];
+                    $item_title = $list_item['heading'];
                     $item_image = $list_item['image'];
                     $image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
                     $image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
                     $image_fly_fallback = $image_fly_1_1x;
                     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
-                    $item_image_alt_override = $item_heading . ' logo'; 
+                    $item_image_alt_override = $item_title . ' logo'; 
                     $item_label = $list_item['label'];
                     $item_shortdescr = $list_item['shortdescr'];
                     $item_longdescr = $list_item['longdescr'];
@@ -260,7 +260,7 @@ if( !empty($layout) ) {
                         </div>
                     <?php } //endif ?>
                     <div class="item-body">
-                        <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_heading; ?></h3>
+                        <h3 class="<?php echo $titles_query ? 'item-title' : 'sr-only'; ?>"><?php echo $item_title; ?></h3>
                         <?php if ( $labels_query ) { ?>
                             <p class="item-label"><?php echo $item_label; ?></p>
                         <?php } //endif ?>
