@@ -90,7 +90,7 @@
             "label": "Short Description",
             "name": "logo_shortdescr",
             "type": "textarea",
-            "instructions": "Briefly describe either the organization or the relationship with the organization. This can be displayed when the layout is set to Grid.",
+            "instructions": "Briefly describe either the organization or the relationship with the organization. This can be displayed when the layout is set to Grid. (235 character limit)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -100,7 +100,7 @@
             },
             "default_value": "",
             "placeholder": "",
-            "maxlength": "",
+            "maxlength": "235",
             "rows": "",
             "new_lines": "",
             "acfe_textarea_code": 0
