@@ -22,8 +22,25 @@
     $item_shortdescr = get_field('logo_shortdescr', $id);
     $item_longdescr = get_field('logo_longdescr', $id);
     $item_button_link = get_field('logo_link', $id);
+
+    $item_class_name = '';
+    if( $titles_query || $item_title_query ) {
+        $item_class_name .= ' item-has-title';
+    }
+    if( $labels_query ) {
+        $item_class_name .= ' item-has-label';
+    }
+    if( $layout == 'grid' && $shortdescr_query ) {
+        $item_class_name .= ' item-has-shortdescr';
+    }
+    if( $layout == 'vertical' && $item_longdescr ) {
+        $item_class_name .= ' item-has-longdescr';
+    }
+    if( $links_query && $item_button_link ) {
+        $item_class_name .= ' item-has-link';
+    }
 ?>
-<div class="item<?php echo $links_query ? ' item-has-link' : ''; ?>">
+<div class="item<?php echo $item_class_name; ?>">
     <?php if ( !empty($item_image) ) { ?>
         <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
             <picture>
