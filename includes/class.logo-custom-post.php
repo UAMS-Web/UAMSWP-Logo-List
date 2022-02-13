@@ -74,8 +74,8 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 
 // Register Taxonomies
 // Place in order for sub-menu
-if ( ! function_exists('create_test_taxonomy') ) {
-	function create_test_taxonomy() {
+if ( ! function_exists('create_logo_list_category') ) {
+	function create_logo_list_category() {
 		$labels = array(
 			'name'                       => 'Categories',
 			'singular_name'              => 'Category',
@@ -124,5 +124,5 @@ if ( ! function_exists('create_test_taxonomy') ) {
 		register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
 	
 	}
-	add_action( 'init', 'create_test_taxonomy', 0 );
+	add_action( 'init', 'create_logo_list_category', 0 );
 }
