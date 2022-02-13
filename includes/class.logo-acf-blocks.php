@@ -405,7 +405,7 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_links',
-                'label' => 'Enable Links to Organziations?',
+                'label' => 'Enable Links to Organizations?',
                 'name' => 'block_logo_list_links',
                 'type' => 'true_false',
                 'instructions' => '',
