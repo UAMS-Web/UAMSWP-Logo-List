@@ -70,8 +70,8 @@
             "key": "field_logo_label",
             "label": "Label for Organization",
             "name": "logo_label",
-            "type": "text",
-            "instructions": "",
+            "type": "taxonomy",
+            "instructions": "The label can be used to distinguish between organizations within a category. Examples: industry, city, state.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -79,11 +79,17 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "logo-list-label",
+            "field_type": "select",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "multiple": 0
         },
         {
             "key": "field_logo_shortdescr",
@@ -110,7 +116,7 @@
             "label": "Long Description",
             "name": "logo_longdescr",
             "type": "wysiwyg",
-            "instructions": "Describe either the organization or the relationship with the organization. This can be displayed when the layout is set to Vertical List.",
+            "instructions": "Describe either the organization or the relationship with the organization. This will be displayed when the layout is set to Vertical List.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
