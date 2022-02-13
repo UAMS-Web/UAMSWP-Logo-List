@@ -465,9 +465,10 @@ if( function_exists('acf_add_local_field_group') ):
                     'id' => '',
                 ),
                 'choices' => array(
-                    'org_title' => 'Alphabetical by Organization Title',
-                    'post_title' => 'Alphabetical by Post Title',
-                    'order' => 'Alphabetical by Order Value',
+                    'meta_value' => 'Alphabetical by Organization Title',
+                    'title' => 'Alphabetical by Post Title',
+                    'menu_order' => 'Menu Order',
+                    'rand' => 'Random Order',
                 ),
                 'default_value' => array(
                     0 => 'org_title',
