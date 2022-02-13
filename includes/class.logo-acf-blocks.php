@@ -453,7 +453,7 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_order',
-                'label' => 'List Width',
+                'label' => 'Sort Order of List',
                 'name' => 'block_logo_list_order',
                 'type' => 'select',
                 'instructions' => '',
