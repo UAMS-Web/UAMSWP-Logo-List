@@ -80,6 +80,14 @@
         .item-list {
             .item {
                 font-size: $lead-font-size;
+
+                .item-body {
+                    .item-title {
+                        &:not(.sr-only) {
+                            font-size: $h4-font-size;
+                        }
+                    }
+                }
             }
         }  
     }
