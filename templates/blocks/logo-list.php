@@ -78,8 +78,17 @@ if ( empty( $id ) && isset($block) ) {
             $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
         }
     }
-    $order = 'org_title'; // Fallback sort order of items within the list
-    $order = get_field('block_logo_list_order'); // Sort order of items within the list
+    $orderby_array = array();
+    $orderby_array = get_field('block_logo_list_order'); // Get sort order of items within the list
+    if ( count($orderby_array) === 1 && $orderby_array[0] != 'rand' ) { // If there is only one sort order option, and it's not Random Order...
+        if ( $orderby_array[0] != 'meta_value' ) {
+            $orderby_array[] = 'meta_value'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
+        } elseif ( $orderby_array[0] != 'menu_order' ) {
+            $orderby_array[] = 'menu_order'; // If the one sort order option isn't Menu Order, set that to the fallback
+        }
+    }
+    $orderby = 'title menu_order'; // Fallback sort order of items within the list
+    $orderby = implode(' ', $orderby_array); // Join the array elements, separated by a space
 
     // More Section Configuration
     $more_query = false; // Fallback value for if the 'more' section should be added
@@ -139,130 +148,6 @@ if ( empty( $id ) && isset($block) ) {
         }
     }
 
-$test_shortdescr = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p';
-$test_longdescr = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis 
-parturient montes, nascetur ridiculus mus.</p>
-<p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. 
-In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-<p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, 
-consequat vitae, eleifend ac, enim.</p>
-<p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel 
-augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem 
-neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar.</p>';
-
-$list_items = array (
-    array (
-        'heading' => 'Hickingbotham Investments',
-        'image' => '3513',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.google.com/',
-        )
-    ),
-    array (
-        'heading' => 'Arkansas Children\'s',
-        'image' => '3514',
-        'label' => 'Vegetable',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.cnn.com/',
-        )
-    ),
-    array (
-        'heading' => 'Eisai',
-        'image' => '3515',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.apple.com/',
-        )
-    ),
-    array (
-        'heading' => 'FIS',
-        // 'image' => '3516',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.bestbuy.com/',
-        )
-    ),
-    array (
-        'heading' => 'GlaxoSmithKline',
-        'image' => '3517',
-        'label' => 'Vegetable',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.microsoft.com/',
-        )
-    ),
-    array (
-        'heading' => 'Proton International',
-        'image' => '3518',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.google.com/',
-        )
-    ),
-    array (
-        'heading' => 'Hologic',
-        'image' => '3519',
-        'label' => 'Vegetable',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.cnn.com/',
-        )
-    ),
-    array (
-        'heading' => 'Riggs CAT Equipment Sales &amp; Rentals',
-        // 'image' => '3513',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.apple.com/',
-        )
-    ),
-    array (
-        'heading' => 'Stuart Cobb',
-        'image' => '3514',
-        'label' => 'Fruit',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.bestbuy.com/',
-        )
-    ),
-    array (
-        'heading' => 'Natalie and Win Rockefeller',
-        'image' => '3515',
-        'label' => 'Vegetable',
-        'shortdescr' => $test_shortdescr,
-        'longdescr' => $test_longdescr,
-        'button_text' => 'Test organization button text',
-        'button_link' => array (
-            'url' => 'https://www.microsoft.com/',
-        )
-    )
-);
-
 // Create class attribute
 $className = '';
 if( !empty($block['className']) ) {
@@ -297,64 +182,45 @@ if ( $featured_query ) {
             <div class="item-list-container<?php echo $width_class; ?>">
             <div class="item-list">
                 <?php
-                foreach($list_items as $list_item) {
-                    // Load values.
-                    $item_title = $list_item['heading'];
-                    $item_image = $list_item['image'];
-                    $item_title_query = '';
-                    if ( empty($item_image) ) {
-                        $item_title_query = true;
+                $posts_per_page = $featured_query ? 3 : -1;
+                $operator = $filter_logic;
+                $args = array(
+                    'post_type' => 'logo-list-item',
+                    'post_status' => 'publish',
+                    'posts_per_page' => $posts_per_page,
+                    'orderby' => $orderby,
+                    'order' => 'ASC',
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'logo-list-category',
+                            'field'    => 'term_id',
+                            'terms'    => $filter_ids,
+                            'operator'  => $operator
+                        ),
+                    ),
+                );
+                if( in_array('meta_value', $orderby_array) ) {
+                    $args['meta_key'] = 'logo_title';
+                }
+                // print("<pre>".print_r($args,true)."</pre>");
+
+                $logo_list_query = new WP_Query( $args );
+
+                // Check for valid logo list items
+                $logo_list_valid = false;
+                if ( $filter_ids && $logo_list_query->have_posts() ) {
+                    foreach( $filter_ids as $filter_id ) {
+                        if ( get_post_status ( $filter_id ) == 'publish' ) {
+                            $logo_list_valid = true;
+                            $break;
+                        }
                     }
-                    $image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
-                    $image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
-                    $image_fly_fallback = $image_fly_1_1x;
-                    $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
-                    $item_image_alt_override = $item_title . ' logo'; 
-                    $item_label = $list_item['label'];
-                    $item_shortdescr = $list_item['shortdescr'];
-                    $item_longdescr = $list_item['longdescr'];
-                    $item_button_text = $list_item['button_text'];
-                    $item_button_link = $list_item['button_link'];
-                    if ( $item_button_link ) {
-                        $item_button_url = $item_button_link['url'];
-                    }
-                ?>
-                <div class="item<?php echo $links_query ? ' item-has-link' : ''; ?>">
-                    <?php if ( !empty($item_image) ) { ?>
-                        <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
-                            <picture>
-                                <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
-                                    <source srcset="<?php echo $image_fly_1_1x['src']; ?> 1x, <?php echo $image_fly_1_2x['src']; ?> 2x" 
-                                        media="(min-width: 1px)">
-                                    <!-- Fallback -->
-                                    <img src="<?php echo $image_fly_fallback['src']; ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
-                                <?php } else { ?>
-                                    <!-- Fallback -->
-                                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
-                                <?php } //endif ?>
-                            </picture>
-                        </div>
-                    <?php } //endif ?>
-                    <div class="item-body">
-                        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'item-title sr-only'; ?>"><?php echo $item_title; ?></h3>
-                        <?php if ( $labels_query ) { ?>
-                            <p class="item-label"><?php echo $item_label; ?></p>
-                        <?php } //endif ?>
-                        <?php if ( $layout == 'grid' ) { ?>
-                            <?php if ( $shortdescr_query ) { ?>
-                                <p class="item-text"><?php echo $item_shortdescr; ?></p>
-                            <?php } //endif ?>
-                        <?php } elseif ( $layout == 'vertical' ) { ?>
-                            <?php echo $item_longdescr; ?>
-                        <?php } //endif ?>
-                        <?php if ( $links_query ) { ?>
-                            <div class="link-container">
-                                <a href="<?php echo $item_button_url; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for <?php echo $item_title; ?></span></a>
-                            </div>
-                        <?php } //endif ?>
-                    </div>
-                </div>
-                <?php } // end foreach ?>
+                }
+                while ( $logo_list_query->have_posts() ) : $logo_list_query->the_post();
+                    $id = get_the_ID(); 
+                    include( UAMS_LOGO_PATH . '/templates/loops/logo-list-item.php' ); 
+                endwhile; 
+                wp_reset_postdata(); ?>
             </div>
             </div>
             </div>
