@@ -67,6 +67,31 @@
             "placeholder": ""
         },
         {
+            "key": "field_logo_category",
+            "label": "Categories",
+            "name": "logo_category",
+            "type": "taxonomy",
+            "instructions": "Categories will be used to filter which items are displayed in a block. Multiple categories can be used to either expand or narrow the selection for what is displayed in a block.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "logo-list-category",
+            "field_type": "multi_select",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "multiple": 0
+        },
+        {
             "key": "field_logo_label",
             "label": "Label for Organization",
             "name": "logo_label",
