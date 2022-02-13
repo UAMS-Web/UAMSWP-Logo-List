@@ -51,7 +51,7 @@
         <?php } elseif ( $layout == 'vertical' ) { ?>
             <?php echo $item_longdescr; ?>
         <?php } //endif ?>
-        <?php if ( $links_query ) { ?>
+        <?php if ( $links_query && $item_button_link ) { ?>
             <div class="link-container">
                 <a href="<?php echo $item_button_link; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for <?php echo $item_title; ?></span></a>
             </div>
