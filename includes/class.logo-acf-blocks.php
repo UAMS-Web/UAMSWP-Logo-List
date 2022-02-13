@@ -176,8 +176,8 @@ if( function_exists('acf_add_local_field_group') ):
                 'key' => 'field_block_logo_list_filter_ids',
                 'label' => 'Categories',
                 'name' => 'block_logo_list_filter_ids',
-                'type' => 'relationship',
-                'instructions' => 'Select one or more categories',
+                'type' => 'taxonomy',
+                'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -185,17 +185,17 @@ if( function_exists('acf_add_local_field_group') ):
                     'class' => '',
                     'id' => '',
                 ),
-                'post_type' => array(
-                    0 => 'location',
-                ),
-                'taxonomy' => '',
-                'filters' => array(
-                    0 => 'search',
-                ),
-                'elements' => '',
-                'min' => '',
-                'max' => '',
+                'taxonomy' => 'logo-list-category',
+                'field_type' => 'multi_select',
+                'allow_null' => 0,
+                'add_term' => 0,
+                'save_terms' => 1,
+                'load_terms' => 1,
                 'return_format' => 'id',
+                'acfe_bidirectional' => array(
+                    'acfe_bidirectional_enabled' => '0',
+                ),
+                'multiple' => 0,
             ),
             array(
                 'key' => 'field_block_logo_list_filter_logic',
