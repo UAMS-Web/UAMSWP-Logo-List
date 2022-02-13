@@ -58,6 +58,12 @@
             .item-img + .item-body {
                 margin-top: ($grid-gutter-width / 1);
             }
+
+            &:not(.item-has-title):not(.item-has-label):not(.item-has-shortdescr) {
+                .item-img + .item-body {
+                    margin-top: 0;
+                }
+            }
             
             &.item-has-link {
                 transition: opacity .1s;
