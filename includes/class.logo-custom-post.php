@@ -126,3 +126,56 @@ if ( ! function_exists('create_logo_list_category') ) {
 	}
 	add_action( 'init', 'create_logo_list_category', 0 );
 }
+if ( ! function_exists('create_logo_list_label_tag') ) {
+	function create_logo_list_label_tag() {
+		$labels = array(
+			'name'                       => 'Logo Item Labels',
+			'singular_name'              => 'Logo Item Label',
+			'menu_name'                  => 'Labels',
+			'all_items'                  => 'All Logo Item Labels',
+			'parent_item'                => 'Parent Logo Item Label',
+			'parent_item_colon'          => 'Parent Logo Item Label:',
+			'new_item_name'              => 'New Logo Item Label',
+			'add_new_item'               => 'Add New Logo Item Label',
+			'edit_item'                  => 'Edit Logo Item Label',
+			'update_item'                => 'Update Logo Item Label',
+			'view_item'                  => 'View Logo Item Label',
+			'separate_items_with_commas' => 'Separate Logo Item Labels with commas',
+			'add_or_remove_items'        => 'Add or remove Logo Item Labels',
+			'choose_from_most_used'      => 'Choose from the most used',
+			'popular_items'              => 'Popular Logo Item Labels',
+			'search_items'               => 'Search Logo Item Labels',
+			'not_found'                  => 'Not Found',
+			'no_terms'                   => 'No Logo Item Labels',
+			'items_list'                 => 'Logo Item Labels list',
+			'items_list_navigation'      => 'Logo Item Labels list navigation',
+		);
+		$rewrite = array(
+			'slug'                       => 'logo-list-category',
+			'with_front'                 => false,
+			'hierarchical'               => false,
+		);
+		$capabilities = array(
+			'manage_terms'               => 'manage_options',
+			'edit_terms'                 => 'manage_options',
+			'delete_terms'               => 'manage_options',
+			'assign_terms'               => 'manage_options',
+		);
+		$args = array(
+			'labels'                     => $labels,
+			'description'                => 'Testing the description',
+			'hierarchical'               => false,
+			'public'                     => false,
+			'show_ui'                    => true,
+			'show_admin_column'          => true,
+			'show_in_nav_menus'          => false,
+			'show_tagcloud'              => false,
+			'rewrite'                    => $rewrite,
+			'capabilities'               => $capabilities,
+			'show_in_quick_edit'         => true,
+		);
+		register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
+	
+	}
+	add_action( 'init', 'create_logo_list_label_tag', 0 );
+}
