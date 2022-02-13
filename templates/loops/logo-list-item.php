@@ -19,6 +19,7 @@
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title . ' logo'; 
     $item_label = get_field('logo_label', $id);
+    $item_label_name = get_term( $item_label )->name;
     $item_shortdescr = get_field('logo_shortdescr', $id);
     $item_longdescr = get_field('logo_longdescr', $id);
     $item_button_link = get_field('logo_link', $id);
@@ -59,7 +60,7 @@
     <div class="item-body">
         <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'item-title sr-only'; ?>"><?php echo $item_title; ?></h3>
         <?php if ( $labels_query ) { ?>
-            <p class="item-label"><?php echo $item_label; ?></p>
+            <p class="item-label"><?php echo $item_label_name; ?></p>
         <?php } //endif ?>
         <?php if ( $layout == 'grid' ) { ?>
             <?php if ( $shortdescr_query ) { ?>
