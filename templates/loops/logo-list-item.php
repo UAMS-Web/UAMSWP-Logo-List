@@ -13,9 +13,9 @@
     if ( empty($item_image) ) {
         $item_title_query = true;
     }
-    $image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
-    $image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
-    $image_fly_fallback = $image_fly_1_1x;
+    $item_image_fly_1_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
+    $item_image_fly_1_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
+    $item_image_fly_fallback = $item_image_fly_1_1x;
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title . ' logo'; 
     $item_label = get_field('logo_label', $id);
@@ -46,10 +46,10 @@
         <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
             <picture>
                 <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
-                    <source srcset="<?php echo $image_fly_1_1x['src']; ?> 1x, <?php echo $image_fly_1_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_1_1x['src']; ?> 1x, <?php echo $item_image_fly_1_2x['src']; ?> 2x" 
                         media="(min-width: 1px)">
                     <!-- Fallback -->
-                    <img src="<?php echo $image_fly_fallback['src']; ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
+                    <img src="<?php echo $item_image_fly_fallback['src']; ?>" alt="<?php echo $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; ?>" />
                 <?php } else { ?>
                     <!-- Fallback -->
                     <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; ?>" />
