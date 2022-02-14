@@ -174,10 +174,10 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_filter_ids',
-                'label' => 'Categories',
+                'label' => 'Categories to Display',
                 'name' => 'block_logo_list_filter_ids',
                 'type' => 'taxonomy',
-                'instructions' => '',
+                'instructions' => 'Select one or more categories to determine which organizations will be displayed.',
                 'required' => 1,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -202,7 +202,7 @@ if( function_exists('acf_add_local_field_group') ):
                 'label' => 'Category Logic',
                 'name' => 'block_logo_list_filter_logic',
                 'type' => 'select',
-                'instructions' => '',
+                'instructions' => 'Indicate how the selection of multiple categories will affect which items are displayed.',
                 'required' => 1,
                 'conditional_logic' => 0,
                 'wrapper' => array(
