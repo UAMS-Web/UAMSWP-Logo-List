@@ -52,7 +52,7 @@
                     <img src="<?php echo $image_fly_fallback['src']; ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
                 <?php } else { ?>
                     <!-- Fallback -->
-                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $image_alt_override ? $image_alt_override : $image_alt_native; ?>" />
+                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; ?>" />
                 <?php } //endif ?>
             </picture>
         </div>
