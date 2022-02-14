@@ -167,8 +167,43 @@ if ( $featured_query ) {
     $className .= ' logo-list-featured'; // Add class to indicate featured
 }
 
+// The Query
+$posts_per_page = $featured_query ? 3 : -1;
+$operator = $filter_logic;
+$args = array(
+    'post_type' => 'logo-list-item',
+    'post_status' => 'publish',
+    'posts_per_page' => $posts_per_page,
+    'orderby' => $orderby,
+    'order' => 'ASC',
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'logo-list-category',
+            'field'    => 'term_id',
+            'terms'    => $filter_ids,
+            'operator'  => $operator
+        ),
+    ),
+);
+if( in_array('meta_value', $orderby_array) ) {
+    $args['meta_key'] = 'logo_title';
+}
+// print("<pre>".print_r($args,true)."</pre>");
+$logo_list_query = new WP_Query( $args );
+
+// Check for valid logo list items
+$logo_list_valid = false;
+if ( $filter_ids && $logo_list_query->have_posts() ) {
+    foreach( $filter_ids as $filter_id ) {
+        if ( get_post_status ( $filter_id ) == 'publish' ) {
+            $logo_list_valid = true;
+            $break;
+        }
+    }
+}
+
 // Display the Block
-?>
+if ( $logo_list_query->have_posts() ) { ?>
 <section class="uams-module logo-list alignfull<?php echo $className; ?>" id="<?php echo $id; ?>">
     <div class="container-fluid">
         <div class="row">
@@ -182,40 +217,6 @@ if ( $featured_query ) {
             <div class="item-list-container<?php echo $width_class; ?>">
             <div class="item-list">
                 <?php
-                $posts_per_page = $featured_query ? 3 : -1;
-                $operator = $filter_logic;
-                $args = array(
-                    'post_type' => 'logo-list-item',
-                    'post_status' => 'publish',
-                    'posts_per_page' => $posts_per_page,
-                    'orderby' => $orderby,
-                    'order' => 'ASC',
-                    'tax_query' => array(
-                        array(
-                            'taxonomy' => 'logo-list-category',
-                            'field'    => 'term_id',
-                            'terms'    => $filter_ids,
-                            'operator'  => $operator
-                        ),
-                    ),
-                );
-                if( in_array('meta_value', $orderby_array) ) {
-                    $args['meta_key'] = 'logo_title';
-                }
-                // print("<pre>".print_r($args,true)."</pre>");
-
-                $logo_list_query = new WP_Query( $args );
-
-                // Check for valid logo list items
-                $logo_list_valid = false;
-                if ( $filter_ids && $logo_list_query->have_posts() ) {
-                    foreach( $filter_ids as $filter_id ) {
-                        if ( get_post_status ( $filter_id ) == 'publish' ) {
-                            $logo_list_valid = true;
-                            $break;
-                        }
-                    }
-                }
                 while ( $logo_list_query->have_posts() ) : $logo_list_query->the_post();
                     $id = get_the_ID(); 
                     include( UAMS_LOGO_PATH . '/templates/loops/logo-list-item.php' ); 
@@ -237,3 +238,4 @@ if ( $featured_query ) {
         </div>
     </div>
 </section>
+<?php } // endif ?>
