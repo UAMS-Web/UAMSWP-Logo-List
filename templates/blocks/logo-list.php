@@ -191,17 +191,6 @@ if( in_array('meta_value', $orderby_array) ) {
 // print("<pre>".print_r($args,true)."</pre>");
 $logo_list_query = new WP_Query( $args );
 
-// Check for valid logo list items
-$logo_list_valid = false;
-if ( $filter_ids && $logo_list_query->have_posts() ) {
-    foreach( $filter_ids as $filter_id ) {
-        if ( get_post_status ( $filter_id ) == 'publish' ) {
-            $logo_list_valid = true;
-            $break;
-        }
-    }
-}
-
 // Display the Block
 if ( $logo_list_query->have_posts() ) { ?>
 <section class="uams-module logo-list alignfull<?php echo $className; ?>" id="<?php echo $id; ?>">
