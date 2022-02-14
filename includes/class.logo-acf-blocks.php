@@ -199,7 +199,7 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_filter_logic',
-                'label' => 'Category Logic',
+                'label' => 'Display Logic for Categories',
                 'name' => 'block_logo_list_filter_logic',
                 'type' => 'select',
                 'instructions' => 'Indicate how the selection of multiple categories will affect which items are displayed.',
