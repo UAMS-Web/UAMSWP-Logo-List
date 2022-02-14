@@ -168,7 +168,7 @@ if ( $featured_query ) {
 }
 
 // The Query
-$posts_per_page = $featured_query ? 3 : -1;
+$posts_per_page = $featured_query ? 3 : -1; // If featured, limit to three items. Otherwise, display all.
 $args = array(
     'post_type' => 'logo-list-item',
     'post_status' => 'publish',
