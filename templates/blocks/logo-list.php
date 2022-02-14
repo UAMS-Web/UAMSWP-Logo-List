@@ -169,7 +169,6 @@ if ( $featured_query ) {
 
 // The Query
 $posts_per_page = $featured_query ? 3 : -1;
-$operator = $category_logic;
 $args = array(
     'post_type' => 'logo-list-item',
     'post_status' => 'publish',
@@ -181,7 +180,7 @@ $args = array(
             'taxonomy' => 'logo-list-category',
             'field'    => 'term_id',
             'terms'    => $category_ids,
-            'operator'  => $operator
+            'operator'  => $category_logic
         ),
     ),
 );
