@@ -36,9 +36,9 @@ if ( empty( $id ) && isset($block) ) {
     }
 
     // List Configuration
-    $filter_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
-    $filter_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
-    $filter_logic = get_field('block_logo_list_filter_logic'); // Get the filtering logic for multiple categories
+    $category_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
+    $category_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
+    $category_logic = get_field('block_logo_list_filter_logic'); // Get the filtering logic for multiple categories
     $featured_query = false; // Fallback value for if featured display behavior should be used
     $featured_query = get_field('block_logo_list_featured'); // Get which featured display behavior should be used
     $layout = 'grid'; // Fallback value for list layout
@@ -169,7 +169,7 @@ if ( $featured_query ) {
 
 // The Query
 $posts_per_page = $featured_query ? 3 : -1;
-$operator = $filter_logic;
+$operator = $category_logic;
 $args = array(
     'post_type' => 'logo-list-item',
     'post_status' => 'publish',
@@ -180,7 +180,7 @@ $args = array(
         array(
             'taxonomy' => 'logo-list-category',
             'field'    => 'term_id',
-            'terms'    => $filter_ids,
+            'terms'    => $category_ids,
             'operator'  => $operator
         ),
     ),
