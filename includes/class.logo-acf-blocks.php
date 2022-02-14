@@ -246,7 +246,7 @@ if( function_exists('acf_add_local_field_group') ):
             ),
             array(
                 'key' => 'field_block_logo_list_layout',
-                'label' => 'List Width',
+                'label' => 'List Layout',
                 'name' => 'block_logo_list_layout',
                 'type' => 'select',
                 'instructions' => '',
