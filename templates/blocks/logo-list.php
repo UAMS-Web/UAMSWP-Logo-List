@@ -62,7 +62,7 @@ if ( empty( $id ) && isset($block) ) {
     $links_query = get_field('block_logo_list_links') ?: false; // Check if link elements should be added to items
     $links_class = '';
     $links_class_inner = '';
-    $links_target_query = true; // Fallback value for if item links should open in a new window
+    $links_target_query = false; // Fallback value for if item links should open in a new window
     if ($links_query) {
         // If links are enabled, load values
         if ( $links_display_query ) {
@@ -71,10 +71,9 @@ if ( empty( $id ) && isset($block) ) {
             $links_class = 'stretched-link'; // Make the containing block clickable
             $links_class_inner = 'sr-only'; // Visually hide the item link text
         }
-        if ( empty($links_target_query) ) {
-            $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
-        }
+        $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
     }
+    $links_target_value = $links_target_query ? '_blank' : '_self';
     $orderby_array = get_field('block_logo_list_order') ?: array(); // Get sort order of items within the list
     if ( count($orderby_array) === 1 && $orderby_array[0] != 'rand' ) { // If there is only one sort order option, and it's not Random Order...
         if ( $orderby_array[0] != 'meta_value' ) {
