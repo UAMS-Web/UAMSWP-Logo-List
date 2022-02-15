@@ -21,13 +21,11 @@ if ( empty( $id ) && isset($block) ) {
     if ( empty($heading) ) {
         $heading = get_field('block_logo_list_heading'); // Get the block heading
     }
-    $hide_heading = false; // Fallback value for if the block heading should be hidden
-    $hide_heading = get_field('block_logo_list_hide_heading'); // Check if the block heading should be hidden
+    $hide_heading = get_field('block_logo_list_hide_heading') ?: false; // Check if the block heading should be hidden
     if ( empty($description) ) {
         $description = get_field('block_logo_list_description'); // Get the block description
     }
-    $background_color = 'bg-auto'; // Fallback value for the block background color
-    $background_color = get_field('block_logo_list_background_color'); // Get the block background color
+    $background_color = get_field('block_logo_list_background_color') ?: 'bg-auto'; // Get the block background color
     // Set button color based on block background color
     if ( in_array($background_color, array('bg-white','bg-gray','bg-auto'), true ) ) {
         $button_color = 'primary';
@@ -37,35 +35,31 @@ if ( empty( $id ) && isset($block) ) {
 
     // List Configuration
     $category_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
-    $category_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
-    $category_logic = get_field('block_logo_list_filter_logic'); // Get the filtering logic for multiple categories
+    $category_logic = get_field('block_logo_list_filter_logic') ?: 'and'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     $label_ids = get_field('block_logo_list_labels_ids') ?: array(); // Get the list of categories
-    $label_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
-    $label_logic = get_field('block_logo_list_labels_logic'); // Get the filtering logic for multiple categories
-    $featured_query = false; // Fallback value for if featured display behavior should be used
-    $featured_query = get_field('block_logo_list_featured'); // Get which featured display behavior should be used
-    $layout = 'grid'; // Fallback value for list layout
-    $layout = get_field('block_logo_list_layout'); // Get the list layout
-    $width = ''; // Fallback value for the list width
-    $shortdescr_query = false; // Fallback value for if short description elements should be added to items
-    $titles_query = false; // Fallback value for if titles should always be visually displayed in items
-    $links_display_query = false; // Default value for if links should be visually displayed in items
+    $label_logic = get_field('block_logo_list_labels_logic') ?: 'and'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
+    $featured_query = get_field('block_logo_list_featured') ?: false; // Get which featured display behavior should be used
+    $layout = get_field('block_logo_list_layout') ?: 'grid'; // Get the list layout
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
         $links_display_query = false; // Don't visually display item links in this layout
         $width = get_field('block_logo_list_width'); // Get the width of the item list within block
         $shortdescr_query = get_field('block_logo_list_shortdescr'); // Check if short description elements should be added to items
-        $titles_query = get_field('block_logo_list_titles'); // Check if titles should always be displayed in items
+        $titles_query = get_field('block_logo_list_titles') ?: false; // Check if titles should always be displayed in items
     } elseif ( $layout == 'vertical' ) { // Configuration specific to the vertical list layout
         $links_display_query = true; // Visually display item links in this layout
+        $width = '';
+        $shortdescr_query = false;
         $titles_query = true; // Visually display item titles in this layout
+    } else {
+        $links_display_query = false;
+        $width = '';
+        $shortdescr_query = false;
+        $titles_query = false;
     }
     $width_class = !empty($width) ? ' ' . $width : ''; // Set class name for list width
-    $desaturate_query = false; // Fallback value for if item logos should be programmatically desaturated
-    // $desaturate_query = get_field('block_logo_list_desaturate'); // Check if if item logos should be programmatically desaturated
-    $labels_query = false; // Fallback value for if label elements should be added to items
-    $labels_query = get_field('block_logo_list_labels'); // Check if if label elements should be added to items
-    $links_query = false; // Fallback value for if link elements should be added to items
-    $links_query = get_field('block_logo_list_links'); // Check if link elements should be added to items
+    $desaturate_query = get_field('block_logo_list_desaturate') ?: false; // Check if if item logos should be programmatically desaturated
+    $labels_query = get_field('block_logo_list_labels') ?: false; // Check if if label elements should be added to items
+    $links_query = get_field('block_logo_list_links') ?: false; // Check if link elements should be added to items
     $links_class = '';
     $links_class_inner = '';
     $links_target_query = true; // Fallback value for if item links should open in a new window
@@ -81,8 +75,7 @@ if ( empty( $id ) && isset($block) ) {
             $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
         }
     }
-    $orderby_array = array();
-    $orderby_array = get_field('block_logo_list_order'); // Get sort order of items within the list
+    $orderby_array = get_field('block_logo_list_order') ?: array(); // Get sort order of items within the list
     if ( count($orderby_array) === 1 && $orderby_array[0] != 'rand' ) { // If there is only one sort order option, and it's not Random Order...
         if ( $orderby_array[0] != 'meta_value' ) {
             $orderby_array[] = 'meta_value'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
@@ -90,12 +83,10 @@ if ( empty( $id ) && isset($block) ) {
             $orderby_array[] = 'menu_order'; // If the one sort order option isn't Menu Order, set that to the fallback
         }
     }
-    $orderby = 'title menu_order'; // Fallback sort order of items within the list
-    $orderby = implode(' ', $orderby_array); // Join the array elements, separated by a space
+    $orderby = implode(' ', $orderby_array) ?: 'title menu_order'; // Sort order of items within the list. Join the array elements, separated by a space
 
     // More Section Configuration
-    $more_query = false; // Fallback value for if the 'more' section should be added
-    $more_query = get_field('block_logo_list_more'); // Check for if the 'more' section should be added
+    $more_query = get_field('block_logo_list_more') ?: false; // Check for if the 'more' section should be added
     if ( $more_query ) {
         // If 'more' section is enabled, load values
         if ( empty($more_text) ) {
