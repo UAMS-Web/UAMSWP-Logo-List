@@ -531,7 +531,7 @@ if( function_exists('acf_add_local_field_group') ):
                     'rand' => 'Random Order',
                 ),
                 'default_value' => array(
-                    0 => 'org_title',
+                    0 => 'title',
                 ),
                 'allow_null' => 0,
                 'multiple' => 1,
