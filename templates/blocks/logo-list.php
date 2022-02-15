@@ -128,7 +128,7 @@ if ( empty( $id ) && isset($block) ) {
     }
 
     // Image Calculations
-    $grid_image_ratio = 2/1;
+    $grid_image_ratio = 1.618/1;
     $grid_image_width = 294;
     $grid_image_height = $grid_image_width / $grid_image_ratio;
     $grid_image_width_featured = 442;
