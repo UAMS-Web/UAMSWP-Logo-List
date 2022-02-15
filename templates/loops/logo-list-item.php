@@ -23,6 +23,7 @@
     $item_shortdescr = get_field('logo_shortdescr', $id);
     $item_longdescr = get_field('logo_longdescr', $id);
     $item_button_link = get_field('logo_link', $id);
+    $item_button_text = get_field('logo_link_text', $id) ?: 'Visit the website for ' . $item_title;
 
     $item_class_name = '';
     if( $titles_query || $item_title_query ) {
@@ -71,7 +72,7 @@
         <?php } //endif ?>
         <?php if ( $links_query && $item_button_link ) { ?>
             <div class="link-container">
-                <a href="<?php echo $item_button_link; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>>Visit the website for <?php echo $item_title; ?></span></a>
+                <a href="<?php echo $item_button_link; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $links_target_query ? ' target="_blank"' : ''; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>><?php echo $item_button_text; ?></span></a>
             </div>
         <?php } //endif ?>
     </div>
