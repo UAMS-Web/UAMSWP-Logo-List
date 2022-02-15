@@ -84,7 +84,12 @@ if ( empty( $id ) && isset($block) ) {
         }
     }
     $orderby = implode(' ', $orderby_array) ?: 'title menu_order'; // Sort order of items within the list. Join the array elements, separated by a space
-    $max_items = get_field('block_logo_list_max'); // Get maximum number of items
+    $max_items = get_field('block_logo_list_max') ?: -1; // Get maximum number of items
+    if ( $featured_query && $max_items ) {
+        $max_items = ( $max_items >= 3 || $max_items <= 0) ? 3 : $max_items; // If Featured mode is on and max is set, limit max to 3; treat 0 and -1 as 3.
+    } elseif ( $featured_query ) {
+        $max_items = 3; // If Featured mode is on, set max to 3
+    }
 
     // More Section Configuration
     $more_query = get_field('block_logo_list_more') ?: false; // Check for if the 'more' section should be added
@@ -163,11 +168,10 @@ if ( $featured_query ) {
 }
 
 // The Query
-$posts_per_page = $featured_query ? 3 : -1; // If featured, limit to three items. Otherwise, display all.
 $args = array(
     'post_type' => 'logo-list-item',
     'post_status' => 'publish',
-    'posts_per_page' => $posts_per_page,
+    'posts_per_page' => $max_items,
     'orderby' => $orderby,
     'order' => 'ASC',
     'tax_query' => array(
