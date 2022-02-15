@@ -67,6 +67,64 @@
             "placeholder": ""
         },
         {
+            "key": "field_logo_link_text",
+            "label": "Link Text",
+            "name": "logo_link_text",
+            "type": "text",
+            "instructions": "The default text for the link is \"Visit the website for [Name of Organization].\" Enter new text if the URL goes somewhere other than their website.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_logo_link",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Visit the website for [Name of Organization]",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_logo_link_target",
+            "label": "Link Target",
+            "name": "logo_link_target",
+            "type": "radio",
+            "instructions": "The block on the page can define whether the links for all items within that block open in the same window or in a new window. Or you can override that behavior to always do one or the other for this specific item's link.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_logo_link",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "No Override",
+                "_blank": "Always Open in New Window",
+                "_self": "Always Open in Same Window"
+            },
+            "allow_null": 1,
+            "other_choice": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_logo_category",
             "label": "Categories",
             "name": "logo_category",
