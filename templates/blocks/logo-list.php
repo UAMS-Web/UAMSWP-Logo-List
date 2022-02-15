@@ -75,14 +75,23 @@ if ( empty( $id ) && isset($block) ) {
     }
     $links_target_value = $links_target_query ? '_blank' : '_self';
     $orderby_array = get_field('block_logo_list_order') ?: array(); // Get sort order of items within the list
-    if ( count($orderby_array) === 1 && $orderby_array[0] != 'rand' ) { // If there is only one sort order option, and it's not Random Order...
-        if ( $orderby_array[0] != 'meta_value' ) {
-            $orderby_array[] = 'meta_value'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
-        } elseif ( $orderby_array[0] != 'menu_order' ) {
-            $orderby_array[] = 'menu_order'; // If the one sort order option isn't Menu Order, set that to the fallback
+    if ( count($orderby_array) === 1 && (strpos($orderby_array[0], 'rand') !== 0) ) { // If there is only one sort order option, and it's not Random Order...
+        if ( strpos($orderby_array[0], 'meta_value') !== 0 ) {
+            $orderby_array[] = 'meta_value|ASC'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
+        } elseif ( strpos( $orderby_array[0] , 'menu_order' ) !== 0 ) {
+            $orderby_array[] = 'menu_order|ASC'; // If the one sort order option isn't Menu Order, set that to the fallback
         }
     }
-    $orderby = implode(' ', $orderby_array) ?: 'title menu_order'; // Sort order of items within the list. Join the array elements, separated by a space
+    $orderby = array();
+    foreach ( $orderby_array as $str ) {
+        $strArr = explode("|", $str);
+        if ( count($strArr) == 2 ) {
+            $orderby[$strArr[0]] = $strArr[1];
+        } else {
+            $orderby[$strArr[0]] = 'ASC';
+        }
+    }
+
     $max_items = get_field('block_logo_list_max') ?: -1; // Get maximum number of items
     if ( $featured_query && $max_items ) {
         $max_items = ( $max_items >= 3 || $max_items <= 0) ? 3 : $max_items; // If Featured mode is on and max is set, limit max to 3; treat 0 and -1 as 3.
@@ -172,7 +181,6 @@ $args = array(
     'post_status' => 'publish',
     'posts_per_page' => $max_items,
     'orderby' => $orderby,
-    'order' => 'ASC',
     'tax_query' => array(
         'relation' => 'AND',
         array(
@@ -189,7 +197,7 @@ $args = array(
         ),
     ),
 );
-if( in_array('meta_value', $orderby_array) ) {
+if( array_key_exists('meta_value', $orderby) ) {
     $args['meta_key'] = 'logo_title';
 }
 // print("<pre>".print_r($args,true)."</pre>");
