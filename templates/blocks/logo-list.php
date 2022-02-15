@@ -84,7 +84,7 @@ if ( empty( $id ) && isset($block) ) {
         }
     }
     $orderby = implode(' ', $orderby_array) ?: 'title menu_order'; // Sort order of items within the list. Join the array elements, separated by a space
-    $max_items = get_field('block_logo_list_max') ?: -1; // Get maximum number of items
+    $max_items = get_field('block_logo_list_max'); // Get maximum number of items
 
     // More Section Configuration
     $more_query = get_field('block_logo_list_more') ?: false; // Check for if the 'more' section should be added
