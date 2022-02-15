@@ -52,10 +52,10 @@
         },
         {
             "key": "field_logo_link",
-            "label": "URL for Organization's Website",
+            "label": "URL for Organization",
             "name": "logo_link",
             "type": "url",
-            "instructions": "",
+            "instructions": "Include the URL for either the organization's website or a UAMS landing page related to that organization.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
