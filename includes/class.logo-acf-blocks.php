@@ -16,7 +16,7 @@ function uams_logo_register_blocks() {
             'title'             => __('UAMS Logo List'),
             'description'       => __('Presenting a list of organization logos'),
             'category'          => 'common',
-            'icon'              => 'images',
+            'icon'              => 'images-alt',
             'keywords'          => array('uams', 'logos', 'organizations', 'images', 'graphics'),
             'mode'              => 'auto',
             'supports'          => array(
