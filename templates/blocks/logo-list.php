@@ -39,6 +39,9 @@ if ( empty( $id ) && isset($block) ) {
     $category_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
     $category_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     $category_logic = get_field('block_logo_list_filter_logic'); // Get the filtering logic for multiple categories
+    $label_ids = get_field('block_logo_list_labels_ids') ?: array(); // Get the list of categories
+    $label_logic = 'and'; // Fallback value for filtering logic for multiple categories: AND (match all categories), OR (match any categories)
+    $label_logic = get_field('block_logo_list_labels_logic'); // Get the filtering logic for multiple categories
     $featured_query = false; // Fallback value for if featured display behavior should be used
     $featured_query = get_field('block_logo_list_featured'); // Get which featured display behavior should be used
     $layout = 'grid'; // Fallback value for list layout
@@ -176,11 +179,18 @@ $args = array(
     'orderby' => $orderby,
     'order' => 'ASC',
     'tax_query' => array(
+        'relation' => 'AND',
         array(
             'taxonomy' => 'logo-list-category',
             'field'    => 'term_id',
             'terms'    => $category_ids,
             'operator'  => $category_logic
+        ),
+        array(
+            'taxonomy' => 'logo-list-label',
+            'field'    => 'term_id',
+            'terms'    => $label_ids,
+            'operator'  => $label_logic
         ),
     ),
 );
