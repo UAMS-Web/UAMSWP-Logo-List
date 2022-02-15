@@ -192,7 +192,7 @@ if( in_array('meta_value', $orderby_array) ) {
 $logo_list_query = new WP_Query( $args );
 
 // Display the Block
-if ( $logo_list_query->have_posts() ) { ?>
+if ( $category_ids && $logo_list_query->have_posts() ) { ?>
 <section class="uams-module logo-list alignfull<?php echo $className; ?>" id="<?php echo $id; ?>">
     <div class="container-fluid">
         <div class="row">
