@@ -557,7 +557,7 @@ if( function_exists('acf_add_local_field_group') ):
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-                'min' => '',
+                'min' => -1,
                 'max' => '',
                 'step' => 1,
             ),
