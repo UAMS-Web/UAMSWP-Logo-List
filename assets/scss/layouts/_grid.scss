@@ -65,10 +65,12 @@
                         // max-width: $grid_image_width_xxs;
                         font-size: $item-heading-size-normal;
                         margin: 0 auto;
-                        min-width: 3em;
+                        // min-width: 3em;
+                        min-width: $grid_image_width_xxs * 0.618;
 
                         @include media-breakpoint-up(md) {
                             max-width: $grid_image_width;
+                            min-width: $grid_image_width * 0.618;
                         }
                     }
                 }
