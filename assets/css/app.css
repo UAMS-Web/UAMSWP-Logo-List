@@ -72,7 +72,7 @@
 .logo-list-layout-grid .item-list .item:not(.item-has-logo) {
   align-items: center;
   display: flex;
-  min-height: 67.60569px;
+  min-height: 61.52963px;
 }
 
 .logo-list-layout-vertical .item-list {
@@ -172,7 +172,7 @@
   }
 
   .logo-list-layout-grid .item-list .item:not(.item-has-logo) {
-    min-height: 135.21137px;
+    min-height: 123.05925px;
   }
 
   .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
@@ -189,7 +189,7 @@
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) {
-    min-height: 168.82324px;
+    min-height: 153.65025px;
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
