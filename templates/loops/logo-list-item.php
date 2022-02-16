@@ -58,7 +58,7 @@
             <picture>
                 <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
                     <source srcset="<?php echo $item_image_fly_md_1x['src']; ?> 1x, <?php echo $item_image_fly_md_2x['src']; ?> 2x" 
-                        media="(min-width: 992px)">
+                        media="(min-width: 1200px)">
                     <source srcset="<?php echo $item_image_fly_xxs_1x['src']; ?> 1x, <?php echo $item_image_fly_xxs_2x['src']; ?> 2x" 
                         media="(min-width: 1px)">
                     <!-- Fallback -->

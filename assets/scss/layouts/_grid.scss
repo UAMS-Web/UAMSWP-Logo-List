@@ -25,7 +25,7 @@
         margin: 0 auto;
 
         &.alignwide {
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(lg) {
                 width: $content-width * $alignwide-ratio-md;
             }
             @include media-breakpoint-up(lg) {
@@ -69,7 +69,7 @@
                         // min-width: 3em;
                         min-width: $grid_image_width_xxs * 0.618;
 
-                        @include media-breakpoint-up(md) {
+                        @include media-breakpoint-up(lg) {
                             max-width: $grid_image_width;
                             min-width: $grid_image_width * 0.618;
                         }
@@ -85,7 +85,7 @@
             .item-img + .item-body {
                 margin-top: $grid-gutter-width * 1.5 / 2;
 
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(lg) {
                     margin-top: $grid-gutter-width * 1.5;
                 }
             }
@@ -114,14 +114,15 @@
                 min-height: $item-logoless-height-normal-xxs;
                 align-items: center;
 
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(lg) {
                     min-height: $item-logoless-height-normal;
                 }
 
                 .item-body {
+                    max-width: $grid_image_width_featured;
                     .item-title {
                         &:not(.sr-only) {
-                            @include media-breakpoint-up(md) {
+                            @include media-breakpoint-up(lg) {
                                 // font-size: $item-heading-size-normal * $logo-multiplier-normal;
                                 font-size: (($item-heading-size-normal + $h2-font-size) / 2);
                             }
@@ -134,14 +135,14 @@
     &.logo-list-featured {
         .item-list {
             .item {
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(lg) {
                     font-size: $lead-font-size;
                 }
 
                 .item-body {
                     .item-title {
                         &:not(.sr-only) {
-                            @include media-breakpoint-up(md) {
+                            @include media-breakpoint-up(lg) {
                                 max-width: $grid_image_width_featured;
                                 font-size: $item-heading-size-featured;
                             }
@@ -150,14 +151,14 @@
                 }
 
                 &:not(.item-has-logo) {
-                    @include media-breakpoint-up(md) {
+                    @include media-breakpoint-up(lg) {
                         min-height: $item-logoless-height-featured;
                     }
 
                     .item-body {
                         .item-title {
                             &:not(.sr-only) {
-                                @include media-breakpoint-up(md) {
+                                @include media-breakpoint-up(lg) {
                                     max-width: $grid_image_width_featured;
                                     // font-size: $item-heading-size-featured * $logo-multiplier-featured;
                                     font-size: (($item-heading-size-featured + $h2-font-size) / 2);
