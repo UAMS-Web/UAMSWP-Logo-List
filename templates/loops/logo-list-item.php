@@ -20,6 +20,8 @@
     $item_image_fly_fallback = $item_image_fly_1_1x;
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title . ' logo'; 
+    // $item_image_alt = $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; 
+    $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorative in this context, only supporting the heading
     $item_label = get_field('logo_label', $id);
     $item_label_name = get_term( $item_label )->name;
     $item_shortdescr = get_field('logo_shortdescr', $id);
@@ -60,10 +62,10 @@
                     <source srcset="<?php echo $item_image_fly_xxs_1x['src']; ?> 1x, <?php echo $item_image_fly_xxs_2x['src']; ?> 2x" 
                         media="(min-width: 1px)">
                     <!-- Fallback -->
-                    <img src="<?php echo $item_image_fly_fallback['src']; ?>" alt="<?php echo $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; ?>" />
+                    <img src="<?php echo $item_image_fly_fallback['src']; ?>" alt="<?php echo $item_image_alt; ?>" />
                 <?php } else { ?>
                     <!-- Fallback -->
-                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; ?>" />
+                    <img src="<?php echo wp_get_attachment_image_url( $item_image, 'aspect-16-9' ); ?>" alt="<?php echo $item_image_alt; ?>" />
                 <?php } //endif ?>
             </picture>
         </div>
