@@ -1,4 +1,24 @@
 .logo-list-layout-grid {
+    $grid_image_ratio: 1.618/1;
+    $grid_image_width: 354px;
+    $grid_image_height: $grid_image_width / $grid_image_ratio;
+    $grid_image_width_featured: 442px;
+    $grid_image_height_featured: $grid_image_width_featured / $grid_image_ratio;
+    $grid_image_width_xxs: $grid_image_width / 2;
+    $grid_image_height_xxs: $grid_image_width_xxs / $grid_image_ratio;
+    $grid_image_width_featured_xxs: $grid_image_width_featured / 2;
+    $grid_image_height_featured_xxs: $grid_image_width_featured_xxs / $grid_image_ratio;
+
+    $item-logoless-height-normal: $grid_image_height * 0.618;
+    $item-logoless-height-featured: $grid_image_height_featured * 0.618;
+    $item-logoless-height-normal-xxs: $grid_image_height_xxs * 0.618;
+    $item-logoless-height-featured-xxs: $grid_image_height_featured_xxs * 0.618;
+
+    $item-heading-size-normal: $h5-font-size;
+    $item-heading-size-featured: $h4-font-size;
+    $logo-multiplier-normal: 1.5;
+    $logo-multiplier-featured: 1.56;
+
     .item-list-container {
         width: $content-width;
         max-width: 100%;
@@ -27,11 +47,11 @@
         .item {
             position: relative;
             width: auto;
-            max-width: $line-length-min + em;
+            // max-width: $grid_image_width;
             padding: $grid-gutter-width;
             text-align: center;
             border-radius: $border-radius;
-            box-sizing: content-box;
+            // box-sizing: content-box;
 
             // .item-img {
             //     img {
@@ -41,19 +61,30 @@
             .item-body {
                 .item-title {
                     &:not(.sr-only) {
-                        font-size: $h5-font-size;
-                        margin: 0;
+                        max-width: $line-length-min + em;
+                        // max-width: $grid_image_width_xxs;
+                        font-size: $item-heading-size-normal;
+                        margin: 0 auto;
                         min-width: 3em;
+
+                        @include media-breakpoint-up(md) {
+                            max-width: $grid_image_width;
+                        }
                     }
                 }
                 .item-label,
                 .item-text {
                     margin: 0.75em 0 0;
+                    max-width: $line-length-min + em;
                 }
             }
 
             .item-img + .item-body {
-                margin-top: $grid-gutter-width * 1.5;
+                margin-top: $grid-gutter-width * 1.5 / 2;
+
+                @include media-breakpoint-up(md) {
+                    margin-top: $grid-gutter-width * 1.5;
+                }
             }
 
             &:not(.item-has-title):not(.item-has-label):not(.item-has-shortdescr) {
@@ -74,17 +105,59 @@
                     opacity: 0.75;
                 }
             }
+
+            &:not(.item-has-logo) {
+                display: flex;
+                min-height: $item-logoless-height-normal-xxs;
+                align-items: center;
+
+                @include media-breakpoint-up(md) {
+                    min-height: $item-logoless-height-normal;
+                }
+
+                .item-body {
+                    .item-title {
+                        &:not(.sr-only) {
+                            @include media-breakpoint-up(md) {
+                                font-size: $item-heading-size-normal * $logo-multiplier-normal;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     &.logo-list-featured {
         .item-list {
             .item {
-                font-size: $lead-font-size;
+                @include media-breakpoint-up(md) {
+                    font-size: $lead-font-size;
+                }
 
                 .item-body {
                     .item-title {
                         &:not(.sr-only) {
-                            font-size: $h4-font-size;
+                            @include media-breakpoint-up(md) {
+                                max-width: $grid_image_width_featured;
+                                font-size: $item-heading-size-featured;
+                            }
+                        }
+                    }
+                }
+
+                &:not(.item-has-logo) {
+                    @include media-breakpoint-up(md) {
+                        min-height: $item-logoless-height-featured;
+                    }
+
+                    .item-body {
+                        .item-title {
+                            &:not(.sr-only) {
+                                @include media-breakpoint-up(md) {
+                                    max-width: $grid_image_width_featured;
+                                    font-size: $item-heading-size-featured * $logo-multiplier-featured;
+                                }
+                            }
                         }
                     }
                 }

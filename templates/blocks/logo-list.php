@@ -133,26 +133,42 @@ if ( empty( $id ) && isset($block) ) {
     $grid_image_height = $grid_image_width / $grid_image_ratio;
     $grid_image_width_featured = 442; // equal to $line-length-min + em at lead font size
     $grid_image_height_featured = $grid_image_width_featured / $grid_image_ratio;
+    $grid_image_width_xxs = $grid_image_width / 2;
+    $grid_image_height_xxs = $grid_image_width_xxs / $grid_image_ratio;
+    $grid_image_width_featured_xxs = $grid_image_width_featured / 2;
+    $grid_image_height_featured_xxs = $grid_image_width_featured_xxs / $grid_image_ratio;
     $vertical_image_ratio = 4/3;
     $vertical_image_width = 500;
     $vertical_image_height = $vertical_image_width / $vertical_image_ratio;
     $vertical_image_width = 1000;
     $vertical_image_height = $vertical_image_width / $vertical_image_ratio;
+    $vertical_image_width_xxs = $vertical_image_width / 2;
+    $vertical_image_height_xxs = $vertical_image_width_xxs / $vertical_image_ratio;
+    $vertical_image_width_xxs = $vertical_image_width_xxs / 2;
+    $vertical_image_height_xxs = $vertical_image_width_xxs / $vertical_image_ratio;
     if ( $layout == 'grid' ) {
         if ( $featured_query ) {
             $image_width = $grid_image_width_featured;
             $image_height = $grid_image_height_featured;
+            $image_width_xxs = $grid_image_width_featured_xxs;
+            $image_height_xxs = $grid_image_height_featured_xxs;
         } else {
             $image_width = $grid_image_width;
             $image_height = $grid_image_height;
+            $image_width_xxs = $grid_image_width_xxs;
+            $image_height_xxs = $grid_image_height_xxs;
         }
     } elseif ( $layout == 'vertical' ) {
         if ( $featured_query ) {
             $image_width = $vertical_image_width_featured;
             $image_height = $vertical_image_height_featured;
+            $image_width_xxs = $vertical_image_width_featured_xxs;
+            $image_height_xxs = $vertical_image_height_featured_xxs;
         } else {
             $image_width = $vertical_image_width;
             $image_height = $vertical_image_height;
+            $image_width_xxs = $vertical_image_width_xxs;
+            $image_height_xxs = $vertical_image_height_xxs;
         }
     }
 
