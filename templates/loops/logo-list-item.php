@@ -44,6 +44,9 @@
     if( $links_query && $item_button_link ) {
         $item_class_name .= ' item-has-link';
     }
+    if( !empty($item_image) ) {
+        $item_class_name .= ' item-has-logo';
+    }
 ?>
 <div class="item<?php echo $item_class_name; ?>">
     <?php if ( !empty($item_image) ) { ?>
