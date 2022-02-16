@@ -106,7 +106,7 @@ if( function_exists('acf_add_local_field_group') ):
                 'maxlength' => '',
             ),
             array(
-                'key' => 'field_block_logo_list_hide_heading'. $suffix,
+                'key' => 'field_block_logo_list_hide_heading',
                 'label' => 'Hide Heading',
                 'name' => 'block_logo_list_hide_heading',
                 'type' => 'true_false',
