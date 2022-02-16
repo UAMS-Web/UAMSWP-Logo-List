@@ -60,17 +60,8 @@ if ( empty( $id ) && isset($block) ) {
     $desaturate_query = get_field('block_logo_list_desaturate') ?: false; // Check if if item logos should be programmatically desaturated
     $labels_query = get_field('block_logo_list_labels') ?: false; // Check if if label elements should be added to items
     $links_query = get_field('block_logo_list_links') ?: false; // Check if link elements should be added to items
-    $links_class = '';
-    $links_class_inner = '';
     $links_target_query = false; // Fallback value for if item links should open in a new window
     if ($links_query) {
-        // If links are enabled, load values
-        if ( $links_display_query ) {
-            $links_class = 'btn btn-' . $button_color; // Format the item link as a button
-        } else {
-            $links_class = 'stretched-link'; // Make the containing block clickable
-            $links_class_inner = 'sr-only'; // Visually hide the item link text
-        }
         $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
     }
     $links_target_value = $links_target_query ? '_blank' : '_self';
@@ -234,9 +225,11 @@ if ( $category_ids && $logo_list_query->have_posts() ) { ?>
             <div class="item-list-container<?php echo $width_class; ?>">
             <div class="item-list">
                 <?php
+                $logo_item_count = 0;
                 while ( $logo_list_query->have_posts() ) : $logo_list_query->the_post();
-                    $id = get_the_ID(); 
+                    $item_id = get_the_ID(); 
                     include( UAMS_LOGO_PATH . '/templates/loops/logo-list-item.php' ); 
+                    $logo_item_count++;
                 endwhile; 
                 wp_reset_postdata(); ?>
             </div>

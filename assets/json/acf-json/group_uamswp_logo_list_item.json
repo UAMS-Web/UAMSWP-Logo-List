@@ -71,7 +71,7 @@
             "label": "Link Text",
             "name": "logo_link_text",
             "type": "text",
-            "instructions": "The default text for the link is \"Visit the website for [Name of Organization].\" Enter new text if the URL goes somewhere other than their website.",
+            "instructions": "The default text for the link is \"Visit Their Website.\" Enter new text if the URL goes somewhere other than their website. For example, if the link went to a landing page about our partnership with this organization, you could say \"Learn about our partnership\".",
             "required": 0,
             "conditional_logic": [
                 [
@@ -87,7 +87,7 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "Visit the website for [Name of Organization]",
+            "placeholder": "Visit Their Website",
             "prepend": "",
             "append": "",
             "maxlength": ""

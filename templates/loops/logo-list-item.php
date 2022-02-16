@@ -4,11 +4,15 @@
      *  Designed for UAMS Find-a-Doc
      * 
      *  Must be used inside a loop
-     *  Required var: $id
+     *  Required var: $id, $item_id, $logo_item_count
      */
 
-    $item_title = get_field('logo_title', $id);
-    $item_image = get_field('logo_image', $id);
+    $item_element_id = $id . '_' . $logo_item_count;
+    $item_title_id = $item_element_id . '_title';
+    $item_button_id = $item_element_id . '_button';
+
+    $item_title = get_field('logo_title', $item_id);
+    $item_image = get_field('logo_image', $item_id);
     $item_title_query = '';
     if ( empty($item_image) ) {
         $item_title_query = true;
@@ -17,20 +21,54 @@
     $item_image_fly_xxs_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xxs*2, $image_height_xxs*2 ) );
     $item_image_fly_md_1x = fly_get_attachment_image_src( $item_image, array( $image_width, $image_height ) );
     $item_image_fly_md_2x = fly_get_attachment_image_src( $item_image, array( $image_width*2, $image_height*2 ) );
-    $item_image_fly_fallback = $item_image_fly_1_1x;
+    $item_image_fly_fallback = $item_image_fly_md_1x;
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title . ' logo'; 
     // $item_image_alt = $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; 
     $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorative in this context, only supporting the heading
-    $item_label = get_field('logo_label', $id);
+    $item_label = get_field('logo_label', $item_id);
     $item_label_name = get_term( $item_label )->name;
-    $item_shortdescr = get_field('logo_shortdescr', $id);
-    $item_longdescr = get_field('logo_longdescr', $id);
-    $item_button_link = get_field('logo_link', $id);
-    $item_button_text = get_field('logo_link_text', $id) ?: 'Visit the website for ' . $item_title;
-    $item_button_target = get_field('logo_link_target', $id);
-    $item_button_target = ( $item_button_target != 'inherit' ) ? $item_button_target : $links_target_value;
-    $item_button_target_attr = ( $item_button_target != '_self' ) ? ' target=' . $item_button_target : '';
+    $item_shortdescr = get_field('logo_shortdescr', $item_id);
+    $item_longdescr = get_field('logo_longdescr', $item_id);
+    $item_link = get_field('logo_link', $item_id);
+    $item_link_text = get_field('logo_link_text', $item_id) ?: 'Visit Their Website';
+    $item_link_target = get_field('logo_link_target', $item_id);
+    $item_link_target = ( $item_link_target != 'inherit' ) ? $item_link_target : $links_target_value;
+    $item_link_target_attr = ( $item_link_target != '_self' ) ? ' target=' . $item_link_target : '';
+    $item_heading_link_query = ($layout == 'grid') ? true : false; // Determine when to add link to heading
+    $item_button_link_query = ($layout != 'grid') ? true : false; // Determine when to add button link
+    $item_general_link_element = 'a href="' . $item_link . '"' . $item_link_target_attr . ' data-moduletitle="' . $heading . '"' . ' data-itemtitle="' . $item_title . '"';
+    $item_heading_link_element =
+        (
+            $item_heading_link_query ?
+            '<' . $item_general_link_element . ' class="stretched-link" aria-describedby="' . $item_button_id . '">' .
+            (( $titles_query || $item_title_query ) ? '' : '<span class="sr-only">')
+            :
+            ''
+        ) .
+        $item_title . 
+        (
+            $item_heading_link_query ?
+            (( $titles_query || $item_title_query ) ? '' : '</span>') .
+            '</a>'
+            :
+            ''
+        );
+    $item_button_link_element =
+        '<' . 
+        (
+            $item_button_link_query ? 
+            $item_general_link_element . 
+            ' class="btn btn-' . $button_color . '"' . 
+            ' aria-describedby = "' . $item_title_id . '"'
+            :
+            'span style="display: none;" aria-hidden="true"'
+        ) . 
+        ' id="' . $item_button_id . '">' . 
+            $item_link_text . 
+        '</' .
+        ($item_button_link_query ? 'a' : 'span') . 
+        '>';
 
     $item_class_name = '';
     if( $titles_query || $item_title_query ) {
@@ -45,14 +83,14 @@
     if( $layout == 'vertical' && $item_longdescr ) {
         $item_class_name .= ' item-has-longdescr';
     }
-    if( $links_query && $item_button_link ) {
+    if( $links_query && $item_link ) {
         $item_class_name .= ' item-has-link';
     }
     if( !empty($item_image) ) {
         $item_class_name .= ' item-has-logo';
     }
 ?>
-<div class="item<?php echo $item_class_name; ?>">
+<div class="item<?php echo $item_class_name; ?>" id="<?php echo $item_element_id; ?>">
     <?php if ( !empty($item_image) ) { ?>
         <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
             <picture>
@@ -71,7 +109,7 @@
         </div>
     <?php } //endif ?>
     <div class="item-body">
-        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'item-title sr-only'; ?>"><?php echo $item_title; ?></h3>
+        <h3 class="<?php echo ( $titles_query || $item_title_query ) ? 'item-title' : 'item-title item-title-hidden'; ?>" id="<?php echo $item_title_id; ?>"><?php echo $item_heading_link_element; ?></h3>
         <?php if ( $labels_query ) { ?>
             <p class="item-label"><?php echo $item_label_name; ?></p>
         <?php } //endif ?>
@@ -82,9 +120,9 @@
         <?php } elseif ( $layout == 'vertical' ) { ?>
             <?php echo $item_longdescr; ?>
         <?php } //endif ?>
-        <?php if ( $links_query && $item_button_link ) { ?>
+        <?php if ( $links_query && $item_link ) { ?>
             <div class="link-container">
-                <a href="<?php echo $item_button_link; ?>"<?php echo $links_class ? ' class="' . $links_class . '"' : ''; ?><?php echo $item_button_target_attr; ?> data-moduletitle="<?php echo $heading; ?>" data-itemtitle="<?php echo $item_title; ?>"><span <?php echo $links_class_inner ? ' class="' . $links_class_inner . '"' : ''; ?>><?php echo $item_button_text; ?></span></a>
+                <?php echo $item_button_link_element; ?>
             </div>
         <?php } //endif ?>
     </div>

@@ -61,7 +61,7 @@
             .item-body {
                 max-width: $line-length-min + em;
                 .item-title {
-                    &:not(.sr-only) {
+                    &:not(.item-title-hidden) {
                         max-width: $grid_image_width_xxs * 1.25;
                         // max-width: $grid_image_width_xxs;
                         font-size: $item-heading-size-normal;
@@ -72,6 +72,15 @@
                         @include media-breakpoint-up(lg) {
                             max-width: $grid_image_width;
                             min-width: $grid_image_width * 0.618;
+                        }
+                    }
+                    &.item-title-hidden {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    a {
+                        &:focus {
+                            outline: none;
                         }
                     }
                 }
@@ -105,7 +114,9 @@
                 }
 
                 @include hover-focus {
-                    opacity: 0.75;
+                    .item-img {
+                        opacity: 0.75;
+                    }
                 }
             }
 
@@ -121,7 +132,7 @@
                 .item-body {
                     max-width: $grid_image_width_featured;
                     .item-title {
-                        &:not(.sr-only) {
+                        &:not(.item-title-hidden) {
                             @include media-breakpoint-up(lg) {
                                 // font-size: $item-heading-size-normal * $logo-multiplier-normal;
                                 font-size: (($item-heading-size-normal + $h2-font-size) / 2);
@@ -141,7 +152,7 @@
 
                 .item-body {
                     .item-title {
-                        &:not(.sr-only) {
+                        &:not(.item-title-hidden) {
                             @include media-breakpoint-up(lg) {
                                 max-width: $grid_image_width_featured;
                                 font-size: $item-heading-size-featured;
@@ -157,7 +168,7 @@
 
                     .item-body {
                         .item-title {
-                            &:not(.sr-only) {
+                            &:not(.item-title-hidden) {
                                 @include media-breakpoint-up(lg) {
                                     max-width: $grid_image_width_featured;
                                     // font-size: $item-heading-size-featured * $logo-multiplier-featured;
