@@ -5,7 +5,7 @@ Plugin URI: -
 Version: 1.0.0
 Requires PHP: 5.3
 Description: Logo list plugin for uams.edu & uamshealth.com
-Author: UAMS, Todd McKee, Josh Daugherty
+Author: UAMS, Josh Daugherty
 Author URI: http://www.uams.edu/
 */
 

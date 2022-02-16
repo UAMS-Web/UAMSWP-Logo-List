@@ -9,7 +9,6 @@
   "license": "ISC",
   "contributors": [
     "Josh Daugherty",
-    "Todd McKee",
     "UAMS Web Team <uamsonline@uams.edu> (https://uams.edu/)"
   ],
   "main": "gulpfile.js",
