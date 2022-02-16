@@ -38,11 +38,20 @@
   max-width: 19.6875em;
 }
 
-.logo-list-layout-grid .item-list .item .item-body .item-title:not(.sr-only) {
+.logo-list-layout-grid .item-list .item .item-body .item-title:not(.item-title-hidden) {
   font-size: 1.40625rem;
   margin: 0 auto;
   max-width: 221.25px;
   min-width: 109.386px;
+}
+
+.logo-list-layout-grid .item-list .item .item-body .item-title.item-title-hidden {
+  margin: 0;
+  padding: 0;
+}
+
+.logo-list-layout-grid .item-list .item .item-body .item-title a:focus {
+  outline: none;
 }
 
 .logo-list-layout-grid .item-list .item .item-body .item-label,
@@ -68,8 +77,8 @@
   opacity: .75;
 }
 
-.logo-list-layout-grid .item-list .item.item-has-link:focus,
-.logo-list-layout-grid .item-list .item.item-has-link:hover {
+.logo-list-layout-grid .item-list .item.item-has-link:focus .item-img,
+.logo-list-layout-grid .item-list .item.item-has-link:hover .item-img {
   opacity: .75;
 }
 
@@ -172,7 +181,7 @@
     width: 63.70875rem;
   }
 
-  .logo-list-layout-grid .item-list .item .item-body .item-title:not(.sr-only) {
+  .logo-list-layout-grid .item-list .item .item-body .item-title:not(.item-title-hidden) {
     max-width: 354px;
     min-width: 218.772px;
   }
@@ -185,7 +194,7 @@
     min-height: 123.05925px;
   }
 
-  .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
+  .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body .item-title:not(.item-title-hidden) {
     font-size: 1.82813rem;
   }
 
@@ -193,7 +202,7 @@
     font-size: 1.40625rem;
   }
 
-  .logo-list-layout-grid.logo-list-featured .item-list .item .item-body .item-title:not(.sr-only) {
+  .logo-list-layout-grid.logo-list-featured .item-list .item .item-body .item-title:not(.item-title-hidden) {
     font-size: 1.6875rem;
     max-width: 442px;
   }
@@ -202,7 +211,7 @@
     min-height: 153.65025px;
   }
 
-  .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
+  .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) .item-body .item-title:not(.item-title-hidden) {
     font-size: 1.96875rem;
     max-width: 442px;
   }
