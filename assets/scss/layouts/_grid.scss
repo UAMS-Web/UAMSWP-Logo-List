@@ -59,9 +59,10 @@
             // }
 
             .item-body {
+                max-width: $line-length-min + em;
                 .item-title {
                     &:not(.sr-only) {
-                        max-width: $line-length-min + em;
+                        max-width: $grid_image_width_xxs * 1.25;
                         // max-width: $grid_image_width_xxs;
                         font-size: $item-heading-size-normal;
                         margin: 0 auto;
