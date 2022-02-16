@@ -177,7 +177,7 @@
   }
 
   .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
-    font-size: 2.10938rem;
+    font-size: 1.82813rem;
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item {
@@ -194,7 +194,7 @@
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) .item-body .item-title:not(.sr-only) {
-    font-size: 2.6325rem;
+    font-size: 1.96875rem;
     max-width: 442px;
   }
 }
