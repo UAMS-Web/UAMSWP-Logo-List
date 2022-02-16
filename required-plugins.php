@@ -104,50 +104,6 @@ function uamswp_logo_register_required_plugins() {
 			'required'  => true,
 		),
 
-		// Begin FacetWP & extensions.
-		// array(
-		// 	'name'               => 'FacetWP', // The plugin name.
-		// 	'slug'               => 'facetwp', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/facetwp.zip', // The plugin source.
-		// 	'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
-		// array(
-		// 	'name'               => 'FacetWP - Alpha for UAMS', // The plugin name.
-		// 	'slug'               => 'facetwp-alpha-uams', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/facetwp-alpha-uams.zip', // The plugin source.
-		// 	'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
-		// array(
-		// 	'name'               => 'FacetWP - Load More', // The plugin name.
-		// 	'slug'               => 'factwp-load-more', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/factwp-load-more.zip', // The plugin source.
-		// 	'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
-		// array(
-		// 	'name'               => 'FacetWP - Cache', // The plugin name.
-		// 	'slug'               => 'facetwp-cache', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/facetwp-cache.zip', // The plugin source.
-		// 	'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
-		// array(
-		// 	'name'               => 'FacetWP - Conditional Logic', // The plugin name.
-		// 	'slug'               => 'facetwp-conditional-logic', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/facetwp-conditional-logic.zip', // The plugin source.
-		// 	'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
-		// Begin Ajax Search Pro.
-		// array(
-		// 	'name'               => 'Ajax Search Pro', // The plugin name.
-		// 	'slug'               => 'ajax-search-pro', // The plugin slug (typically the folder name).
-		// 	'source'             => dirname( __FILE__ ) . '/plugins/ajax-search-pro.zip', // The plugin source.
-		// 	'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-		// ),
-
 	);
 
 	/*
