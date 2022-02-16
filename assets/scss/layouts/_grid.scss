@@ -121,7 +121,8 @@
                     .item-title {
                         &:not(.sr-only) {
                             @include media-breakpoint-up(md) {
-                                font-size: $item-heading-size-normal * $logo-multiplier-normal;
+                                // font-size: $item-heading-size-normal * $logo-multiplier-normal;
+                                font-size: (($item-heading-size-normal + $h2-font-size) / 2);
                             }
                         }
                     }
@@ -157,7 +158,8 @@
                             &:not(.sr-only) {
                                 @include media-breakpoint-up(md) {
                                     max-width: $grid_image_width_featured;
-                                    font-size: $item-heading-size-featured * $logo-multiplier-featured;
+                                    // font-size: $item-heading-size-featured * $logo-multiplier-featured;
+                                    font-size: (($item-heading-size-featured + $h2-font-size) / 2);
                                 }
                             }
                         }
