@@ -8,56 +8,6 @@
   line-height: 1.2;
 }
 
-.charLengthText>.featured,
-.charLengthText>.normal {
-  background-color: #eee;
-  margin: 1em auto;
-  text-align: center;
-}
-
-.charLengthText>.featured h1,
-.charLengthText>.featured h2,
-.charLengthText>.featured h3,
-.charLengthText>.featured h4,
-.charLengthText>.featured h5,
-.charLengthText>.featured h6,
-.charLengthText>.normal h1,
-.charLengthText>.normal h2,
-.charLengthText>.normal h3,
-.charLengthText>.normal h4,
-.charLengthText>.normal h5,
-.charLengthText>.normal h6 {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.charLengthText>.normal {
-  max-width: 294px;
-}
-
-.charLengthText>.normal h1,
-.charLengthText>.normal h2,
-.charLengthText>.normal h3,
-.charLengthText>.normal h4,
-.charLengthText>.normal h5,
-.charLengthText>.normal h6 {
-  font-size: 1.75781rem;
-}
-
-.charLengthText>.featured {
-  font-size: 1.40625rem;
-  max-width: 442px;
-}
-
-.charLengthText>.featured h1,
-.charLengthText>.featured h2,
-.charLengthText>.featured h3,
-.charLengthText>.featured h4,
-.charLengthText>.featured h5,
-.charLengthText>.featured h6 {
-  font-size: 2.6325rem;
-}
-
 .logo-list-layout-grid .item-list-container {
   margin: 0 auto;
   max-width: 100%;
