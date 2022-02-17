@@ -196,14 +196,17 @@ $args = array(
             'terms'    => $category_ids,
             'operator'  => $category_logic
         ),
-        array(
-            'taxonomy' => 'logo-list-label',
-            'field'    => 'term_id',
-            'terms'    => $label_ids,
-            'operator'  => $label_logic
-        ),
     ),
 );
+$label_ids_tax_query = array(
+        'taxonomy' => 'logo-list-label',
+        'field'    => 'term_id',
+        'terms'    => $label_ids,
+        'operator'  => $label_logic
+    );
+if( !empty($label_ids) ) {
+    $args['tax_query'][] = $label_ids_tax_query; // If the labels input has value(s), add its array to the tax_query array in $args
+}
 if( array_key_exists('meta_value', $orderby) ) {
     $args['meta_key'] = 'logo_title';
 }
