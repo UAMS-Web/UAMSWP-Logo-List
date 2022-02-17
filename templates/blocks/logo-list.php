@@ -208,7 +208,7 @@ if( !empty($label_ids) ) {
     $args['tax_query'][] = $label_ids_tax_query; // If the labels input has value(s), add its array to the tax_query array in $args
 }
 if( array_key_exists('meta_value', $orderby) ) {
-    $args['meta_key'] = 'logo_title';
+    $args['meta_key'] = 'logo_title'; // If the block should be sorted by meta value, add the appropriate meta key to $args
 }
 // print("<pre>".print_r($args,true)."</pre>");
 $logo_list_query = new WP_Query( $args );
