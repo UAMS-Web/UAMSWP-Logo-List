@@ -35,9 +35,9 @@ if ( empty( $id ) && isset($block) ) {
 
     // List Configuration
     $category_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
-    $category_logic = get_field('block_logo_list_filter_logic') ?: 'and'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
+    $category_logic = get_field('block_logo_list_filter_logic') ?: 'IN'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     $label_ids = get_field('block_logo_list_labels_ids') ?: array(); // Get the list of categories
-    $label_logic = get_field('block_logo_list_labels_logic') ?: 'and'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
+    $label_logic = get_field('block_logo_list_labels_logic') ?: 'IN'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     $featured_query = get_field('block_logo_list_featured') ?: false; // Get which featured display behavior should be used
     $layout = get_field('block_logo_list_layout') ?: 'grid'; // Get the list layout
     if ( $layout == 'grid' ) { // Configuration specific to the grid layout
