@@ -31,7 +31,10 @@
     // $item_image_alt = $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; 
     $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorative in this context, only supporting the heading
     $item_label = get_field('logo_label', $item_id);
-    $item_label_name = get_term( $item_label )->name;
+    $item_label_name = '';
+    if ($item_label) {
+        $item_label_name = get_term( $item_label )->name;
+    }
     $item_shortdescr = get_field('logo_shortdescr', $item_id);
     $item_longdescr = get_field('logo_longdescr', $item_id);
     $item_link = get_field('logo_link', $item_id);
