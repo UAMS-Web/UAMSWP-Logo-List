@@ -119,51 +119,117 @@ if ( empty( $id ) && isset($block) ) {
     }
 
     // Image Calculations
+    // Grid Layout
     $grid_image_ratio = 16/9;
-    $grid_image_width = 354; // equal to $line-length-min + em at base font size
-    $grid_image_width_featured = 442; // equal to $line-length-min + em at lead font size
-    $grid_image_height = $grid_image_width / $grid_image_ratio;
-    $grid_image_height_featured = $grid_image_width_featured / $grid_image_ratio;
-    $grid_image_width_xxs = $grid_image_width / 2;
-    $grid_image_width_xxs_featured = $grid_image_width_featured / 2;
-    $grid_image_height_xxs = $grid_image_width_xxs / $grid_image_ratio;
-    $grid_image_height_xxs_featured = $grid_image_width_xxs_featured / $grid_image_ratio;
+    $grid_image_width_xxs = 177; // equal to half of $line-length-min + em at lead font size
+    $grid_image_width_xxs_featured = 221; // equal to half of $line-length-min + em at lead font size
+    $grid_image_width_xs = $grid_image_width_xxs;
+    $grid_image_width_xs_featured = $grid_image_width_xxs_featured;
+    $grid_image_width_sm = $grid_image_width_xxs;
+    $grid_image_width_sm_featured = $grid_image_width_xxs_featured;
+    $grid_image_width_md = $grid_image_width_xxs;
+    $grid_image_width_md_featured = $grid_image_width_xxs_featured;
+    $grid_image_width_lg = 354; // equal to $line-length-min + em at base font size
+    $grid_image_width_lg_featured = 442; // equal to $line-length-min + em at lead font size
+    $grid_image_width_xl = $grid_image_width_lg;
+    $grid_image_width_xl_featured = $grid_image_width_lg_featured;
+    $grid_image_width_xxl = $grid_image_width_lg;
+    $grid_image_width_xxl_featured = $grid_image_width_lg_featured;
+    // Vertical List Layout
     $vertical_image_ratio = 4/3;
-    $vertical_image_width = 396;
-    $vertical_image_width_featured = $vertical_image_width;
-    $vertical_image_height = $vertical_image_width / $vertical_image_ratio;
-    $vertical_image_height_featured = $vertical_image_width_featured / $vertical_image_ratio;
-    $vertical_image_width_xxs = $vertical_image_width / 2;
-    $vertical_image_width_xxs_featured = $vertical_image_width_featured / 2;
-    $vertical_image_height_xxs = $vertical_image_width_xxs / $vertical_image_ratio;
-    $vertical_image_height_xxs_featured = $vertical_image_width_xxs_featured / $vertical_image_ratio;
-    $image_width = '';
-    $image_height = '';
+    $vertical_image_width_xxs = 236;
+    $vertical_image_width_xxs_featured = $vertical_image_width_xxs;
+    $vertical_image_width_xs = 172;
+    $vertical_image_width_xs_featured = $vertical_image_width_xs;
+    $vertical_image_width_sm = $vertical_image_width_xs;
+    $vertical_image_width_sm_featured = 224;
+    $vertical_image_width_md = $vertical_image_width_xs;
+    $vertical_image_width_md_featured = 275;
+    $vertical_image_width_lg = $vertical_image_width_xs;
+    $vertical_image_width_lg_featured = 350; // max 359
+    $vertical_image_width_xl = $vertical_image_width_xs;
+    $vertical_image_width_xl_featured = 359;
+    $vertical_image_width_xxl = $vertical_image_width_xs;
+    $vertical_image_width_xxl_featured = $vertical_image_width_xl_featured;
+    
     $image_width_xxs = '';
     $image_height_xxs = '';
+    $image_width_xs = '';
+    $image_height_xs = '';
+    $image_width_sm = '';
+    $image_height_sm = '';
+    $image_width_md = '';
+    $image_height_md = '';
+    $image_width_lg = '';
+    $image_height_lg = '';
+    $image_width_xl = '';
+    $image_height_xl = '';
+    $image_width_xxl = '';
+    $image_height_xxl = '';
+
     if ( $layout == 'grid' ) {
         if ( $featured_query ) {
-            $image_width = $grid_image_width_featured;
-            $image_height = $grid_image_height_featured;
             $image_width_xxs = $grid_image_width_xxs_featured;
-            $image_height_xxs = $grid_image_height_xxs_featured;
+            $image_height_xxs = $image_width_xxs / $grid_image_ratio;
+            $image_width_xs = $grid_image_width_xs_featured;
+            $image_height_xs = $image_width_xs / $grid_image_ratio;
+            $image_width_sm = $grid_image_width_sm_featured;
+            $image_height_sm = $image_width_sm / $grid_image_ratio;
+            $image_width_md = $grid_image_width_md_featured;
+            $image_height_md = $image_width_md / $grid_image_ratio;
+            $image_width_lg = $grid_image_width_lg_featured;
+            $image_height_lg = $image_width_lg / $grid_image_ratio;
+            $image_width_xl = $grid_image_width_xl_featured;
+            $image_height_xl = $image_width_xl / $grid_image_ratio;
+            $image_width_xxl = $grid_image_width_xxl_featured;
+            $image_height_xxl = $image_width_xxl / $grid_image_ratio;
         } else {
-            $image_width = $grid_image_width;
-            $image_height = $grid_image_height;
             $image_width_xxs = $grid_image_width_xxs;
-            $image_height_xxs = $grid_image_height_xxs;
+            $image_height_xxs = $image_width_xxs / $grid_image_ratio;
+            $image_width_xs = $grid_image_width_xs;
+            $image_height_xs = $image_width_xs / $grid_image_ratio;
+            $image_width_sm = $grid_image_width_sm;
+            $image_height_sm = $image_width_sm / $grid_image_ratio;
+            $image_width_md = $grid_image_width_md;
+            $image_height_md = $image_width_md / $grid_image_ratio;
+            $image_width_lg = $grid_image_width_lg;
+            $image_height_lg = $image_width_lg / $grid_image_ratio;
+            $image_width_xl = $grid_image_width_xl;
+            $image_height_xl = $image_width_xl / $grid_image_ratio;
+            $image_width_xxl = $grid_image_width_xxl;
+            $image_height_xxl = $image_width_xxl / $grid_image_ratio;
         }
     } elseif ( $layout == 'vertical' ) {
         if ( $featured_query ) {
-            $image_width = $vertical_image_width_featured;
-            $image_height = $vertical_image_height_featured;
             $image_width_xxs = $vertical_image_width_xxs_featured;
-            $image_height_xxs = $vertical_image_height_xxs_featured;
+            $image_height_xxs = $image_width_xxs / $vertical_image_ratio;
+            $image_width_xs = $vertical_image_width_xs_featured;
+            $image_height_xs = $image_width_xs / $vertical_image_ratio;
+            $image_width_sm = $vertical_image_width_sm_featured;
+            $image_height_sm = $image_width_sm / $vertical_image_ratio;
+            $image_width_md = $vertical_image_width_md_featured;
+            $image_height_md = $image_width_md / $vertical_image_ratio;
+            $image_width_lg = $vertical_image_width_lg_featured;
+            $image_height_lg = $image_width_lg / $vertical_image_ratio;
+            $image_width_xl = $vertical_image_width_xl_featured;
+            $image_height_xl = $image_width_xl / $vertical_image_ratio;
+            $image_width_xxl = $vertical_image_width_xxl_featured;
+            $image_height_xxl = $image_width_xxl / $vertical_image_ratio;
         } else {
-            $image_width = $vertical_image_width;
-            $image_height = $vertical_image_height;
             $image_width_xxs = $vertical_image_width_xxs;
-            $image_height_xxs = $vertical_image_height_xxs;
+            $image_height_xxs = $image_width_xxs / $vertical_image_ratio;
+            $image_width_xs = $vertical_image_width_xs;
+            $image_height_xs = $image_width_xs / $vertical_image_ratio;
+            $image_width_sm = $vertical_image_width_sm;
+            $image_height_sm = $image_width_sm / $vertical_image_ratio;
+            $image_width_md = $vertical_image_width_md;
+            $image_height_md = $image_width_md / $vertical_image_ratio;
+            $image_width_lg = $vertical_image_width_lg;
+            $image_height_lg = $image_width_lg / $vertical_image_ratio;
+            $image_width_xl = $vertical_image_width_xl;
+            $image_height_xl = $image_width_xl / $vertical_image_ratio;
+            $image_width_xxl = $vertical_image_width_xxl;
+            $image_height_xxl = $image_width_xxl / $vertical_image_ratio;
         }
     }
 

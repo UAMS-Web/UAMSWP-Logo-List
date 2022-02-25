@@ -1,4 +1,23 @@
 .logo-list-layout-vertical {
+    // Copy variables and values from logo-list.php
+    // Image Calculations
+    // Vertical List Layout
+    $vertical_image_ratio: 4/3;
+    $vertical_image_width_xxs: 236;
+    $vertical_image_width_xxs_featured: $vertical_image_width_xxs;
+    $vertical_image_width_xs: 172;
+    $vertical_image_width_xs_featured: $vertical_image_width_xs;
+    $vertical_image_width_sm: $vertical_image_width_xs;
+    $vertical_image_width_sm_featured: 224;
+    $vertical_image_width_md: $vertical_image_width_xs;
+    $vertical_image_width_md_featured: 275;
+    $vertical_image_width_lg: $vertical_image_width_xs;
+    $vertical_image_width_lg_featured: 350; // max 359
+    $vertical_image_width_xl: $vertical_image_width_xs;
+    $vertical_image_width_xl_featured: 359;
+    $vertical_image_width_xxl: $vertical_image_width_xs;
+    $vertical_image_width_xxl_featured: $vertical_image_width_xl_featured;
+
     .item-list-container {
     }
     .item-list {
@@ -15,10 +34,13 @@
             align-items: flex-start;
             padding: $uams-module-padding-mobile 0;
 
+            @include media-breakpoint-up(xs) {
+                flex-wrap: nowrap;
+            }
+
             @include media-breakpoint-up(sm) {
                 padding: $uams-module-padding 0;
             }
-
 
             .item-img,
             .item-body {
@@ -75,6 +97,7 @@
             .item-body {
                 width: 100%;
                 max-width: $line-length-max + em;
+
                 .item-title,
                 .item-label {
                     @include media-breakpoint-down(xxs) {
@@ -116,8 +139,8 @@
         .item-list {
             .item {
                 .item-img {
-                    @include media-breakpoint-up(xs) {
-                        max-width: none;
+                    @include media-breakpoint-up(sm) {
+                        max-width: $vertical_image_width_xl_featured + px;
                     }
                 }
             }
