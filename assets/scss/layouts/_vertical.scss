@@ -18,8 +18,8 @@
     $vertical_image_width_xxl: $vertical_image_width_xs;
     $vertical_image_width_xxl_featured: $vertical_image_width_xl_featured;
 
-    .item-list-container {
-    }
+    // .item-list-container {
+    // }
     .item-list {
         margin: -($uams-module-padding-mobile / 2) 0;
 
@@ -104,14 +104,14 @@
                         text-align: center;
                     }
                 }
-                .item-title {
-                }
-                .item-label {
-                }
-                .item-title.sr-only + .item-label {
-                }
-                .item-text {
-                }
+                // .item-title {
+                // }
+                // .item-label {
+                // }
+                // .item-title.sr-only + .item-label {
+                // }
+                // .item-text {
+                // }
                 .link-container {
                     @include media-breakpoint-down(xxs) {
                         text-align: center;
