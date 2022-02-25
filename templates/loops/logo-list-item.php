@@ -21,6 +21,13 @@
 
     $item_title_val = get_field('logo_title', $item_id);
     $item_image = get_field('logo_image', $item_id);
+    // Check if image ID exists in the media library
+    // If the image was assigned to the item but later deleted from the library, $item_image would still return an ID.
+    // If that's the case, remove the value from $item_image on that item.
+    if ( isset($item_image) && !empty($item_image) && !wp_get_attachment_image($item_image) ) {
+        $item_image = '';
+    }
+
     $item_title_query = '';
     if ( empty($item_image) ) {
         $item_title_query = true;
