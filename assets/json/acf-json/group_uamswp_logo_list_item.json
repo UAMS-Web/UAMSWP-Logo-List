@@ -26,7 +26,7 @@
             "label": "Logo of Organization",
             "name": "logo_image",
             "type": "image",
-            "instructions": "The image must be a PNG with a transparent background. Do not simply save a JPEG as a PNG. Crop the image to the bounds of the logo content before uploading the image.",
+            "instructions": "Minimum dimensions: 884x538.<br />The image must be a PNG with a transparent background. Do not simply save a JPEG as a PNG. Crop the image to the bounds of the logo content before uploading the image.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
