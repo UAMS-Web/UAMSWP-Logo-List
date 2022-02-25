@@ -6,13 +6,13 @@
     $grid_image_height_featured: $grid_image_width_featured / $grid_image_ratio;
     $grid_image_width_xxs: $grid_image_width / 2;
     $grid_image_height_xxs: $grid_image_width_xxs / $grid_image_ratio;
-    $grid_image_width_featured_xxs: $grid_image_width_featured / 2;
-    $grid_image_height_featured_xxs: $grid_image_width_featured_xxs / $grid_image_ratio;
+    $grid_image_width_xxs_featured: $grid_image_width_featured / 2;
+    $grid_image_height_xxs_featured: $grid_image_width_xxs_featured / $grid_image_ratio;
 
     $item-logoless-height-normal: $grid_image_height * 0.618;
     $item-logoless-height-featured: $grid_image_height_featured * 0.618;
     $item-logoless-height-normal-xxs: $grid_image_height_xxs * 0.618;
-    $item-logoless-height-featured-xxs: $grid_image_height_featured_xxs * 0.618;
+    $item-logoless-height-featured-xxs: $grid_image_height_xxs_featured * 0.618;
 
     $item-heading-size-normal: $h5-font-size;
     $item-heading-size-featured: $h4-font-size;
