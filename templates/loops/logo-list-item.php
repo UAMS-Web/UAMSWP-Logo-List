@@ -4,7 +4,15 @@
      *  Designed for UAMS Find-a-Doc
      * 
      *  Must be used inside a loop
-     *  Required var: $id, $item_id, $logo_item_count
+     *  Required var:
+     *      $id
+     *      $item_id
+     *      $logo_item_count
+     *      $image_height
+     *      $image_height_xxs
+     *      $image_width
+     *      $image_width_xxs
+     * 
      */
 
     $item_element_id = $id . '_' . $logo_item_count;
