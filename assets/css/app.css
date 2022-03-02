@@ -9,9 +9,9 @@
 }
 
 .logo-list-layout-grid .item-list-container {
-  margin: 0 auto;
-  max-width: 100%;
   width: 39.375rem;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .logo-list-layout-grid .item-list-container.alignfull {
@@ -19,19 +19,19 @@
 }
 
 .logo-list-layout-grid .item-list {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   margin: 0 -30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo-list-layout-grid .item-list .item {
-  border-radius: .25rem;
-  padding: 30px;
   position: relative;
-  text-align: center;
   width: auto;
+  padding: 30px;
+  text-align: center;
+  border-radius: .25rem;
 }
 
 .logo-list-layout-grid .item-list .item .item-body {
@@ -39,9 +39,9 @@
 }
 
 .logo-list-layout-grid .item-list .item .item-body .item-title:not(.item-title-hidden) {
+  max-width: 221.25px;
   font-size: 1.40625rem;
   margin: 0 auto;
-  max-width: 221.25px;
   min-width: 109.386px;
 }
 
@@ -73,8 +73,8 @@
 }
 
 .logo-list-layout-grid .item-list .item.item-has-link:focus-within {
-  box-shadow: 0 0 0 .2rem rgba(157,34,53,.25);
   opacity: .75;
+  box-shadow: 0 0 0 .2rem rgba(157,34,53,.25);
 }
 
 .logo-list-layout-grid .item-list .item.item-has-link:focus .item-img,
@@ -83,9 +83,9 @@
 }
 
 .logo-list-layout-grid .item-list .item:not(.item-has-logo) {
-  align-items: center;
   display: flex;
   min-height: 61.52963px;
+  align-items: center;
 }
 
 .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body {
@@ -97,10 +97,10 @@
 }
 
 .logo-list-layout-vertical .item-list .item {
-  align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   padding: 2rem 0;
 }
 
@@ -119,8 +119,8 @@
 }
 
 .logo-list-layout-vertical .item-list .item .item-body {
-  max-width: 35em;
   width: 100%;
+  max-width: 35em;
 }
 
 @media (min-width:576px) {
@@ -131,33 +131,33 @@
   .logo-list-layout-vertical .item-list .item .item-img {
     flex: 0 0 25%;
     max-width: 25%;
-    max-width: 10.815rem;
     overflow: hidden;
+    max-width: 10.815rem;
   }
 
   .logo-list-layout-vertical .item-list .item .item-img:before {
-    content: "";
     display: block;
+    content: "";
     padding-top: 75%;
   }
 
   .logo-list-layout-vertical .item-list .item .item-img img {
-    border: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
     bottom: 0;
     left: 0;
+    border: 0;
     margin: 0 auto;
-    max-height: 100%;
     max-width: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
+    max-height: 100%;
   }
 
   .logo-list-layout-vertical .item-list .item .item-img+.item-body {
     flex: 0 0 75%;
     max-width: 75%;
-    max-width: 35em;
     padding-left: 2rem;
+    max-width: 35em;
   }
 }
 
@@ -199,7 +199,7 @@
   }
 
   .logo-list-layout-grid .item-list .item:not(.item-has-logo) .item-body .item-title:not(.item-title-hidden) {
-    font-size: 1.82813rem;
+    font-size: 1.82812rem;
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item {
@@ -207,8 +207,8 @@
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item .item-body .item-title:not(.item-title-hidden) {
-    font-size: 1.6875rem;
     max-width: 442px;
+    font-size: 1.6875rem;
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) {
@@ -216,24 +216,24 @@
   }
 
   .logo-list-layout-grid.logo-list-featured .item-list .item:not(.item-has-logo) .item-body .item-title:not(.item-title-hidden) {
-    font-size: 1.96875rem;
     max-width: 442px;
+    font-size: 1.96875rem;
   }
 }
 
 @media (max-width:575.98px) {
   .logo-list-layout-vertical .item-list .item .item-img {
-    align-items: center;
+    width: 61.8%;
+    min-height: 26.48571vw;
+    min-height: calc((61.8vw - 2.472rem)/21*9);
     display: flex;
     justify-content: center;
-    min-height: 26.48571vw;
-    min-height: calc(26.48571vw - 1.05943rem);
-    width: 61.8%;
+    align-items: center;
   }
 
   .logo-list-layout-vertical .item-list .item .item-img img {
     max-height: 34.7625vw;
-    max-height: calc(34.7625vw - 1.3905rem);
+    max-height: calc((61.8vw - 2.472rem)/16*9);
   }
 
   .logo-list-layout-vertical .item-list .item .item-body .item-label,
