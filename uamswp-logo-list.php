@@ -9,6 +9,8 @@ Author: UAMS, Josh Daugherty
 Author URI: http://www.uams.edu/
 */
 
+define('UAMS_LOGO_VERSION', '1.0.0');
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
