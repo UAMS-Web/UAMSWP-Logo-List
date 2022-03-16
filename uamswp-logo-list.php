@@ -2,7 +2,7 @@
 /*
 Plugin Name: UAMSWP Logo List
 Plugin URI: - 
-Version: 1.0.0
+Version: 1.0.1
 Requires PHP: 5.3
 Description: Logo list plugin for uams.edu & uamshealth.com
 Author: UAMS, Josh Daugherty
