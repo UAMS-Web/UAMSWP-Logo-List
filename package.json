@@ -26,11 +26,17 @@
     "gulp-notify": "^4.0.0",
     "gulp-postcss": "^9.0.1",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.1",
+    "gulp-sass": "^5.1.0",
     "postcss": "^8.4.5",
     "postcss-discard-comments": "^5.0.2",
-    "sass": "^1.49.0"
+    "sass": "~1.26.11"
   },
   "devDependencies": {},
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "glob-parent": "~5.1.2"
+  },
   "private": true
 }
