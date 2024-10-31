@@ -163,7 +163,6 @@ if ( ! function_exists('create_logo_list_label_tag') ) {
 		);
 		$args = array(
 			'labels'                     => $labels,
-			'description'                => 'Testing the description',
 			'hierarchical'               => false,
 			'public'                     => false,
 			'show_ui'                    => true,
