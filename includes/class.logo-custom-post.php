@@ -3,6 +3,7 @@
 // Register Custom Post Type
 
 	if ( ! function_exists('logo_list_items_cpt') ) {
+
 		function logo_list_items_cpt() {
 		
 			$labels = array(
@@ -27,6 +28,7 @@
 				'items_list_navigation'  => 'Items list navigation',
 				'filter_items_list'      => 'Filter Items list',
 			);
+
 			$capabilities = array(
 				'edit_post'              => 'edit_logo_list_item',
 				'read_post'              => 'read_logo_list_item',
@@ -43,6 +45,7 @@
 				'edit_private_posts'     => 'edit_private_logo_list_items',
 				'edit_published_posts'   => 'edit_published_logo_list_items',
 			);
+
 			$args = array(
 				'label'                  => 'Logo List Items',
 				'description'            => 'Items for display in lists of logos on UAMS websites',
@@ -66,6 +69,7 @@
 				'rest_base'              => 'logo_list_item',
 				'rest_controller_class'  => 'WP_REST_Posts_Controller',
 			);
+
 			register_post_type( 'logo-list-item', $args );
 		
 		}
@@ -80,7 +84,9 @@
 	// Categories
 
 		if ( ! function_exists('create_logo_list_category') ) {
+
 			function create_logo_list_category() {
+
 				$labels = array(
 					'name'                       => 'Logo Item Categories',
 					'singular_name'              => 'Logo Item Category',
@@ -103,17 +109,20 @@
 					'items_list'                 => 'Logo Item Categories list',
 					'items_list_navigation'      => 'Logo Item Categories list navigation',
 				);
+
 				$rewrite = array(
 					'slug'                       => 'logo-list-category',
 					'with_front'                 => false,
 					'hierarchical'               => false,
 				);
+
 				$capabilities = array(
 					'manage_terms'               => 'manage_logo_list_taxonomies',
 					'edit_terms'                 => 'manage_logo_list_taxonomies',
 					'delete_terms'               => 'manage_logo_list_taxonomies',
 					'assign_terms'               => 'edit_logo_list_items',
 				);
+
 				$args = array(
 					'labels'                     => $labels,
 					'public'                     => false,
@@ -126,16 +135,21 @@
 					'capabilities'               => $capabilities,
 					'rewrite'                    => $rewrite,
 				);
+
 				register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
 			
 			}
+
 			add_action( 'init', 'create_logo_list_category', 0 );
+
 		}
 
 	// Labels
 
 		if ( ! function_exists('create_logo_list_label_tag') ) {
+
 			function create_logo_list_label_tag() {
+
 				$labels = array(
 					'name'                       => 'Logo Item Labels',
 					'singular_name'              => 'Logo Item Label',
@@ -158,17 +172,20 @@
 					'items_list'                 => 'Logo Item Labels list',
 					'items_list_navigation'      => 'Logo Item Labels list navigation',
 				);
+
 				$rewrite = array(
 					'slug'                       => 'logo-list-label',
 					'with_front'                 => false,
 					'hierarchical'               => false,
 				);
+
 				$capabilities = array(
 					'manage_terms'               => 'manage_logo_list_taxonomies',
 					'edit_terms'                 => 'manage_logo_list_taxonomies',
 					'delete_terms'               => 'manage_logo_list_taxonomies',
 					'assign_terms'               => 'edit_logo_list_items',
 				);
+
 				$args = array(
 					'labels'                     => $labels,
 					'public'                     => false,
@@ -181,18 +198,24 @@
 					'capabilities'               => $capabilities,
 					'rewrite'                    => $rewrite,
 				);
+
 				register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
 			
 			}
+
 			add_action( 'init', 'create_logo_list_label_tag', 0 );
+
 		}
 
 	// Remove Taxonomies from Post Editor
 
 		function remove_logo_taxonomy_meta() {
+
 			remove_meta_box( 'logo-list-category'.'div', 'logo-list-item', 'side' );
 			remove_meta_box( 'tagsdiv-'.'logo-list-label', 'logo-list-item', 'side' );
+
 		}
+
 		add_action( 'admin_menu' , 'remove_logo_taxonomy_meta' );
 
 // Add Capabilities to Default Roles
