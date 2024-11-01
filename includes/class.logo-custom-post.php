@@ -34,7 +34,7 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 			'edit_others_posts'  	=> "edit_others_logo_list_items",
 			'publish_posts'      	=> "publish_logo_list_items",
 			'read_private_posts'    => "read_private_logo_list_items",
-			'read'                  => "read",
+			'read'                  => "read_logo_list_item",
 			'delete_posts'          => "delete_logo_list_items",
 			'delete_private_posts'  => "delete_private_logo_list_items",
 			'delete_published_posts' => "delete_published_logo_list_items",
