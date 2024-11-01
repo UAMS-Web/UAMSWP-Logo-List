@@ -180,11 +180,12 @@ if ( ! function_exists('create_logo_list_label_tag') ) {
 }
 
 // Remove Taxonomies from Post Editor
-function remove_logo_taxonomy_meta() {
-    remove_meta_box( 'logo-list-category'.'div', 'logo-list-item', 'side' );
-    remove_meta_box( 'tagsdiv-'.'logo-list-label', 'logo-list-item', 'side' );
-}
-add_action( 'admin_menu' , 'remove_logo_taxonomy_meta' );
+
+	function remove_logo_taxonomy_meta() {
+		remove_meta_box( 'logo-list-category'.'div', 'logo-list-item', 'side' );
+		remove_meta_box( 'tagsdiv-'.'logo-list-label', 'logo-list-item', 'side' );
+	}
+	add_action( 'admin_menu' , 'remove_logo_taxonomy_meta' );
 
 // Add Capabilities to Default Roles
 
