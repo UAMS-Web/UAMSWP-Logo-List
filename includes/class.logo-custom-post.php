@@ -47,7 +47,7 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 			'description'           => 'Items for display in lists of logos on UAMS websites',
 			'labels'                => $labels,
 			'supports'              => array( 'title', 'author', 'revisions','custom-fields', 'page-attributes' ),
-			'taxonomies'            => array(),
+			'taxonomies'            => array( 'logo-list-category', 'logo-list-label' ),
 			'hierarchical'          => false,
 			'public'                => true,
 			'show_ui'               => true,
