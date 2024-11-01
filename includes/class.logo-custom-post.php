@@ -5,7 +5,7 @@
 	if ( ! function_exists('logo_list_items_cpt') ) {
 
 		function logo_list_items_cpt() {
-		
+
 			$labels = array(
 				'name'                   => 'Logo List Items',
 				'singular_name'          => 'Logo List Item',
@@ -71,10 +71,10 @@
 			);
 
 			register_post_type( 'logo-list-item', $args );
-		
+
 		}
 		add_action( 'init', 'logo_list_items_cpt', 0 );
-		
+
 	}
 
 // Register Taxonomies
@@ -137,7 +137,7 @@
 				);
 
 				register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
-			
+
 			}
 
 			add_action( 'init', 'create_logo_list_category', 0 );
@@ -200,7 +200,7 @@
 				);
 
 				register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
-			
+
 			}
 
 			add_action( 'init', 'create_logo_list_label_tag', 0 );
@@ -223,7 +223,7 @@
 	function uamswp_logo_list_role_caps() {
 
 		// Define the capabilities
-		
+
 			$capabilities = array(
 				'edit_logo_list_item',
 				'read_logo_list_item',
@@ -240,14 +240,14 @@
 				'edit_published_logo_list_items',
 				'manage_logo_list_taxonomies'
 			);
-		
+
 		// Define the roles
 
 			$roles = array(
 				'administrator',
 				'editor'
 			);
-			
+
 		// Loop through each role and add the capabilities
 
 			foreach ( $roles as $role_name ) {
