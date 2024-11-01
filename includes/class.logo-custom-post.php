@@ -32,10 +32,10 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 			'delete_post'        	=> "delete_logo_list_item",
 			'edit_posts'         	=> "edit_logo_list_items",
 			'edit_others_posts'  	=> "edit_others_logo_list_items",
+			'delete_posts'          => "delete_logo_list_items",
 			'publish_posts'      	=> "publish_logo_list_items",
 			'read_private_posts'    => "read_private_logo_list_items",
 			'read'                  => "read_logo_list_item",
-			'delete_posts'          => "delete_logo_list_items",
 			'delete_private_posts'  => "delete_private_logo_list_items",
 			'delete_published_posts' => "delete_published_logo_list_items",
 			'delete_others_posts'   => "delete_others_logo_list_items",
@@ -111,15 +111,15 @@ if ( ! function_exists('create_logo_list_category') ) {
 		);
 		$args = array(
 			'labels'                     => $labels,
-			'hierarchical'               => true,
 			'public'                     => false,
+			'hierarchical'               => true,
 			'show_ui'                    => true,
-			'show_admin_column'          => true,
 			'show_in_nav_menus'          => false,
 			'show_tagcloud'              => false,
-			'rewrite'                    => $rewrite,
-			'capabilities'               => $capabilities,
 			'show_in_quick_edit'         => true,
+			'show_admin_column'          => true,
+			'capabilities'               => $capabilities,
+			'rewrite'                    => $rewrite,
 		);
 		register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
 	
@@ -163,15 +163,15 @@ if ( ! function_exists('create_logo_list_label_tag') ) {
 		);
 		$args = array(
 			'labels'                     => $labels,
-			'hierarchical'               => false,
 			'public'                     => false,
+			'hierarchical'               => false,
 			'show_ui'                    => true,
-			'show_admin_column'          => true,
 			'show_in_nav_menus'          => false,
 			'show_tagcloud'              => false,
-			'rewrite'                    => $rewrite,
-			'capabilities'               => $capabilities,
 			'show_in_quick_edit'         => true,
+			'show_admin_column'          => true,
+			'capabilities'               => $capabilities,
+			'rewrite'                    => $rewrite,
 		);
 		register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
 	
