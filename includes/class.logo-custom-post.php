@@ -104,9 +104,9 @@ if ( ! function_exists('create_logo_list_category') ) {
 			'hierarchical'               => false,
 		);
 		$capabilities = array(
-			'manage_terms'               => 'manage_logo_list_categories',
-			'edit_terms'                 => 'manage_logo_list_categories',
-			'delete_terms'               => 'manage_logo_list_categories',
+			'manage_terms'               => 'manage_logo_list_taxonomies',
+			'edit_terms'                 => 'manage_logo_list_taxonomies',
+			'delete_terms'               => 'manage_logo_list_taxonomies',
 			'assign_terms'               => 'edit_logo_list_items',
 		);
 		$args = array(
@@ -156,9 +156,9 @@ if ( ! function_exists('create_logo_list_label_tag') ) {
 			'hierarchical'               => false,
 		);
 		$capabilities = array(
-			'manage_terms'               => 'manage_logo_list_labels',
-			'edit_terms'                 => 'manage_logo_list_labels',
-			'delete_terms'               => 'manage_logo_list_labels',
+			'manage_terms'               => 'manage_logo_list_taxonomies',
+			'edit_terms'                 => 'manage_logo_list_taxonomies',
+			'delete_terms'               => 'manage_logo_list_taxonomies',
 			'assign_terms'               => 'edit_logo_list_items',
 		);
 		$args = array(
