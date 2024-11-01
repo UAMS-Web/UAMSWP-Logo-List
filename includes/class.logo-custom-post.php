@@ -73,7 +73,7 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 }
 
 // Register Taxonomies
-// Place in order for sub-menu
+/* Place in order for sub-menu */
 if ( ! function_exists('create_logo_list_category') ) {
 	function create_logo_list_category() {
 		$labels = array(
