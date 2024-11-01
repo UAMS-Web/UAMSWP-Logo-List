@@ -268,6 +268,4 @@
 
 	}
 
-	// Add role capabilities
-
-		add_action( 'init', 'uamswp_logo_list_role_caps');
+	add_action( 'init', 'uamswp_logo_list_role_caps');
