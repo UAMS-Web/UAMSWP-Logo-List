@@ -75,110 +75,116 @@ if ( ! function_exists('logo_list_items_cpt') ) {
 // Register Taxonomies
 
 	/* Place in order for sub-menu */
-	if ( ! function_exists('create_logo_list_category') ) {
-		function create_logo_list_category() {
-			$labels = array(
-				'name'                       => 'Logo Item Categories',
-				'singular_name'              => 'Logo Item Category',
-				'menu_name'                  => 'Categories',
-				'all_items'                  => 'All Logo Item Categories',
-				'parent_item'                => 'Parent Logo Item Category',
-				'parent_item_colon'          => 'Parent Logo Item Category:',
-				'new_item_name'              => 'New Logo Item Category',
-				'add_new_item'               => 'Add New Logo Item Category',
-				'edit_item'                  => 'Edit Logo Item Category',
-				'update_item'                => 'Update Logo Item Category',
-				'view_item'                  => 'View Logo Item Category',
-				'separate_items_with_commas' => 'Separate Logo Item Categories with commas',
-				'add_or_remove_items'        => 'Add or remove Logo Item Categories',
-				'choose_from_most_used'      => 'Choose from the most used',
-				'popular_items'              => 'Popular Logo Item Categories',
-				'search_items'               => 'Search Logo Item Categories',
-				'not_found'                  => 'Not Found',
-				'no_terms'                   => 'No Logo Item Categories',
-				'items_list'                 => 'Logo Item Categories list',
-				'items_list_navigation'      => 'Logo Item Categories list navigation',
-			);
-			$rewrite = array(
-				'slug'                       => 'logo-list-category',
-				'with_front'                 => false,
-				'hierarchical'               => false,
-			);
-			$capabilities = array(
-				'manage_terms'               => 'manage_logo_list_taxonomies',
-				'edit_terms'                 => 'manage_logo_list_taxonomies',
-				'delete_terms'               => 'manage_logo_list_taxonomies',
-				'assign_terms'               => 'edit_logo_list_items',
-			);
-			$args = array(
-				'labels'                     => $labels,
-				'public'                     => false,
-				'hierarchical'               => true,
-				'show_ui'                    => true,
-				'show_in_nav_menus'          => false,
-				'show_tagcloud'              => false,
-				'show_in_quick_edit'         => true,
-				'show_admin_column'          => true,
-				'capabilities'               => $capabilities,
-				'rewrite'                    => $rewrite,
-			);
-			register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
-		
+
+	// Categories
+
+		if ( ! function_exists('create_logo_list_category') ) {
+			function create_logo_list_category() {
+				$labels = array(
+					'name'                       => 'Logo Item Categories',
+					'singular_name'              => 'Logo Item Category',
+					'menu_name'                  => 'Categories',
+					'all_items'                  => 'All Logo Item Categories',
+					'parent_item'                => 'Parent Logo Item Category',
+					'parent_item_colon'          => 'Parent Logo Item Category:',
+					'new_item_name'              => 'New Logo Item Category',
+					'add_new_item'               => 'Add New Logo Item Category',
+					'edit_item'                  => 'Edit Logo Item Category',
+					'update_item'                => 'Update Logo Item Category',
+					'view_item'                  => 'View Logo Item Category',
+					'separate_items_with_commas' => 'Separate Logo Item Categories with commas',
+					'add_or_remove_items'        => 'Add or remove Logo Item Categories',
+					'choose_from_most_used'      => 'Choose from the most used',
+					'popular_items'              => 'Popular Logo Item Categories',
+					'search_items'               => 'Search Logo Item Categories',
+					'not_found'                  => 'Not Found',
+					'no_terms'                   => 'No Logo Item Categories',
+					'items_list'                 => 'Logo Item Categories list',
+					'items_list_navigation'      => 'Logo Item Categories list navigation',
+				);
+				$rewrite = array(
+					'slug'                       => 'logo-list-category',
+					'with_front'                 => false,
+					'hierarchical'               => false,
+				);
+				$capabilities = array(
+					'manage_terms'               => 'manage_logo_list_taxonomies',
+					'edit_terms'                 => 'manage_logo_list_taxonomies',
+					'delete_terms'               => 'manage_logo_list_taxonomies',
+					'assign_terms'               => 'edit_logo_list_items',
+				);
+				$args = array(
+					'labels'                     => $labels,
+					'public'                     => false,
+					'hierarchical'               => true,
+					'show_ui'                    => true,
+					'show_in_nav_menus'          => false,
+					'show_tagcloud'              => false,
+					'show_in_quick_edit'         => true,
+					'show_admin_column'          => true,
+					'capabilities'               => $capabilities,
+					'rewrite'                    => $rewrite,
+				);
+				register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
+			
+			}
+			add_action( 'init', 'create_logo_list_category', 0 );
 		}
-		add_action( 'init', 'create_logo_list_category', 0 );
-	}
-	if ( ! function_exists('create_logo_list_label_tag') ) {
-		function create_logo_list_label_tag() {
-			$labels = array(
-				'name'                       => 'Logo Item Labels',
-				'singular_name'              => 'Logo Item Label',
-				'menu_name'                  => 'Labels',
-				'all_items'                  => 'All Logo Item Labels',
-				'parent_item'                => 'Parent Logo Item Label',
-				'parent_item_colon'          => 'Parent Logo Item Label:',
-				'new_item_name'              => 'New Logo Item Label',
-				'add_new_item'               => 'Add New Logo Item Label',
-				'edit_item'                  => 'Edit Logo Item Label',
-				'update_item'                => 'Update Logo Item Label',
-				'view_item'                  => 'View Logo Item Label',
-				'separate_items_with_commas' => 'Separate Logo Item Labels with commas',
-				'add_or_remove_items'        => 'Add or remove Logo Item Labels',
-				'choose_from_most_used'      => 'Choose from the most used',
-				'popular_items'              => 'Popular Logo Item Labels',
-				'search_items'               => 'Search Logo Item Labels',
-				'not_found'                  => 'Not Found',
-				'no_terms'                   => 'No Logo Item Labels',
-				'items_list'                 => 'Logo Item Labels list',
-				'items_list_navigation'      => 'Logo Item Labels list navigation',
-			);
-			$rewrite = array(
-				'slug'                       => 'logo-list-label',
-				'with_front'                 => false,
-				'hierarchical'               => false,
-			);
-			$capabilities = array(
-				'manage_terms'               => 'manage_logo_list_taxonomies',
-				'edit_terms'                 => 'manage_logo_list_taxonomies',
-				'delete_terms'               => 'manage_logo_list_taxonomies',
-				'assign_terms'               => 'edit_logo_list_items',
-			);
-			$args = array(
-				'labels'                     => $labels,
-				'public'                     => false,
-				'hierarchical'               => false,
-				'show_ui'                    => true,
-				'show_in_nav_menus'          => false,
-				'show_tagcloud'              => false,
-				'show_in_quick_edit'         => true,
-				'show_admin_column'          => true,
-				'capabilities'               => $capabilities,
-				'rewrite'                    => $rewrite,
-			);
-			register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
-		
+
+	// Labels
+
+		if ( ! function_exists('create_logo_list_label_tag') ) {
+			function create_logo_list_label_tag() {
+				$labels = array(
+					'name'                       => 'Logo Item Labels',
+					'singular_name'              => 'Logo Item Label',
+					'menu_name'                  => 'Labels',
+					'all_items'                  => 'All Logo Item Labels',
+					'parent_item'                => 'Parent Logo Item Label',
+					'parent_item_colon'          => 'Parent Logo Item Label:',
+					'new_item_name'              => 'New Logo Item Label',
+					'add_new_item'               => 'Add New Logo Item Label',
+					'edit_item'                  => 'Edit Logo Item Label',
+					'update_item'                => 'Update Logo Item Label',
+					'view_item'                  => 'View Logo Item Label',
+					'separate_items_with_commas' => 'Separate Logo Item Labels with commas',
+					'add_or_remove_items'        => 'Add or remove Logo Item Labels',
+					'choose_from_most_used'      => 'Choose from the most used',
+					'popular_items'              => 'Popular Logo Item Labels',
+					'search_items'               => 'Search Logo Item Labels',
+					'not_found'                  => 'Not Found',
+					'no_terms'                   => 'No Logo Item Labels',
+					'items_list'                 => 'Logo Item Labels list',
+					'items_list_navigation'      => 'Logo Item Labels list navigation',
+				);
+				$rewrite = array(
+					'slug'                       => 'logo-list-label',
+					'with_front'                 => false,
+					'hierarchical'               => false,
+				);
+				$capabilities = array(
+					'manage_terms'               => 'manage_logo_list_taxonomies',
+					'edit_terms'                 => 'manage_logo_list_taxonomies',
+					'delete_terms'               => 'manage_logo_list_taxonomies',
+					'assign_terms'               => 'edit_logo_list_items',
+				);
+				$args = array(
+					'labels'                     => $labels,
+					'public'                     => false,
+					'hierarchical'               => false,
+					'show_ui'                    => true,
+					'show_in_nav_menus'          => false,
+					'show_tagcloud'              => false,
+					'show_in_quick_edit'         => true,
+					'show_admin_column'          => true,
+					'capabilities'               => $capabilities,
+					'rewrite'                    => $rewrite,
+				);
+				register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
+			
+			}
+			add_action( 'init', 'create_logo_list_label_tag', 0 );
 		}
-		add_action( 'init', 'create_logo_list_label_tag', 0 );
-	}
 
 	// Remove Taxonomies from Post Editor
 
