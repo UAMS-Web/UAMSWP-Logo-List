@@ -185,3 +185,57 @@ function remove_logo_taxonomy_meta() {
     remove_meta_box( 'tagsdiv-'.'logo-list-label', 'logo-list-item', 'side' );
 }
 add_action( 'admin_menu' , 'remove_logo_taxonomy_meta' );
+
+// Add Capabilities to Default Roles
+
+	function uamswp_logo_list_role_caps() {
+
+		// Define the capabilities
+		
+			$capabilities = array(
+				'edit_logo_list_item',
+				'read_logo_list_item',
+				'delete_logo_list_item',
+				'edit_logo_list_items',
+				'edit_others_logo_list_items',
+				'delete_logo_list_items',
+				'publish_logo_list_items',
+				'read_private_logo_list_items',
+				'delete_private_logo_list_items',
+				'delete_published_logo_list_items',
+				'delete_others_logo_list_items',
+				'edit_private_logo_list_items',
+				'edit_published_logo_list_items',
+				'manage_logo_list_taxonomies'
+			);
+		
+		// Define the roles
+
+			$roles = array(
+				'administrator',
+				'editor'
+			);
+			
+		// Loop through each role and add the capabilities
+
+			foreach ( $roles as $role_name ) {
+
+				$role = get_role( $role_name );
+
+				if ( $role ) {
+
+					foreach ( $capabilities as $capability ) {
+
+						$role->add_cap($capability);
+
+					}
+
+				}
+
+			}
+
+	}
+
+	// Add role capabilities
+
+		add_action( 'init', 'uamswp_logo_list_role_caps');
