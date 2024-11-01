@@ -151,7 +151,7 @@ if ( ! function_exists('create_logo_list_label_tag') ) {
 			'items_list_navigation'      => 'Logo Item Labels list navigation',
 		);
 		$rewrite = array(
-			'slug'                       => 'logo-list-category',
+			'slug'                       => 'logo-list-label',
 			'with_front'                 => false,
 			'hierarchical'               => false,
 		);
