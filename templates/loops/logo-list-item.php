@@ -36,21 +36,23 @@
         (( $titles_query || $item_title_query ) ? '' : '<span class="sr-only">') .
         $item_title_val .
         (( $titles_query || $item_title_query ) ? '' : '</span>');
-    $item_image_fly_xxs_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xxs, $image_height_xxs ) );
-    $item_image_fly_xxs_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xxs*2, $image_height_xxs*2 ) );
-    $item_image_fly_xs_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xs, $image_height_xs ) );
-    $item_image_fly_xs_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xs*2, $image_height_xs*2 ) );
-    $item_image_fly_sm_1x = fly_get_attachment_image_src( $item_image, array( $image_width_sm, $image_height_sm ) );
-    $item_image_fly_sm_2x = fly_get_attachment_image_src( $item_image, array( $image_width_sm*2, $image_height_sm*2 ) );
-    $item_image_fly_md_1x = fly_get_attachment_image_src( $item_image, array( $image_width_md, $image_height_md ) );
-    $item_image_fly_md_2x = fly_get_attachment_image_src( $item_image, array( $image_width_md*2, $image_height_md*2 ) );
-    $item_image_fly_lg_1x = fly_get_attachment_image_src( $item_image, array( $image_width_lg, $image_height_lg ) );
-    $item_image_fly_lg_2x = fly_get_attachment_image_src( $item_image, array( $image_width_lg*2, $image_height_lg*2 ) );
-    $item_image_fly_xl_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xl, $image_height_xl ) );
-    $item_image_fly_xl_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xl*2, $image_height_xl*2 ) );
-    $item_image_fly_xxl_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xxl, $image_height_xxl ) );
-    $item_image_fly_xxl_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xxl*2, $image_height_xxl*2 ) );
-    $item_image_fly_fallback = $item_image_fly_lg_1x;
+    if ( function_exists('bis_get_attachment_image') ) {
+        $item_image_fly_xxs_1x = bis_get_attachment_image_src( $item_image, array( $image_width_xxs, $image_height_xxs ) );
+        // $item_image_fly_xxs_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xxs*2, $image_height_xxs*2 ) );
+        $item_image_fly_xs_1x = bis_get_attachment_image_src( $item_image, array( $image_width_xs, $image_height_xs ) );
+        // $item_image_fly_xs_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xs*2, $image_height_xs*2 ) );
+        $item_image_fly_sm_1x = bis_get_attachment_image_src( $item_image, array( $image_width_sm, $image_height_sm ) );
+        // $item_image_fly_sm_2x = bis_get_attachment_image_src( $item_image, array( $image_width_sm*2, $image_height_sm*2 ) );
+        $item_image_fly_md_1x = bis_get_attachment_image_src( $item_image, array( $image_width_md, $image_height_md ) );
+        // $item_image_fly_md_2x = bis_get_attachment_image_src( $item_image, array( $image_width_md*2, $image_height_md*2 ) );
+        $item_image_fly_lg_1x = bis_get_attachment_image_src( $item_image, array( $image_width_lg, $image_height_lg ) );
+        // $item_image_fly_lg_2x = bis_get_attachment_image_src( $item_image, array( $image_width_lg*2, $image_height_lg*2 ) );
+        $item_image_fly_xl_1x = bis_get_attachment_image_src( $item_image, array( $image_width_xl, $image_height_xl ) );
+        // $item_image_fly_xl_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xl*2, $image_height_xl*2 ) );
+        $item_image_fly_xxl_1x = bis_get_attachment_image_src( $item_image, array( $image_width_xxl, $image_height_xxl ) );
+        // $item_image_fly_xxl_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xxl*2, $image_height_xxl*2 ) );
+        $item_image_fly_fallback = $item_image_fly_lg_1x;
+    }
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title_val . ' logo'; 
     // $item_image_alt = $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native; 
@@ -123,20 +125,20 @@
     <?php if ( !empty($item_image) ) { ?>
         <div class="item-img<?php echo $desaturate_query ? ' item-img-desaturate' : ''; ?>">
             <picture>
-                <?php if ( function_exists( 'fly_add_image_size' ) ) { ?>
-                    <source srcset="<?php echo $item_image_fly_xxl_1x['src']; ?>, <?php echo $item_image_fly_xxl_2x['src']; ?> 2x" 
+                <?php if ( function_exists( 'bis_get_attachment_image' ) ) { ?>
+                    <source srcset="<?php echo $item_image_fly_xxl_1x['src']; ?>" 
                         media="(min-width: 1921px)">
-                    <source srcset="<?php echo $item_image_fly_xl_1x['src']; ?>, <?php echo $item_image_fly_xl_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_xl_1x['src']; ?>" 
                         media="(min-width: 1500px)">
-                    <source srcset="<?php echo $item_image_fly_lg_1x['src']; ?>, <?php echo $item_image_fly_lg_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_lg_1x['src']; ?>" 
                         media="(min-width: 1200px)">
-                    <source srcset="<?php echo $item_image_fly_md_1x['src']; ?>, <?php echo $item_image_fly_md_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_md_1x['src']; ?>" 
                         media="(min-width: 992px)">
-                    <source srcset="<?php echo $item_image_fly_sm_1x['src']; ?>, <?php echo $item_image_fly_sm_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_sm_1x['src']; ?>" 
                         media="(min-width: 768px)">
-                    <source srcset="<?php echo $item_image_fly_xs_1x['src']; ?>, <?php echo $item_image_fly_md_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_xs_1x['src']; ?>" 
                         media="(min-width: 576px)">
-                    <source srcset="<?php echo $item_image_fly_xxs_1x['src']; ?>, <?php echo $item_image_fly_xxs_2x['src']; ?> 2x" 
+                    <source srcset="<?php echo $item_image_fly_xxs_1x['src']; ?>" 
                         media="(min-width: 1px)">
                     <!-- Fallback -->
                     <img src="<?php echo $item_image_fly_fallback['src']; ?>" alt="<?php echo $item_image_alt; ?>" />
