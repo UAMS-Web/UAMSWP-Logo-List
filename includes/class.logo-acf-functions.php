@@ -25,7 +25,7 @@ function uamswp_logo_toolbars( $toolbars )
 {
 	// [1] formatselect. bold, italic, bullist, numlist, blockquote, alignleft, aligncenter, alignright, link, wp_more, spellchecker, fullscreen, wp_adv
 	// [2] strikethrough, hr, forecolor, pastetext, removeformat, charmap, outdent, indent, undo, redo, wp_help
-	$toolbars['Very Simple'] = array();
+	$toolbars['Very Simple'] = [];
 	$toolbars['Very Simple'][1] = [ 
 		'bold', 
 		'italic',

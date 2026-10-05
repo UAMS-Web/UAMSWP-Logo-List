@@ -7,7 +7,7 @@
 
 // Create id attribute allowing for custom "anchor" value.
 $id = '';
-if ( empty( $id ) && isset($block) ) {
+if ( isset($block) ) {
     if ( !empty( $block['anchor'] ) ) {
         $id = sanitize_title_with_dashes( $block['anchor'] ); // Define ID attribute value using HTML anchor from block
     } else {
@@ -27,16 +27,16 @@ if ( empty( $id ) && isset($block) ) {
     }
     $background_color = get_field('block_logo_list_background_color') ?: 'bg-auto'; // Get the block background color
     // Set button color based on block background color
-    if ( in_array($background_color, array('bg-white','bg-gray','bg-auto'), true ) ) {
+    if ( in_array($background_color, ['bg-white','bg-gray','bg-auto'], true ) ) {
         $button_color = 'primary';
     } else {
         $button_color = 'white';
     }
 
     // List Configuration
-    $category_ids = get_field('block_logo_list_filter_ids') ?: array(); // Get the list of categories
+    $category_ids = get_field('block_logo_list_filter_ids') ?: []; // Get the list of categories
     $category_logic = get_field('block_logo_list_filter_logic') ?: 'IN'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
-    $label_ids = get_field('block_logo_list_labels_ids') ?: array(); // Get the list of categories
+    $label_ids = get_field('block_logo_list_labels_ids') ?: []; // Get the list of categories
     $label_logic = get_field('block_logo_list_labels_logic') ?: 'IN'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
     $featured_query = get_field('block_logo_list_featured') ?: false; // Get which featured display behavior should be used
     $layout = get_field('block_logo_list_layout') ?: 'grid'; // Get the list layout
@@ -65,7 +65,7 @@ if ( empty( $id ) && isset($block) ) {
         $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
     }
     $links_target_value = $links_target_query ? '_blank' : '_self';
-    $orderby_array = get_field('block_logo_list_order') ?: array(); // Get sort order of items within the list
+    $orderby_array = get_field('block_logo_list_order') ?: []; // Get sort order of items within the list
     if ( count($orderby_array) === 1 && (strpos($orderby_array[0], 'rand') !== 0) ) { // If there is only one sort order option, and it's not Random Order...
         if ( strpos($orderby_array[0], 'meta_value') !== 0 ) {
             $orderby_array[] = 'meta_value|ASC'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
@@ -73,10 +73,10 @@ if ( empty( $id ) && isset($block) ) {
             $orderby_array[] = 'menu_order|ASC'; // If the one sort order option isn't Menu Order, set that to the fallback
         }
     }
-    $orderby = array();
+    $orderby = [];
     foreach ( $orderby_array as $str ) {
         $strArr = explode("|", $str);
-        if ( count($strArr) == 2 ) {
+        if ( count($strArr) === 2 ) {
             $orderby[$strArr[0]] = $strArr[1];
         } else {
             $orderby[$strArr[0]] = 'ASC';
@@ -113,7 +113,7 @@ if ( empty( $id ) && isset($block) ) {
         }
         if ( empty($more_button_description) ) {
             $more_button_description = get_field('block_logo_list_more_button_description'); // Button link description in 'more' section
-            $more_button_description_attr = str_replace('"', '\'', $more_button_description); // Convert double quotes to single quotes in button link description
+            $more_button_description_attr = str_replace('"', "'", $more_button_description); // Convert double quotes to single quotes in button link description
             $more_button_description_attr = html_entity_decode(str_replace('&nbsp;', ' ', htmlentities($more_button_description_attr, null, 'utf-8'))); // Sanitize button link description value
         }
     }
@@ -253,27 +253,27 @@ if ( $featured_query ) {
 }
 
 // The Query
-$args = array(
+$args = [
     'post_type' => 'logo-list-item',
     'post_status' => 'publish',
     'posts_per_page' => $max_items,
     'orderby' => $orderby,
-    'tax_query' => array(
+    'tax_query' => [
         'relation' => 'AND',
-        array(
+        [
             'taxonomy' => 'logo-list-category',
             'field'    => 'term_id',
             'terms'    => $category_ids,
             'operator'  => $category_logic
-        ),
-    ),
-);
-$label_ids_tax_query = array(
+        ],
+    ],
+];
+$label_ids_tax_query = [
         'taxonomy' => 'logo-list-label',
         'field'    => 'term_id',
         'terms'    => $label_ids,
         'operator'  => $label_logic
-    );
+    ];
 if( !empty($label_ids) ) {
     $args['tax_query'][] = $label_ids_tax_query; // If the labels input has value(s), add its array to the tax_query array in $args
 }

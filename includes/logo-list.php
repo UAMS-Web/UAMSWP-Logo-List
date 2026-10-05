@@ -9,7 +9,7 @@ add_action( 'plugins_loaded', 'UAMS\Logo_List\bootstrap' );
  *
  * @since 1.0.0
  */
-function bootstrap() {
+function bootstrap(): void {
     include_once (__DIR__ . '/class.logo-custom-post.php' );
     include_once (__DIR__ . '/class.logo-acf-functions.php' ); // ACF specific functions
     include_once (__DIR__ . '/class.logo-functions.php' );

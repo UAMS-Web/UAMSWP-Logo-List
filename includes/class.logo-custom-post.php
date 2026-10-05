@@ -4,9 +4,9 @@
 
 	if ( ! function_exists('logo_list_items_cpt') ) {
 
-		function logo_list_items_cpt() {
+		function logo_list_items_cpt(): void {
 
-			$labels = array(
+			$labels = [
 				'name'                   => 'Logo List Items',
 				'singular_name'          => 'Logo List Item',
 				'menu_name'              => 'Logo List Items',
@@ -27,9 +27,9 @@
 				'items_list'             => 'Items list',
 				'items_list_navigation'  => 'Items list navigation',
 				'filter_items_list'      => 'Filter Items list',
-			);
+			];
 
-			$capabilities = array(
+			$capabilities = [
 				'edit_post'              => 'edit_logo_list_item',
 				'read_post'              => 'read_logo_list_item',
 				'delete_post'            => 'delete_logo_list_item',
@@ -44,14 +44,14 @@
 				'delete_others_posts'    => 'delete_others_logo_list_items',
 				'edit_private_posts'     => 'edit_private_logo_list_items',
 				'edit_published_posts'   => 'edit_published_logo_list_items',
-			);
+			];
 
-			$args = array(
+			$args = [
 				'label'                  => 'Logo List Items',
 				'description'            => 'Items for display in lists of logos on UAMS websites',
 				'labels'                 => $labels,
-				'supports'               => array( 'title', 'author', 'revisions','custom-fields', 'page-attributes' ),
-				'taxonomies'             => array( 'logo-list-category', 'logo-list-label' ),
+				'supports'               => [ 'title', 'author', 'revisions','custom-fields', 'page-attributes' ],
+				'taxonomies'             => [ 'logo-list-category', 'logo-list-label' ],
 				'hierarchical'           => false,
 				'public'                 => true,
 				'show_ui'                => true,
@@ -68,11 +68,12 @@
 				'show_in_rest'           => true,
 				'rest_base'              => 'logo_list_item',
 				'rest_controller_class'  => 'WP_REST_Posts_Controller',
-			);
+			];
 
 			register_post_type( 'logo-list-item', $args );
 
 		}
+        
 		add_action( 'init', 'logo_list_items_cpt', 0 );
 
 	}
@@ -85,9 +86,9 @@
 
 		if ( ! function_exists('create_logo_list_category') ) {
 
-			function create_logo_list_category() {
+			function create_logo_list_category(): void {
 
-				$labels = array(
+				$labels = [
 					'name'                       => 'Logo Item Categories',
 					'singular_name'              => 'Logo Item Category',
 					'menu_name'                  => 'Categories',
@@ -108,22 +109,22 @@
 					'no_terms'                   => 'No Logo Item Categories',
 					'items_list'                 => 'Logo Item Categories list',
 					'items_list_navigation'      => 'Logo Item Categories list navigation',
-				);
+				];
 
-				$rewrite = array(
+				$rewrite = [
 					'slug'                       => 'logo-list-category',
 					'with_front'                 => false,
 					'hierarchical'               => false,
-				);
+				];
 
-				$capabilities = array(
+				$capabilities = [
 					'manage_terms'               => 'manage_logo_list_taxonomies',
 					'edit_terms'                 => 'manage_logo_list_taxonomies',
 					'delete_terms'               => 'manage_logo_list_taxonomies',
 					'assign_terms'               => 'edit_logo_list_items',
-				);
+				];
 
-				$args = array(
+				$args = [
 					'labels'                     => $labels,
 					'public'                     => false,
 					'hierarchical'               => true,
@@ -134,9 +135,9 @@
 					'show_admin_column'          => true,
 					'capabilities'               => $capabilities,
 					'rewrite'                    => $rewrite,
-				);
+				];
 
-				register_taxonomy( 'logo-list-category', array( 'logo-list-item' ), $args );
+				register_taxonomy( 'logo-list-category', [ 'logo-list-item' ], $args );
 
 			}
 
@@ -148,9 +149,9 @@
 
 		if ( ! function_exists('create_logo_list_label_tag') ) {
 
-			function create_logo_list_label_tag() {
+			function create_logo_list_label_tag(): void {
 
-				$labels = array(
+				$labels = [
 					'name'                       => 'Logo Item Labels',
 					'singular_name'              => 'Logo Item Label',
 					'menu_name'                  => 'Labels',
@@ -171,22 +172,22 @@
 					'no_terms'                   => 'No Logo Item Labels',
 					'items_list'                 => 'Logo Item Labels list',
 					'items_list_navigation'      => 'Logo Item Labels list navigation',
-				);
+				];
 
-				$rewrite = array(
+				$rewrite = [
 					'slug'                       => 'logo-list-label',
 					'with_front'                 => false,
 					'hierarchical'               => false,
-				);
+				];
 
-				$capabilities = array(
+				$capabilities = [
 					'manage_terms'               => 'manage_logo_list_taxonomies',
 					'edit_terms'                 => 'manage_logo_list_taxonomies',
 					'delete_terms'               => 'manage_logo_list_taxonomies',
 					'assign_terms'               => 'edit_logo_list_items',
-				);
+				];
 
-				$args = array(
+				$args = [
 					'labels'                     => $labels,
 					'public'                     => false,
 					'hierarchical'               => false,
@@ -197,9 +198,9 @@
 					'show_admin_column'          => true,
 					'capabilities'               => $capabilities,
 					'rewrite'                    => $rewrite,
-				);
+				];
 
-				register_taxonomy( 'logo-list-label', array( 'logo-list-item' ), $args );
+				register_taxonomy( 'logo-list-label', [ 'logo-list-item' ], $args );
 
 			}
 
@@ -209,7 +210,7 @@
 
 	// Remove Taxonomies from Post Editor
 
-		function remove_logo_taxonomy_meta() {
+		function remove_logo_taxonomy_meta(): void {
 
 			remove_meta_box( 'logo-list-category'.'div', 'logo-list-item', 'side' );
 			remove_meta_box( 'tagsdiv-'.'logo-list-label', 'logo-list-item', 'side' );
@@ -220,11 +221,11 @@
 
 // Add Capabilities to Default Roles
 
-	function uamswp_logo_list_role_caps() {
+	function uamswp_logo_list_role_caps(): void {
 
 		// Define the capabilities
 
-			$capabilities = array(
+			$capabilities = [
 				'edit_logo_list_item',
 				'read_logo_list_item',
 				'delete_logo_list_item',
@@ -239,14 +240,14 @@
 				'edit_private_logo_list_items',
 				'edit_published_logo_list_items',
 				'manage_logo_list_taxonomies'
-			);
+			];
 
 		// Define the roles
 
-			$roles = array(
+			$roles = [
 				'administrator',
 				'editor'
-			);
+			];
 
 		// Loop through each role and add the capabilities
 

@@ -36,20 +36,20 @@
         (( $titles_query || $item_title_query ) ? '' : '<span class="sr-only">') .
         $item_title_val .
         (( $titles_query || $item_title_query ) ? '' : '</span>');
-    $item_image_fly_xxs_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xxs, $image_height_xxs ) );
-    $item_image_fly_xxs_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xxs*2, $image_height_xxs*2 ) );
-    $item_image_fly_xs_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xs, $image_height_xs ) );
-    $item_image_fly_xs_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xs*2, $image_height_xs*2 ) );
-    $item_image_fly_sm_1x = fly_get_attachment_image_src( $item_image, array( $image_width_sm, $image_height_sm ) );
-    $item_image_fly_sm_2x = fly_get_attachment_image_src( $item_image, array( $image_width_sm*2, $image_height_sm*2 ) );
-    $item_image_fly_md_1x = fly_get_attachment_image_src( $item_image, array( $image_width_md, $image_height_md ) );
-    $item_image_fly_md_2x = fly_get_attachment_image_src( $item_image, array( $image_width_md*2, $image_height_md*2 ) );
-    $item_image_fly_lg_1x = fly_get_attachment_image_src( $item_image, array( $image_width_lg, $image_height_lg ) );
-    $item_image_fly_lg_2x = fly_get_attachment_image_src( $item_image, array( $image_width_lg*2, $image_height_lg*2 ) );
-    $item_image_fly_xl_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xl, $image_height_xl ) );
-    $item_image_fly_xl_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xl*2, $image_height_xl*2 ) );
-    $item_image_fly_xxl_1x = fly_get_attachment_image_src( $item_image, array( $image_width_xxl, $image_height_xxl ) );
-    $item_image_fly_xxl_2x = fly_get_attachment_image_src( $item_image, array( $image_width_xxl*2, $image_height_xxl*2 ) );
+    $item_image_fly_xxs_1x = fly_get_attachment_image_src( $item_image, [ $image_width_xxs, $image_height_xxs ] );
+    $item_image_fly_xxs_2x = fly_get_attachment_image_src( $item_image, [ $image_width_xxs*2, $image_height_xxs*2 ] );
+    $item_image_fly_xs_1x = fly_get_attachment_image_src( $item_image, [ $image_width_xs, $image_height_xs ] );
+    $item_image_fly_xs_2x = fly_get_attachment_image_src( $item_image, [ $image_width_xs*2, $image_height_xs*2 ] );
+    $item_image_fly_sm_1x = fly_get_attachment_image_src( $item_image, [ $image_width_sm, $image_height_sm ] );
+    $item_image_fly_sm_2x = fly_get_attachment_image_src( $item_image, [ $image_width_sm*2, $image_height_sm*2 ] );
+    $item_image_fly_md_1x = fly_get_attachment_image_src( $item_image, [ $image_width_md, $image_height_md ] );
+    $item_image_fly_md_2x = fly_get_attachment_image_src( $item_image, [ $image_width_md*2, $image_height_md*2 ] );
+    $item_image_fly_lg_1x = fly_get_attachment_image_src( $item_image, [ $image_width_lg, $image_height_lg ] );
+    $item_image_fly_lg_2x = fly_get_attachment_image_src( $item_image, [ $image_width_lg*2, $image_height_lg*2 ] );
+    $item_image_fly_xl_1x = fly_get_attachment_image_src( $item_image, [ $image_width_xl, $image_height_xl ] );
+    $item_image_fly_xl_2x = fly_get_attachment_image_src( $item_image, [ $image_width_xl*2, $image_height_xl*2 ] );
+    $item_image_fly_xxl_1x = fly_get_attachment_image_src( $item_image, [ $image_width_xxl, $image_height_xxl ] );
+    $item_image_fly_xxl_2x = fly_get_attachment_image_src( $item_image, [ $image_width_xxl*2, $image_height_xxl*2 ] );
     $item_image_fly_fallback = $item_image_fly_lg_1x;
     $item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', TRUE);
     $item_image_alt_override = $item_title_val . ' logo'; 
@@ -67,8 +67,8 @@
     $item_link_target = get_field('logo_link_target', $item_id);
     $item_link_target = ( $item_link_target != 'inherit' ) ? $item_link_target : $links_target_value;
     $item_link_target_attr = ( $item_link_target != '_self' ) ? ' target=' . $item_link_target : '';
-    $item_heading_link_query = ($layout == 'grid') ? true : false; // Determine when to add link to heading
-    $item_button_link_query = ($layout != 'grid') ? true : false; // Determine when to add button link
+    $item_heading_link_query = $layout == 'grid'; // Determine when to add link to heading
+    $item_button_link_query = $layout != 'grid'; // Determine when to add button link
     $item_general_link_element = 'a href="' . $item_link . '"' . $item_link_target_attr . ' data-moduletitle="' . $heading . '"' . ' data-itemtitle="' . $item_title_val . '"';
     $item_heading_link_element =
         (

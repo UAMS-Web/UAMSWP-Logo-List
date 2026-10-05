@@ -1,0 +1,25 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: Function tgmpa not found.
+			identifier: function.notFound
+			count: 1
+			path: required-plugins.php
+
+		-
+			rawMessage: Function get_field not found.
+			identifier: function.notFound
+			count: 24
+			path: templates/blocks/logo-list.php
+
+		-
+			rawMessage: Function fly_get_attachment_image_src not found.
+			identifier: function.notFound
+			count: 14
+			path: templates/loops/logo-list-item.php
+
+		-
+			rawMessage: Function get_field not found.
+			identifier: function.notFound
+			count: 8
+			path: templates/loops/logo-list-item.php
