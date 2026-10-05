@@ -1,29 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  *
  * Custom ACF Blocks
- * 
+ *
  */
 
 add_action('acf/init', 'uams_logo_register_blocks');
-function uams_logo_register_blocks(): void {
+function uams_logo_register_blocks(): void
+{
 
     // check function exists.
-    if( function_exists('acf_register_block_type') ) {
+    if (function_exists('acf_register_block_type')) {
         acf_register_block_type([
-            'name'              => 'logo-list',
-            'title'             => __('UAMS Logo List'),
-            'description'       => __('Presenting a list of organization logos'),
-            'category'          => 'common',
-            'icon'              => 'images-alt',
-            'keywords'          => ['uams', 'logos', 'organizations', 'images', 'graphics'],
-            'mode'              => 'auto',
-            'supports'          => [
-                'anchor' => true
+            'name' => 'logo-list',
+            'title' => __('UAMS Logo List'),
+            'description' => __('Presenting a list of organization logos'),
+            'category' => 'common',
+            'icon' => 'images-alt',
+            'keywords' => ['uams', 'logos', 'organizations', 'images', 'graphics'],
+            'mode' => 'auto',
+            'supports' => [
+                'anchor' => true,
             ],
-            'align'             => 'full',
-            'render_template'   => UAMS_LOGO_PATH . '/templates/blocks/logo-list.php',
+            'align' => 'full',
+            'render_template' => UAMS_LOGO_PATH.'/templates/blocks/logo-list.php',
         ]);
     }
 }
