@@ -18,7 +18,7 @@ function uams_logo_register_blocks() {
             'category'          => 'common',
             'icon'              => 'images-alt',
             'keywords'          => array('uams', 'logos', 'organizations', 'images', 'graphics'),
-            'mode'              => 'auto',
+            'acf_block_version' => 3,
             'supports'          => array(
                 'anchor' => true
             ),
