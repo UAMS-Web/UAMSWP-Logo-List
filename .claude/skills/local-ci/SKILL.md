@@ -25,6 +25,8 @@ description: >-
 
 Private repositories run their checks on the developer's machine, not in GitHub Actions: Actions minutes on private repositories bill to the organization's shared pool, and that budget is not spent on remote CI. The shared runner is what runs them.
 
+A public repository is different: `RUN_REMOTE_CI` does not reach it, so its `ci.yml` runs on every pull request, drafts included, and an author does not run this runner as a pre-PR check there. The draft's remote checks are that check, as the `writing-pull-requests` skill's *Draft state and merge order* says, which also names the cases that still run locally. Running the runner to validate a ready pull request before it merges is unchanged.
+
 - **`.claude/skills/local-ci/local-ci.mjs`** is the runner: one file, no dependencies, Node 20 or newer, the same on macOS, Linux and Windows. It is synced from `UAMS-Web/uams-claude-skills` and is identical in every repository that has it. Do not edit it here; change it in the source repository.
 - **`post-verdict.mjs`** posts a verdict comment and, on a hand-back, applies the `handed-back` label in the same run, with its tests in UAMS-Web/uams-claude-skills (not synced): see [Posting the verdict and the hand-back label](#posting-the-verdict-and-the-hand-back-label-post-verdictmjs).
 - **`watch-github.mjs`** is the pull request watcher, with its tests in UAMS-Web/uams-claude-skills (not synced): see [Watching pull requests](#watching-pull-requests-watch-githubmjs). The banned-glyph scanner its opt-in scan uses is `glyphs.mjs` in the `writing-comments` skill, which every target receives.
@@ -168,11 +170,13 @@ The `requires` field and the existing `run`, `paths`, `each` and `always` fields
 | npm script | `run: "npm run <script>"`, `requires: ["node_modules", "bin:npm"]` | `build`, `js`, `spell` |
 | Composer or Node validation | `run: "composer validate ..."`, `requires: ["bin:composer"]` | `validate`, `composer-validate` |
 | Repository guard script | `run: "node scripts/<guard>.mjs"`, `always: true`, `requires: ["scripts/<guard>.mjs"]` | no-emoji, encoding, glyph, load guards |
+| Shared PHP check over the installed plugin | `run: "php .claude/skills/pest-testing/scripts/check-mutate-ignore-breadth.php"`, `requires: ["vendor/pestphp/pest-plugin-mutate", ...]` | `mutate-ignore-breadth` |
 | Per-file test runner | `run: "node --test"`, `each: ["scripts/*.test.mjs"]` | `node-test` |
 | Test-suite subset | `run: "vendor/bin/pest tests/Browser"`, `requires: [..., "public/build/manifest.json"]` | `browser`, `mutate` |
 
 - **`each` carries the node-test job.** Node 20 has no glob support in `node --test`, so the glob is expanded by the runner and the command runs once per tracked file, which is the same on every platform.
 - **A `requires` path can name a build output.** The `browser` job lists `public/build/manifest.json`, so without a prior `npm run build` it is skipped with the file named rather than failing on stale assets.
+- **`mutate-ignore-breadth` belongs in every repository that runs Pest's `--mutate`.** It runs the `pest-testing` skill's breadth check, which measures how many mutants each `@pest-mutate-ignore` annotation removes and fails on one that removes more than one of a named mutator or none at all, and on a mention of the marker outside an annotation that removes mutants. It reads the installed `pest-plugin-mutate`, so `requires` names it and a repository without the plugin skips the job rather than failing it; a repository that never mutates leaves the job out. Its `paths` include `tests/mutate-ignore-breadth.baseline.json`, the baseline the check reads when it exists.
 - **Not expressed.** The `spell` jobs run the repository's own `npm run spell`, which owns any zero-files-checked floor. The `mutate` job declares `"mutation": {"minScore": 100}`, which carries the mutation smoke's non-zero-count and score assertions (see `jobs[].mutation`).
 
 ## Recording the verdict on the pull request (`--comment`)
