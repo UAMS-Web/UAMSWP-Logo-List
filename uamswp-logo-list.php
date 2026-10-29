@@ -15,11 +15,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // This plugin uses namespaces and requires PHP 5.3 or greater.
-if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
-	add_action( 'admin_notices', create_function( '', // phpcs:ignore WordPress.PHP.RestrictedPHPFunctions.create_function_create_function
-	"echo '<div class=\"error\"><p>" . __( 'UAMSWP Logo List requires PHP 5.3 to function properly. Please upgrade PHP or deactivate the plugin.', 'uamswp-logo-list' ) . "</p></div>';" ) );
-	return;
-} else {
+// if ( version_compare(PHP_VERSION, '5.4.0') >= 0 ) {
+// 	add_action( 'admin_notices', create_function( '', // phpcs:ignore WordPress.PHP.RestrictedPHPFunctions.create_function_create_function
+// 	"echo '<div class=\"error\ is-dismissible\"><p>" . __( 'UAMSWP Logo List requires PHP 5.4 to function properly. Please upgrade PHP or deactivate the plugin.', 'uamswp-logo-list' ) . "</p></div>';" ) );
+// 	return;
+// } else {
 	define('UAMS_LOGO_ROOT_URL', plugin_dir_url(__FILE__));
 	define('UAMS_LOGO_PATH', plugin_dir_path(__FILE__));
 
@@ -35,4 +35,4 @@ if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
 	
 	require_once __DIR__ . '/required-plugins.php';
 	include_once __DIR__ . '/includes/logo-list.php';
-}
+// }
