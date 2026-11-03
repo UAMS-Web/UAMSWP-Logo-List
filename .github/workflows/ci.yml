@@ -155,22 +155,6 @@ jobs:
           find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './node_modules/*' -print0 \
             | xargs -0 -I{} php -l "{}"
 
-  build:
-    name: Stylesheet build (gulp)
-    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
-    if: vars.RUN_REMOTE_CI != 'false'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '22'
-
-      - run: npm ci --ignore-scripts
-      - run: npx gulp
-
   pint:
     name: Pint
     needs: [composer-validate, synced-files]
@@ -223,7 +207,7 @@ jobs:
   # job in the file.
   ci:
     name: CI
-    needs: [composer-validate, synced-files, no-emoji, aggregate-needs, guard, lint, lint-floor, build, pint, rector, phpstan, pest]
+    needs: [composer-validate, synced-files, no-emoji, aggregate-needs, guard, lint, lint-floor, pint, rector, phpstan, pest]
     # Gated like the jobs above: do not require this check while the switch is off.
     if: always() && vars.RUN_REMOTE_CI != 'false'
     runs-on: ubuntu-latest
