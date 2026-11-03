@@ -19,7 +19,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.2",
     "cssnano": "^5.0.16",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-changed": "^4.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-group-css-media-queries": "^1.2.2",
@@ -31,7 +31,6 @@
     "postcss-discard-comments": "^5.0.2",
     "sass": "~1.26.11"
   },
-  "devDependencies": {},
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
     "test:build": "node --test \"tests/build/*.test.mjs\""
