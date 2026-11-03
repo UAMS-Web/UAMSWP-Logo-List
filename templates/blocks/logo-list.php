@@ -66,10 +66,10 @@ if ($links_query) {
 }
 $links_target_value = $links_target_query ? '_blank' : '_self';
 $orderby_array = get_field('block_logo_list_order') ?: []; // Get sort order of items within the list
-if (count($orderby_array) === 1 && (strpos($orderby_array[0], 'rand') !== 0)) { // If there is only one sort order option, and it's not Random Order...
-    if (strpos($orderby_array[0], 'meta_value') !== 0) {
+if (count($orderby_array) === 1 && (! str_starts_with($orderby_array[0], 'rand'))) { // If there is only one sort order option, and it's not Random Order...
+    if (! str_starts_with($orderby_array[0], 'meta_value')) {
         $orderby_array[] = 'meta_value|ASC'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
-    } elseif (strpos($orderby_array[0], 'menu_order') !== 0) {
+    } elseif (! str_starts_with($orderby_array[0], 'menu_order')) {
         $orderby_array[] = 'menu_order|ASC'; // If the one sort order option isn't Menu Order, set that to the fallback
     }
 }
