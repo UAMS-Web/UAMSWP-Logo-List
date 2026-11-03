@@ -23,3 +23,8 @@ node .claude/skills/local-ci/local-ci.mjs --all
 ```
 
 Private repositories validate with this runner rather than billed Actions minutes.
+
+
+## Remote CI
+
+`.github/workflows/ci.yml` runs the same checks in GitHub Actions and follows the shared template: the `CI` job `needs:` every other job, and `Attribution footer` and `Closing keywords` are their own workflows. This repository is private, so every job in `ci.yml` is gated on `vars.RUN_REMOTE_CI != 'false'`. While that variable is `false`, the jobs report `skipped` and the local runner above is the gate. When it is on, `ci.yml` is the gate and `CI` is the check to require. The stylesheet build (`npm ci --ignore-scripts`, then `gulp`) runs only in Actions.
