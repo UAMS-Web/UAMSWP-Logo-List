@@ -33,7 +33,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "preinstall": "npx npm-force-resolutions"
+    "preinstall": "npx npm-force-resolutions",
+    "test:build": "node --test \"tests/build/*.test.mjs\""
   },
   "resolutions": {
     "glob-parent": "~5.1.2"
