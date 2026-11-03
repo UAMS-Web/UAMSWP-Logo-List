@@ -46,8 +46,23 @@ jobs:
       - name: php -l every PHP file
         run: |
           set -e
-          find . -name '*.php' -not -path './vendor/*' -not -path './vendor' -not -path './tests-legacy/*' -not -path './tests-legacy' -print0 \
+          find . -name '*.php' -not -path './vendor/*' -not -path './vendor' -not -path './tests/Integration/vendor/*' -not -path './tests-legacy/*' -not -path './tests-legacy' -print0 \
             | xargs -0 -I{} php -l "{}"
+
+  lint-floor:
+    runs-on: ubuntu-latest
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: php -l every shipped PHP file on the floor PHP
+        run: |
+          set -e
+          find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './node_modules/*' -print0             | xargs -0 -I{} php -l "{}"
 
   pint:
     runs-on: ubuntu-latest
