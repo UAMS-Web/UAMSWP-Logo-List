@@ -35,6 +35,11 @@
     "preinstall": "npx npm-force-resolutions",
     "test:build": "node --test \"tests/build/*.test.mjs\""
   },
+  "overrides": {
+    "node-notifier": {
+      "uuid": "^11.1.1"
+    }
+  },
   "resolutions": {
     "glob-parent": "~5.1.2"
   },

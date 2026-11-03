@@ -42,3 +42,27 @@ test('every glob-parent the lockfile resolves is at or above the fixed 5.1.2', (
         assert.ok(semver.gte(version, '5.1.2'), `glob-parent ${version} is below 5.1.2`)
     }
 })
+
+test('package.json overrides uuid for node-notifier, whose own range stops at 8', () => {
+    assert.equal(manifest.overrides['node-notifier'].uuid, '^11.1.1')
+})
+
+test('every uuid the lockfile resolves is at or above the fixed 11.1.1', () => {
+    const versions = Object.entries(lock.packages ?? {})
+        .filter(([path]) => path.endsWith('node_modules/uuid'))
+        .map(([, entry]) => entry.version)
+
+    assert.ok(versions.length > 0, 'the lockfile resolves no uuid')
+
+    for (const version of versions) {
+        assert.ok(semver.gte(version, '11.1.1'), `uuid ${version} is below 11.1.1`)
+    }
+})
+
+test('the notifier module that calls uuid loads and generates an identifier with the overridden copy', () => {
+    const notifierRequire = createRequire(require.resolve('node-notifier/package.json', { paths: [root] }))
+    const { v4 } = notifierRequire('uuid')
+
+    assert.match(v4(), /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+    assert.doesNotThrow(() => notifierRequire('./notifiers/toaster.js'))
+})
