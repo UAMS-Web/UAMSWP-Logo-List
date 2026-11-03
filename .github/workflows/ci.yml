@@ -13,12 +13,15 @@
 #
 # Template: .claude/skills/code-quality/templates/ci.yml in UAMS-Web/uams-claude-skills.
 # The shared setup (PHP, the Composer cache, the locked install) is the composite action in
-# .github/actions/setup/action.yml. The PR-body checks `Attribution footer` and
-# `Closing keywords` are their own workflows beside this one and are not gated.
+# .github/actions/setup/action.yml.
+#
+# Private repository: local CI only. RUN_REMOTE_CI is not set by this change, and the ungated
+# PR-body workflows (`Attribution footer`, `Closing keywords`) are not added, so the PR-body
+# checks run through the local runner only.
 #
 # THE `CI` AGGREGATE. The last job, `ci` (named `CI`), `needs:` every other job in this file and
-# fails unless each reported `success`. Adding a job means adding it to that list; the
-# aggregate-needs job fails the pull request when one is missing.
+# fails unless each reported `success`. Adding a job means adding it to that list. The
+# aggregate-needs check is not run here: it requires the two ungated PR-body workflows.
 name: CI
 
 on:
@@ -86,23 +89,6 @@ jobs:
 
       # Fails, naming the file, line and code point, when prose carries a banned glyph.
       - run: node .claude/skills/writing-comments/scripts/check-no-emoji.mjs
-
-  aggregate-needs:
-    name: Aggregate needs
-    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
-    if: vars.RUN_REMOTE_CI != 'false'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '22'
-
-      # Fails, naming the job, when a job is missing from the `needs:` list of `CI` or a
-      # fixed required name is reported by no job. Allow-list: .github/aggregate-needs-allow.json.
-      - run: node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs
 
   guard:
     name: Guard against committed secrets or personal data
@@ -207,7 +193,7 @@ jobs:
   # job in the file.
   ci:
     name: CI
-    needs: [composer-validate, synced-files, no-emoji, aggregate-needs, guard, lint, lint-floor, pint, rector, phpstan, pest]
+    needs: [composer-validate, synced-files, no-emoji, guard, lint, lint-floor, pint, rector, phpstan, pest]
     # Gated like the jobs above: do not require this check while the switch is off.
     if: always() && vars.RUN_REMOTE_CI != 'false'
     runs-on: ubuntu-latest

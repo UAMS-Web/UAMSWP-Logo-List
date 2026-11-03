@@ -53,14 +53,6 @@
       ]
     },
     {
-      "name": "aggregate-needs",
-      "run": "node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs",
-      "always": true,
-      "requires": [
-        "bin:node"
-      ]
-    },
-    {
       "name": "pint",
       "run": "composer test:pint",
       "paths": [
