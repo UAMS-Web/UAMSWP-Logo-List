@@ -15,7 +15,8 @@ const require = createRequire(import.meta.url)
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..')
 export const gulpfile = join(root, 'gulpfile.js')
-export const gulpBin = require.resolve('gulp/bin/gulp.js', { paths: [root] })
+// gulp 5 limits `exports`, so the binary is addressed by path rather than resolved as a subpath.
+export const gulpBin = join(dirname(require.resolve('gulp', { paths: [root] })), 'bin', 'gulp.js')
 
 /**
  * Build a fixture project and run the gulpfile with the given gulp arguments.

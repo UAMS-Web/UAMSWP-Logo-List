@@ -1,4 +1,5 @@
-// package.json pins glob-parent through `resolutions`; the lockfile must stay inside that range.
+// package.json pins glob-parent through `resolutions`. gulp 5 resolves glob-parent 6 through glob-stream,
+// outside that pin, so the lockfile check is the advisory boundary: no glob-parent below 5.1.2.
 
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
@@ -18,7 +19,7 @@ test('package.json pins glob-parent to ~5.1.2', () => {
     assert.equal(manifest.resolutions['glob-parent'], '~5.1.2')
 })
 
-test('every glob-parent the lockfile resolves is within the pinned range', () => {
+test('every glob-parent the lockfile resolves is at or above the fixed 5.1.2', () => {
     const versions = []
 
     if (lock.packages) {
@@ -38,6 +39,6 @@ test('every glob-parent the lockfile resolves is within the pinned range', () =>
     assert.ok(versions.length > 0, 'the lockfile resolves no glob-parent')
 
     for (const version of versions) {
-        assert.ok(semver.satisfies(version, manifest.resolutions['glob-parent']), `glob-parent ${version} is outside ~5.1.2`)
+        assert.ok(semver.gte(version, '5.1.2'), `glob-parent ${version} is below 5.1.2`)
     }
 })
