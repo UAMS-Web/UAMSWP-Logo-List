@@ -1,41 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  *
  * Custom ACF Blocks
- * 
+ *
  */
 
 add_action('acf/init', 'uams_logo_register_blocks');
-function uams_logo_register_blocks() {
+function uams_logo_register_blocks(): void
+{
 
     // check function exists.
-    if( function_exists('acf_register_block_type') ) {
-        acf_register_block_type(array(
-            'name'              => 'logo-list',
-            'title'             => __('UAMS Logo List'),
-            'description'       => __('Presenting a list of organization logos'),
-            'category'          => 'common',
-            'icon'              => 'images-alt',
-            'keywords'          => array('uams', 'logos', 'organizations', 'images', 'graphics'),
+    if (function_exists('acf_register_block_type')) {
+        acf_register_block_type([
+            'name' => 'logo-list',
+            'title' => __('UAMS Logo List'),
+            'description' => __('Presenting a list of organization logos'),
+            'category' => 'common',
+            'icon' => 'images-alt',
+            'keywords' => ['uams', 'logos', 'organizations', 'images', 'graphics'],
             'acf_block_version' => 3,
-            'supports'          => array(
-                'anchor' => true
-            ),
-            'align'             => 'full',
-            'render_template'   => UAMS_LOGO_PATH . '/templates/blocks/logo-list.php',
-        ));
+            'supports' => [
+                'anchor' => true,
+            ],
+            'align' => 'full',
+            'render_template' => UAMS_LOGO_PATH.'/templates/blocks/logo-list.php',
+        ]);
     }
 }
 
-if( function_exists('acf_add_local_field_group') ):
+if (function_exists('acf_add_local_field_group')) {
 
     // Add local field group for UAMS Logo List Block
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_block_logo_list',
         'title' => 'Block: UAMS Logo List',
-        'fields' => array(
-            array(
+        'fields' => [
+            [
                 'key' => 'field_block_logo_list_intro',
                 'label' => '',
                 'name' => '',
@@ -43,16 +46,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '<h2>UAMS Logo List Block</h2>',
                 'new_lines' => '',
                 'esc_html' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_blockconfig_accor',
                 'label' => 'Block Configuration',
                 'name' => '',
@@ -60,16 +63,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'open' => 0,
                 'multi_expand' => 0,
                 'endpoint' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_blockconfig',
                 'label' => '',
                 'name' => '',
@@ -77,16 +80,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '<h3>Block Configuration</h3>',
                 'new_lines' => '',
                 'esc_html' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_heading',
                 'label' => 'Heading',
                 'name' => 'block_logo_list_heading',
@@ -94,18 +97,18 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
                 'maxlength' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_hide_heading',
                 'label' => 'Hide Heading',
                 'name' => 'block_logo_list_hide_heading',
@@ -113,19 +116,19 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'The heading is necessary for page hierarchy. But it can be hidden from all but screen readers and search engines. This is <strong>strongly</strong> not recommended in most cases, as the visible heading provides a jumping-in point for users as they scan your page.',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_description',
                 'label' => 'Description',
                 'name' => 'block_logo_list_description',
@@ -133,18 +136,18 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '179 character limit.',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'maxlength' => '179',
                 'rows' => 3,
                 'new_lines' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_background_color',
                 'label' => 'Background Color',
                 'name' => 'block_logo_list_background_color',
@@ -152,16 +155,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'bg-white' => 'White',
                     'bg-gray' => 'Gray',
                     'bg-auto' => 'Auto',
-                ),
+                ],
                 'default_value' => 'bg-auto',
                 'allow_null' => 0,
                 'multiple' => 0,
@@ -169,8 +172,8 @@ if( function_exists('acf_add_local_field_group') ):
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_listconfig_accor',
                 'label' => 'List Configuration',
                 'name' => '',
@@ -178,16 +181,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'open' => 0,
                 'multi_expand' => 0,
                 'endpoint' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_listconfig',
                 'label' => '',
                 'name' => '',
@@ -195,16 +198,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '<h3>List Configuration</h3>',
                 'new_lines' => '',
                 'esc_html' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_filter_ids',
                 'label' => 'Categories to Display',
                 'name' => 'block_logo_list_filter_ids',
@@ -212,11 +215,11 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'Select one or more categories to determine which organizations will be displayed.',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'taxonomy' => 'logo-list-category',
                 'field_type' => 'multi_select',
                 'allow_null' => 0,
@@ -224,12 +227,12 @@ if( function_exists('acf_add_local_field_group') ):
                 'save_terms' => 0,
                 'load_terms' => 0,
                 'return_format' => 'id',
-                'acfe_bidirectional' => array(
+                'acfe_bidirectional' => [
                     'acfe_bidirectional_enabled' => '0',
-                ),
+                ],
                 'multiple' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_filter_logic',
                 'label' => 'Display Logic for Categories',
                 'name' => 'block_logo_list_filter_logic',
@@ -237,15 +240,15 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'Indicate how the selection of multiple categories will affect which items are displayed.',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'AND' => 'Display only the items that match all selected categories',
                     'IN' => 'Display items that match any selected categories',
-                ),
+                ],
                 'default_value' => 'IN',
                 'allow_null' => 0,
                 'multiple' => 0,
@@ -253,8 +256,8 @@ if( function_exists('acf_add_local_field_group') ):
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_labels_ids',
                 'label' => 'Organizations Labels',
                 'name' => 'block_logo_list_labels_ids',
@@ -262,11 +265,11 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'You have the option narrow down the list of items by selecting one or more organization labels. If a selection is made here, only items in the categories above that are also in this selection of organization labels will be displayed.',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'taxonomy' => 'logo-list-label',
                 'field_type' => 'multi_select',
                 'allow_null' => 0,
@@ -274,36 +277,36 @@ if( function_exists('acf_add_local_field_group') ):
                 'save_terms' => 0,
                 'load_terms' => 0,
                 'return_format' => 'id',
-                'acfe_bidirectional' => array(
+                'acfe_bidirectional' => [
                     'acfe_bidirectional_enabled' => '0',
-                ),
+                ],
                 'multiple' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_labels_logic',
                 'label' => 'Display Logic for Organization Labels',
                 'name' => 'block_logo_list_labels_logic',
                 'type' => 'select',
                 'instructions' => 'Indicate how the selection of multiple organization labels will affect which items are displayed.',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_labels_ids',
                             'operator' => '!=',
                             'value' => null,
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'AND' => 'Display only the items that match all selected organization labels',
                     'IN' => 'Display items that match any selected organization labels',
-                ),
+                ],
                 'default_value' => 'IN',
                 'allow_null' => 0,
                 'multiple' => 0,
@@ -311,28 +314,28 @@ if( function_exists('acf_add_local_field_group') ):
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_featured',
                 'label' => 'Should this list be featured more prominently than other lists on the page?',
                 'name' => 'block_logo_list_featured',
                 'type' => 'true_false',
-                'instructions' => 'Note that enabling this setting will limit this block\'s list to three items. Don\'t enable this option if this is the only logo list block on the page.',
+                'instructions' => "Note that enabling this setting will limit this block's list to three items. Don't enable this option if this is the only logo list block on the page.",
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_layout',
                 'label' => 'List Layout',
                 'name' => 'block_logo_list_layout',
@@ -340,15 +343,15 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'grid' => 'Grid',
                     'vertical' => 'Vertical List',
-                ),
+                ],
                 'default_value' => 'grid',
                 'allow_null' => 0,
                 'multiple' => 0,
@@ -356,33 +359,33 @@ if( function_exists('acf_add_local_field_group') ):
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_width',
                 'label' => 'Grid Width',
                 'name' => 'block_logo_list_width',
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_layout',
                             'operator' => '==',
                             'value' => 'grid',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'aligncenter' => 'Standard',
                     'alignwide' => 'Wide',
                     'alignfull' => 'Full',
-                ),
+                ],
                 'default_value' => 'alignfull',
                 'allow_null' => 0,
                 'multiple' => 0,
@@ -390,7 +393,7 @@ if( function_exists('acf_add_local_field_group') ):
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
+            ],
             // array(
             //     'key' => 'field_block_logo_list_desaturate',
             //     'label' => 'Desaturate the Logos?',
@@ -411,35 +414,35 @@ if( function_exists('acf_add_local_field_group') ):
             //     'ui_on_text' => '',
             //     'ui_off_text' => '',
             // ),
-            array(
+            [
                 'key' => 'field_block_logo_list_titles',
                 'label' => 'Always Display Organization Titles?',
                 'name' => 'block_logo_list_titles',
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_layout',
                             'operator' => '==',
                             'value' => 'grid',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_labels',
                 'label' => 'Display Organization Labels?',
                 'name' => 'block_logo_list_labels',
@@ -447,47 +450,47 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_shortdescr',
                 'label' => 'Display Short Descriptions?',
                 'name' => 'block_logo_list_shortdescr',
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_layout',
                             'operator' => '==',
                             'value' => 'grid',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_links',
                 'label' => 'Enable Links to Organizations?',
                 'name' => 'block_logo_list_links',
@@ -495,47 +498,47 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_links_target',
                 'label' => 'Open Links in New Window?',
                 'name' => 'block_logo_list_links_target',
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_links',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 1,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_order',
                 'label' => 'Sort Order of List',
                 'name' => 'block_logo_list_order',
@@ -543,29 +546,29 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'Select one or more options. Any selections after the first will be used as the fallback sort order.',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'meta_value|ASC' => 'Alphabetical by Organization Title',
                     'title|ASC' => 'Alphabetical by Post Title',
                     'menu_order|ASC' => 'Menu Order (Low to High)',
                     'menu_order|DESC' => 'Menu Order (High to Low)',
                     'rand|ASC' => 'Random Order',
-                ),
-                'default_value' => array(
+                ],
+                'default_value' => [
                     0 => 'title|ASC',
-                ),
+                ],
                 'allow_null' => 0,
                 'multiple' => 1,
                 'ui' => 1,
                 'return_format' => 'value',
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_max',
                 'label' => 'Maximum Number of Items',
                 'name' => 'block_logo_list_max',
@@ -573,11 +576,11 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => 'Enter the maximum number of items to display. By default, all items will be displayed. However, if Featured mode is active, three items will be displayed. Entering a number higher than 3 will not allow more items to display when Featured mode is active.',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
@@ -585,8 +588,8 @@ if( function_exists('acf_add_local_field_group') ):
                 'min' => -1,
                 'max' => '',
                 'step' => 1,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_moreconfig_accor',
                 'label' => 'Linking Block to More',
                 'name' => '',
@@ -594,16 +597,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'open' => 0,
                 'multi_expand' => 0,
                 'endpoint' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_moreconfig',
                 'label' => '',
                 'name' => '',
@@ -611,16 +614,16 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '<h3>Linking Block to More</h3>',
                 'new_lines' => '',
                 'esc_html' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_more',
                 'label' => 'Include link to something?',
                 'name' => 'block_logo_list_more',
@@ -628,133 +631,133 @@ if( function_exists('acf_add_local_field_group') ):
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_more_text',
                 'label' => 'Message about availability of more information',
                 'name' => 'block_logo_list_more_text',
                 'type' => 'text',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_more',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_permissions' => '',
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
                 'maxlength' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_more_button_text',
                 'label' => 'Button Text',
                 'name' => 'block_logo_list_more_button_text',
                 'type' => 'text',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_more',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
                 'maxlength' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_more_button_url',
                 'label' => 'Button URL',
                 'name' => 'block_logo_list_more_button_url',
                 'type' => 'link',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_more',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'return_format' => 'array',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_block_logo_list_more_button_description',
                 'label' => 'Button Link Description',
                 'name' => 'block_logo_list_more_button_description',
                 'type' => 'text',
                 'instructions' => 'This is needed for accessibility. It helps differentiate between multiple links that use the same text like "Learn more". Describe the intent of the link, like "Learn more about the ABC Department".',
                 'required' => 1,
-                'conditional_logic' => array(
-                    array(
-                        array(
+                'conditional_logic' => [
+                    [
+                        [
                             'field' => 'field_block_logo_list_more',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
                 'maxlength' => '',
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
+            ],
+        ],
+        'location' => [
+            [
+                [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/logo-list',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -763,6 +766,6 @@ if( function_exists('acf_add_local_field_group') ):
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 
-endif;
+}
