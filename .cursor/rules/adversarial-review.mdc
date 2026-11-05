@@ -31,8 +31,6 @@ A **change that ships** and a **claim that is published** (a figure, count, veri
 
 6. **Triage and close the loop.** Fix every blocker and major and every cheap, high-confidence minor. For a real bug fixed, add a regression test and **mutation-verify** it (fix disabled: red; restored: green). **Revert by copying the file aside, never with the stash** (shared across worktrees, [`worktrees`](worktrees.mdc)) or `git checkout --`: `cp path/to/Foo.php "$SCRATCH/Foo.fixed.php"`, `git show HEAD:path/to/Foo.php > path/to/Foo.php`, run, restore. Read *why* it went red: a control failing for the wrong reason, or a one-liner that corrupted the file, proves nothing. A **pre-existing** bug the slice touches or reuses is in scope; fix it. **Document** accepted gaps and deferred residue by name. **Re-run the gate**, then ship.
 
-   The full chain, locally: [`local-ci`](../../.claude/skills/local-ci/SKILL.md).
-
 7. **Record the verdict.** A closed fork: on the issue per [`design-decision-forks`](design-decision-forks.mdc). A new open question or unspecified detail: a follow-up issue per [`writing-issues`](../../.claude/skills/writing-issues/SKILL.md). Otherwise a docblock or PR-body note.
 
 ## Review questions
