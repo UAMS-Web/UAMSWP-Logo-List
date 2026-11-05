@@ -12,6 +12,8 @@ composer setup:integration    # one time: installs tests/Integration/vendor
 composer test:integration     # PHPUnit 9.6 over wp-phpunit, needs the test database
 ```
 
+The stylesheet build has its own tests, run with `npm ci --ignore-scripts` then `npm run test:build` (Node's built-in test runner, no extra packages). They feed fixtures through `gulpfile.js` stage by stage; one test also rebuilds `assets/css/app.css` and compares it byte for byte, and is skipped where the `uams-2020` theme that `assets/scss/app.scss` imports is not checked out beside the plugin.
+
 A floor lint (`lint-floor` in `local-ci.json`) runs `php -l` under PHP 8.2 over every shipped PHP file, outside `vendor/` and `tests/`.
 
 

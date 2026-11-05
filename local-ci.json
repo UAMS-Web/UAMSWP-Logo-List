@@ -101,6 +101,20 @@
         "composer.lock",
         "tests/**"
       ]
+    },
+    {
+      "name": "build-tests",
+      "run": "npm run test:build",
+      "paths": [
+        "assets/**",
+        "gulpfile.js",
+        "package.json",
+        "package-lock.json",
+        "tests/build/**"
+      ],
+      "requires": [
+        "bin:node"
+      ]
     }
   ]
 }
