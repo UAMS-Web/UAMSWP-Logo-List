@@ -9,7 +9,7 @@ declare(strict_types=1);
  */
 
 add_action('acf/init', 'uams_logo_register_blocks');
-function uams_logo_register_blocks(): void
+function uams_logo_register_blocks()
 {
 
     // check function exists.
@@ -21,7 +21,7 @@ function uams_logo_register_blocks(): void
             'category' => 'common',
             'icon' => 'images-alt',
             'keywords' => ['uams', 'logos', 'organizations', 'images', 'graphics'],
-            'mode' => 'auto',
+            'acf_block_version' => 3,
             'supports' => [
                 'anchor' => true,
             ],
@@ -32,6 +32,7 @@ function uams_logo_register_blocks(): void
 }
 
 if (function_exists('acf_add_local_field_group')) {
+
     // Add local field group for UAMS Logo List Block
     acf_add_local_field_group([
         'key' => 'group_block_logo_list',
@@ -319,7 +320,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Should this list be featured more prominently than other lists on the page?',
                 'name' => 'block_logo_list_featured',
                 'type' => 'true_false',
-                'instructions' => "Note that enabling this setting will limit this block's list to three items. Don't enable this option if this is the only logo list block on the page.",
+                'instructions' => 'Note that enabling this setting will limit this block\'s list to three items. Don\'t enable this option if this is the only logo list block on the page.',
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => [
@@ -766,4 +767,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
         'description' => '',
     ]);
+
 }
