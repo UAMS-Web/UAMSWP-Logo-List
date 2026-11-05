@@ -14,7 +14,7 @@ First-party prose in this repository is written in **American English**: comment
 
 ## Why this is a standing order
 
-**Because each addition is individually defensible and the aggregate is not.** A word is added because it is genuinely needed at one site, and thereafter the gate cannot enforce the convention for that word *anywhere*, including in prose nobody has written yet. The cost is paid by a later reader, not by the author. Repeated, it replaces the convention with its opposite: `wordpress-importer`'s dictionary had absorbed ten British spellings before the convention was written down, and `uams-statamic`'s review of four entries (#2318) found two that had been absorbed for reasons that looked like the carve-out and were not.
+**Because each addition is individually defensible and the aggregate is not.** A word is added because it is genuinely needed at one site, and thereafter the gate cannot enforce the convention for that word *anywhere*, including in prose nobody has written yet. The cost is paid by a later reader, not by the author. Repeated, it replaces the convention with its opposite: `wordpress-importer`'s dictionary had absorbed ten British spellings before the convention was written down, and `uams-statamic`'s review of four entries (UAMS-Web/uams-statamic-archive#2318) found two that had been absorbed for reasons that looked like the carve-out and were not.
 
 **And the entry carries no trace of its reasoning.** A long sorted word list makes every line look alike: a proper noun, a package name, a British spelling somebody allowed once, and a genuine misspelling are indistinguishable. Reviewing one means reconstructing why it was added.
 
@@ -42,6 +42,4 @@ A British spelling that stands in a first-party file is not automatically wrong,
 ## The DRY line
 
 This file is the standing statement of **which English this repository writes, and what justifies an exception**. The pull-request-time workflow (when to run the spell check, and reconciling each flagged word before opening) stays in [`writing-pull-requests`](../../.claude/skills/writing-pull-requests/SKILL.md), which points here rather than restating the convention. It composes with [`no-emoji-in-durable-records`](no-emoji-in-durable-records.mdc) and [`impersonal-voice-in-github-artifacts`](impersonal-voice-in-github-artifacts.mdc), which constrain the same prose along different axes; how a rule or skill is worded belongs to the writing skills, and the `cspell` mechanics belong to that tool.
-
-Which files the `spell` job actually reads belongs to the [`local-ci`](../../.claude/skills/local-ci/SKILL.md) skill and to the runner.
 
