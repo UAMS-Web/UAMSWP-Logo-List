@@ -21,7 +21,7 @@ function uams_logo_register_blocks(): void
             'category' => 'common',
             'icon' => 'images-alt',
             'keywords' => ['uams', 'logos', 'organizations', 'images', 'graphics'],
-            'mode' => 'auto',
+            'acf_block_version' => 3,
             'supports' => [
                 'anchor' => true,
             ],
@@ -32,6 +32,7 @@ function uams_logo_register_blocks(): void
 }
 
 if (function_exists('acf_add_local_field_group')) {
+
     // Add local field group for UAMS Logo List Block
     acf_add_local_field_group([
         'key' => 'group_block_logo_list',
@@ -766,4 +767,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
         'description' => '',
     ]);
+
 }
