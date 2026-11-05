@@ -53,6 +53,15 @@
       ]
     },
     {
+      "name": "download-archive",
+      "run": "node .claude/skills/download-archive-check/check-download-archive.mjs",
+      "always": true,
+      "requires": [
+        "bin:node",
+        "bin:git"
+      ]
+    },
+    {
       "name": "aggregate-needs",
       "run": "node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs",
       "always": true,
