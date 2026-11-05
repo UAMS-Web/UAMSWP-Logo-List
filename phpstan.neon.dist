@@ -64,7 +64,7 @@ parameters:
     excludePaths:
         analyseAndScan:
             - tests
-            - tests/Integration/vendor
+            - tests/Integration/vendor (?)
             - vendor
             - tgm
 
