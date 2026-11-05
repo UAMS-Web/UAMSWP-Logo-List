@@ -6,15 +6,6 @@
 
 declare(strict_types=1);
 
-namespace UamswpLogoList\Tests\Unit;
-
-use UamswpLogoList\Tests\Support\UnitTestCase;
-
-final class HarnessSmokeTest extends UnitTestCase
-{
-    public function test_harness_loads_plugin_surface(): void
-    {
-        $this->assertFileExists(dirname(__DIR__, 2).'/uamswp-logo-list.php');
-        $this->assertTrue(true);
-    }
-}
+it('loads the plugin surface', function (): void {
+    expect(dirname(__DIR__, 2).'/uamswp-logo-list.php')->toBeFile();
+});

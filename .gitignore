@@ -4,5 +4,6 @@
 node_modules/
 /node_modules/
 /vendor/
+/tests/Integration/vendor/
 /.phpunit.result.cache
 /.phpstan/
