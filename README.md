@@ -22,4 +22,9 @@ node .claude/skills/local-ci/local-ci.mjs --dry-run
 node .claude/skills/local-ci/local-ci.mjs --all
 ```
 
-Private repositories validate with this runner rather than billed Actions minutes.
+The runner runs the same checks as `ci.yml` on a local machine, before a push.
+
+
+## Remote CI
+
+`.github/workflows/ci.yml` runs the same checks in GitHub Actions and follows the shared template: the `CI` job `needs:` every other job, and `Attribution footer` and `Closing keywords` are their own workflows that read the pull request body. This repository is public, so the workflows run on every pull request at no cost. Every job in `ci.yml` is still gated on `vars.RUN_REMOTE_CI != 'false'`: with the variable unset the jobs run, and set to `false` they report `skipped`. `CI` is the check to require. The stylesheet build is not an Actions job: `assets/scss/app.scss` imports from the `uams-2020` theme and its `node_modules`, which sit outside this repository, so a runner with only this checkout cannot compile it.

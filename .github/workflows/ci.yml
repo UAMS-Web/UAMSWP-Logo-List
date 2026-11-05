@@ -1,60 +1,150 @@
 # RUN_REMOTE_CI: budget kill-switch.
 # GitHub Actions minutes bill at the organization level, one pool shared by
 # every UAMS-Web repository, and only private repositories consume them. This
-# repository is private. Every job below is gated on
-# `if: vars.RUN_REMOTE_CI != 'false'`: with the variable set to `false` the jobs
-# report `skipped` and consume no runner minutes; unset, or any other value,
-# runs them as before.
+# repository is public, so its runs bill no minutes and the variable stays
+# unset. Every job below, `CI` included, is still gated on
+# `if: vars.RUN_REMOTE_CI != 'false'`, as the shared template has it: with the
+# variable unset, or any value other than `false`, the jobs run; set to `false`
+# they report `skipped` and consume no runner minutes.
 #
-# While the switch is off, the local CI runner (.claude/skills/local-ci/) is
-# the whole gate, not a fallback. Its verdict is posted on the pull request.
-# Job list mirrors local-ci.json; keep the two in step.
+# The local CI runner (.claude/skills/local-ci/) runs the same checks. Job list
+# mirrors local-ci.json; keep the two in step. A required `CI` check is
+# satisfied by a skipped job, so only set the variable to `false` knowingly.
+#
+# Template: .claude/skills/code-quality/templates/ci.yml in UAMS-Web/uams-claude-skills.
+# The shared setup (PHP, the Composer cache, the locked install) is the composite action in
+# .github/actions/setup/action.yml. The PR-body checks `Attribution footer` and
+# `Closing keywords` are their own workflows beside this one and are not gated.
+#
+# THE `CI` AGGREGATE. The last job, `ci` (named `CI`), `needs:` every other job in this file and
+# fails unless each reported `success`. Adding a job means adding it to that list; the
+# aggregate-needs job fails the pull request when one is missing.
 name: CI
 
 on:
-  push:
   pull_request:
+  push:
+    branches: [main]
+  # Lets the workflow be run on demand against a branch.
+  workflow_dispatch:
+
+# A new push to a pull request cancels that pull request's stale run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
-  guard:
-    runs-on: ubuntu-latest
+  composer-validate:
+    name: Composer validate (composer.lock freshness)
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - name: Guard against committed secrets / PII
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+          tools: composer:v2
+
+      # Fails when composer.json and composer.lock have drifted apart.
+      - run: composer validate --no-check-publish --no-check-all
+
+  synced-files:
+    name: Synced files (no hand-edited rules or skills)
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      # Fails, naming the file, when a synced rule or skill was edited by hand.
+      - run: node .claude/skills/synced-files/scripts/check-synced-files.mjs
+
+  no-emoji:
+    name: No emoji in durable records
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      # Fails, naming the file, line and code point, when prose carries a banned glyph.
+      - run: node .claude/skills/writing-comments/scripts/check-no-emoji.mjs
+
+  aggregate-needs:
+    name: Aggregate needs
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      # Fails, naming the job, when a job is missing from the `needs:` list of `CI` or a
+      # fixed required name is reported by no job. Allow-list: .github/aggregate-needs-allow.json.
+      - run: node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs
+
+  guard:
+    name: Guard against committed secrets or personal data
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fail on a tracked secret or personal-data file
         run: |
-          bad=$(git ls-files | grep -E "sentinel-key\\.php$|wp-config\\.php$|\\.sql(\\.gz)?$|\\.(csv|tsv|xlsx?)$|\\.env(\\.|$)|\\.pem$|\\.key$" || true)
+          bad=$(git ls-files | grep -E "sentinel-key\.php$|wp-config\.php$|\.sql(\.gz)?$|\.(csv|tsv|xlsx?)$|\.env(\.|$)|\.pem$|\.key$" || true)
           if [ -n "$bad" ]; then
             echo "::error::Tracked secret/PII file(s) detected:"; echo "$bad"; exit 1
           fi
 
   lint:
-    runs-on: ubuntu-latest
+    name: PHP lint (development PHP)
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           coverage: none
-          tools: composer
       - name: php -l every PHP file
         run: |
           set -e
-          find . -name '*.php' -not -path './vendor/*' -not -path './vendor' -not -path './tests/Integration/vendor/*' -not -path './tests-legacy/*' -not -path './tests-legacy' -print0 \
+          find . -name '*.php' -not -path './vendor/*' -not -path './tests/Integration/vendor/*' -not -path './node_modules/*' -not -path './tests-legacy/*' -print0 \
             | xargs -0 -I{} php -l "{}"
 
   lint-floor:
-    runs-on: ubuntu-latest
+    name: PHP lint (floor, PHP 8.2)
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
@@ -62,64 +152,78 @@ jobs:
       - name: php -l every shipped PHP file on the floor PHP
         run: |
           set -e
-          find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './node_modules/*' -print0             | xargs -0 -I{} php -l "{}"
+          find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './node_modules/*' -print0 \
+            | xargs -0 -I{} php -l "{}"
 
   pint:
-    runs-on: ubuntu-latest
+    name: Pint
+    needs: [composer-validate, synced-files]
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-          tools: composer
-      - run: composer install --no-interaction --prefer-dist --no-progress
-      - name: pint
-        run: composer test:pint
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      - run: composer test:pint
 
   rector:
-    runs-on: ubuntu-latest
+    name: Rector
+    needs: [pint]
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-          tools: composer
-      - run: composer install --no-interaction --prefer-dist --no-progress
-      - name: rector
-        run: composer test:refactor
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      - run: composer test:refactor
 
   phpstan:
-    runs-on: ubuntu-latest
+    name: PHPStan
+    needs: [pint]
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-          tools: composer
-      - run: composer install --no-interaction --prefer-dist --no-progress
-      - name: phpstan
-        run: composer stan
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      - run: composer stan
 
-  phpunit:
-    runs-on: ubuntu-latest
+  pest:
+    name: Pest
+    needs: [rector, phpstan]
     # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
     if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-          tools: composer
-      - run: composer install --no-interaction --prefer-dist --no-progress
-      - name: phpunit
-        run: composer test:unit
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      - run: composer test:unit
+
+  # The one check a ruleset requires from this workflow. Keep `needs:` listing every other
+  # job in the file.
+  ci:
+    name: CI
+    needs: [composer-validate, synced-files, no-emoji, aggregate-needs, guard, lint, lint-floor, pint, rector, phpstan, pest]
+    # Gated like the jobs above: do not require this check while the switch is off.
+    if: always() && vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # `skipped` and `cancelled` fail as well as `failure`: a job that did not run proved nothing.
+      - name: Every needed job succeeded
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Needed job results: $RESULTS"
+          # An empty list (an emptied `needs:`, a dropped `env:`) would run no iterations and pass having read nothing.
+          if [ -z "$RESULTS" ]; then echo "::error::No needed job results to read"; exit 1; fi
+          for result in $RESULTS; do
+            if [ "$result" != "success" ]; then
+              echo "::error::A needed job reported $result"
+              exit 1
+            fi
+          done

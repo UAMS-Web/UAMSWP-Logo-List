@@ -37,6 +37,30 @@
       "always": true
     },
     {
+      "name": "synced-files",
+      "run": "node .claude/skills/synced-files/scripts/check-synced-files.mjs",
+      "always": true,
+      "requires": [
+        "bin:node"
+      ]
+    },
+    {
+      "name": "no-emoji",
+      "run": "node .claude/skills/writing-comments/scripts/check-no-emoji.mjs",
+      "always": true,
+      "requires": [
+        "bin:node"
+      ]
+    },
+    {
+      "name": "aggregate-needs",
+      "run": "node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs",
+      "always": true,
+      "requires": [
+        "bin:node"
+      ]
+    },
+    {
       "name": "pint",
       "run": "composer test:pint",
       "paths": [
