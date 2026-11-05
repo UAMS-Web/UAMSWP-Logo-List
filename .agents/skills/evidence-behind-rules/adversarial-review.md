@@ -39,8 +39,6 @@ Two things reach other people: **a change that ships, and a claim that is publis
 
 6. **Triage and close the loop.** Fix every **blocker / major** and every cheap, high-confidence **minor**. For a real bug fixed, add a regression test and **mutation-verify** it (disable the fix → the test must go red; re-enable → green). **Revert by copying the file aside, never with the stash:** `cp path/to/Foo.php "$SCRATCH/Foo.fixed.php"`, `git show HEAD:path/to/Foo.php > path/to/Foo.php`, run, restore from the copy. The stash stack is shared with every other worktree and a failed `stash push` followed by `stash pop` applies somebody else's entry (see [`worktrees`](../rule-worktrees/SKILL.md)); and `git checkout --` throws away uncommitted work. Read the *reason* the test went red, not just that it did: a negative control that fails for the wrong reason proves nothing, and a mutation applied with a shell one-liner can corrupt the file instead of editing it, which reads as a very convincing red. A **pre-existing** bug a new slice merely *touches or reuses* is in scope; fix it. **Document** accepted gaps and deferred residue honestly (named, never silent). **Re-run the repository's gate** after the fixes. Only then ship.
 
-   The full chain, run locally, is the [`local-ci`](../local-ci/SKILL.md) skill.
-
 7. **Record the verdict.** A closed design fork → on the issue and per the [`design-decision-forks`](../rule-design-decision-forks/SKILL.md) rule. A new open question or unspecified detail the review surfaced → a follow-up GitHub issue per the [`writing-issues`](../writing-issues/SKILL.md) skill (named, not silent). Otherwise a docblock / PR-body note.
 
 ## Review questions
