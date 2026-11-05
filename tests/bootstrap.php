@@ -80,6 +80,30 @@ if (! defined('ABSPATH')) {
 }
 
 /*
+ * The plugin file aborts with `die` unless WPINC is defined, which WordPress
+ * does before it loads a plugin. Without it the process exits silently before
+ * any test is loaded, and PHPUnit reports nothing at all.
+ */
+if (! defined('WPINC')) {
+    define('WPINC', 'wp-includes');
+}
+
+/*
+ * The bundled TGM Plugin Activation class requires WordPress' WP_List_Table
+ * from ABSPATH. There is no WordPress here, so give it an empty class at that
+ * path inside the throwaway ABSPATH directory.
+ */
+$uamswp_logo_list_list_table = ABSPATH.'wp-admin/includes/class-wp-list-table.php';
+
+if (! is_dir(dirname($uamswp_logo_list_list_table))) {
+    mkdir(dirname($uamswp_logo_list_list_table), 0777, true);
+}
+
+file_put_contents($uamswp_logo_list_list_table, "<?php\nif (! class_exists('WP_List_Table')) {\n    class WP_List_Table\n    {\n    }\n}\n");
+
+unset($uamswp_logo_list_list_table);
+
+/*
  * Load definitions+registrations inside one Brain Monkey session. Do not
  * define permanent WordPress function stubs in this file — Patchwork treats
  * this bootstrap as too early and Brain Monkey cannot redefine them in tests
@@ -92,6 +116,7 @@ Brain\Monkey\Functions\when('plugin_dir_url')->justReturn('https://example.test/
 Brain\Monkey\Functions\when('plugin_basename')->alias(static function ($file) {
     return basename(dirname($file)).'/'.basename($file);
 });
+Brain\Monkey\Functions\when('get_file_data')->justReturn(['version' => '0.0.0-test']);
 Brain\Monkey\Functions\when('is_multisite')->justReturn(false);
 Brain\Monkey\Functions\when('get_site_option')->alias(static function ($key, $default = false) {
     return $default;
