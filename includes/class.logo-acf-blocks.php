@@ -9,7 +9,7 @@ declare(strict_types=1);
  */
 
 add_action('acf/init', 'uams_logo_register_blocks');
-function uams_logo_register_blocks()
+function uams_logo_register_blocks(): void
 {
 
     // check function exists.
@@ -320,7 +320,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Should this list be featured more prominently than other lists on the page?',
                 'name' => 'block_logo_list_featured',
                 'type' => 'true_false',
-                'instructions' => 'Note that enabling this setting will limit this block\'s list to three items. Don\'t enable this option if this is the only logo list block on the page.',
+                'instructions' => "Note that enabling this setting will limit this block's list to three items. Don't enable this option if this is the only logo list block on the page.",
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => [

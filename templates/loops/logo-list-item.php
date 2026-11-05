@@ -67,8 +67,8 @@ $item_link_text = get_field('logo_link_text', $item_id) ?: 'Visit Their Website'
 $item_link_target = get_field('logo_link_target', $item_id);
 $item_link_target = ($item_link_target != 'inherit') ? $item_link_target : $links_target_value;
 $item_link_target_attr = ($item_link_target != '_self') ? ' target='.$item_link_target : '';
-$item_heading_link_query = ($layout == 'grid') ? true : false; // Determine when to add link to heading
-$item_button_link_query = ($layout != 'grid') ? true : false; // Determine when to add button link
+$item_heading_link_query = $layout == 'grid'; // Determine when to add link to heading
+$item_button_link_query = $layout != 'grid'; // Determine when to add button link
 $item_general_link_element = 'a href="'.$item_link.'"'.$item_link_target_attr.' data-moduletitle="'.$heading.'"'.' data-itemtitle="'.$item_title_val.'"';
 $item_heading_link_element =
     (

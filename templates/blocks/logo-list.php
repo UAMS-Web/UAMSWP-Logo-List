@@ -284,13 +284,13 @@ if (array_key_exists('meta_value', $orderby)) {
 $logo_list_query = new WP_Query($args);
 
 // Editor placeholder (ACF Blocks V3 always renders a preview, so an unconfigured block would otherwise be blank).
-if ( ! empty( $is_preview ) && ( ! $category_ids || ! $logo_list_query->have_posts() ) ) {
+if (! empty($is_preview) && (! $category_ids || ! $logo_list_query->have_posts())) {
     printf(
         '<div class="uams-block-placeholder" style="padding:1.5rem;border:1px dashed currentColor;text-align:center;"><strong>%s</strong><br>%s</div>',
-        esc_html__( 'UAMS Logo List' ),
+        esc_html__('UAMS Logo List'),
         $category_ids
-            ? esc_html__( 'No published logos match the selected categories and labels.' )
-            : esc_html__( 'Click the pencil icon in the block toolbar and choose at least one category.' )
+            ? esc_html__('No published logos match the selected categories and labels.')
+            : esc_html__('Click the pencil icon in the block toolbar and choose at least one category.')
     );
 }
 
