@@ -1,27 +1,24 @@
 # RUN_REMOTE_CI: budget kill-switch.
 # GitHub Actions minutes bill at the organization level, one pool shared by
 # every UAMS-Web repository, and only private repositories consume them. This
-# repository is private. Every job below, `CI` included, is gated on
-# `if: vars.RUN_REMOTE_CI != 'false'`: with the variable set to `false` the jobs
-# report `skipped` and consume no runner minutes; unset, or any other value,
-# runs them.
+# repository is public, so its runs bill no minutes and the variable stays
+# unset. Every job below, `CI` included, is still gated on
+# `if: vars.RUN_REMOTE_CI != 'false'`, as the shared template has it: with the
+# variable unset, or any value other than `false`, the jobs run; set to `false`
+# they report `skipped` and consume no runner minutes.
 #
-# While the switch is off, the local CI runner (.claude/skills/local-ci/) is
-# the whole gate, not a fallback. Its verdict is posted on the pull request.
-# Job list mirrors local-ci.json; keep the two in step. A required `CI` check
-# is satisfied by a skipped job, so do not require it while the switch is off.
+# The local CI runner (.claude/skills/local-ci/) runs the same checks. Job list
+# mirrors local-ci.json; keep the two in step. A required `CI` check is
+# satisfied by a skipped job, so only set the variable to `false` knowingly.
 #
 # Template: .claude/skills/code-quality/templates/ci.yml in UAMS-Web/uams-claude-skills.
 # The shared setup (PHP, the Composer cache, the locked install) is the composite action in
-# .github/actions/setup/action.yml.
-#
-# Private repository: local CI only. RUN_REMOTE_CI is not set by this change, and the ungated
-# PR-body workflows (`Attribution footer`, `Closing keywords`) are not added, so the PR-body
-# checks run through the local runner only.
+# .github/actions/setup/action.yml. The PR-body checks `Attribution footer` and
+# `Closing keywords` are their own workflows beside this one and are not gated.
 #
 # THE `CI` AGGREGATE. The last job, `ci` (named `CI`), `needs:` every other job in this file and
-# fails unless each reported `success`. Adding a job means adding it to that list. The
-# aggregate-needs check is not run here: it requires the two ungated PR-body workflows.
+# fails unless each reported `success`. Adding a job means adding it to that list; the
+# aggregate-needs job fails the pull request when one is missing.
 name: CI
 
 on:
@@ -89,6 +86,23 @@ jobs:
 
       # Fails, naming the file, line and code point, when prose carries a banned glyph.
       - run: node .claude/skills/writing-comments/scripts/check-no-emoji.mjs
+
+  aggregate-needs:
+    name: Aggregate needs
+    # Budget kill-switch: see the RUN_REMOTE_CI note in the header.
+    if: vars.RUN_REMOTE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      # Fails, naming the job, when a job is missing from the `needs:` list of `CI` or a
+      # fixed required name is reported by no job. Allow-list: .github/aggregate-needs-allow.json.
+      - run: node .claude/skills/code-quality/scripts/check-aggregate-needs.mjs
 
   guard:
     name: Guard against committed secrets or personal data
@@ -193,7 +207,7 @@ jobs:
   # job in the file.
   ci:
     name: CI
-    needs: [composer-validate, synced-files, no-emoji, guard, lint, lint-floor, pint, rector, phpstan, pest]
+    needs: [composer-validate, synced-files, no-emoji, aggregate-needs, guard, lint, lint-floor, pint, rector, phpstan, pest]
     # Gated like the jobs above: do not require this check while the switch is off.
     if: always() && vars.RUN_REMOTE_CI != 'false'
     runs-on: ubuntu-latest
