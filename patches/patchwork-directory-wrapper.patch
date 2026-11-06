@@ -1,0 +1,20 @@
+--- a/src/CodeManipulation/Stream.php
++++ b/src/CodeManipulation/Stream.php
+@@ -141,7 +141,7 @@
+                 }
+             });
+         }
+-        if ($shouldReturnResource) {
++        if ($shouldReturnResource && is_object($resource)) {
+             return ($result !== false) ? $resource : false;
+         }
+         return $result;
+@@ -266,7 +266,7 @@
+ 
+     public function dir_opendir($path, $options)
+     {
+-        $this->resource = static::alternate('opendir', null, __FUNCTION__, [$path], [$options], $this->context);
++        $this->resource = static::alternate('opendir', null, __FUNCTION__, [$path], [$options], $this->context, true);
+         return $this->resource !== false;
+     }
+ 

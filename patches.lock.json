@@ -1,0 +1,29 @@
+{
+    "_hash": "3ce9f7593696b55e0094f9f653d1cac8aa7cbd522aa651a071321bcff7758842",
+    "patches": {
+        "antecedent/patchwork": [
+            {
+                "package": "antecedent/patchwork",
+                "description": "Retain delegated directory wrappers (temporary; see #82)",
+                "url": "patches/patchwork-directory-wrapper.patch",
+                "sha256": "756b894b061e999b848b821a4130a0ae79451a3ed96ed932e5afc6bb65a312a3",
+                "depth": 1,
+                "extra": {
+                    "provenance": "patches-file:patches.json"
+                }
+            }
+        ],
+        "pestphp/pest-plugin-mutate": [
+            {
+                "package": "pestphp/pest-plugin-mutate",
+                "description": "Propagate isolated mutations and reject missing test reports (temporary; see #82)",
+                "url": "patches/pest-mutate-isolated-processes.patch",
+                "sha256": "c467d1dc62c81ee5436680052b171922ae25b2f0aa8142fc216c97eb097ea345",
+                "depth": 1,
+                "extra": {
+                    "provenance": "patches-file:patches.json"
+                }
+            }
+        ]
+    }
+}
