@@ -7,3 +7,5 @@ node_modules/
 /tests/Integration/vendor/
 /.phpunit.result.cache
 /.phpstan/
+/.amp/portals/*
+/.claude/worktrees/

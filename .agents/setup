@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+export DEBIAN_FRONTEND=noninteractive
+export COMPOSER_NO_INTERACTION=1
+
+step() {
+    local label=$1 started=$SECONDS
+    shift
+    printf '\n==> %s\n' "$label"
+    "$@"
+    printf '==> %s completed in %ss\n' "$label" "$((SECONDS - started))"
+}
+
+install_system_packages() {
+    local packages=() package
+    for package in ca-certificates curl unzip; do
+        if ! dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -qx 'install ok installed'; then
+            packages+=("$package")
+        fi
+    done
+    if ((${#packages[@]})); then
+        sudo apt-get update -qq
+        sudo apt-get install -y --no-install-recommends "${packages[@]}"
+    fi
+
+    packages=()
+    for package in php8.4-cli php8.4-curl php8.4-mbstring php8.4-xml php8.4-mysql php8.4-zip php8.2-cli; do
+        if ! dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -qx 'install ok installed'; then
+            packages+=("$package")
+        fi
+    done
+    if ((${#packages[@]})); then
+        if [[ ! -f /etc/apt/sources.list.d/php-sury.list ]]; then
+            curl -fsSL --retry 3 https://packages.sury.org/debsuryorg-archive-keyring.deb -o "$scratch/keyring.deb"
+            sudo dpkg -i "$scratch/keyring.deb"
+            printf 'deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ bookworm main\n' \
+                | sudo tee /etc/apt/sources.list.d/php-sury.list >/dev/null
+        fi
+        sudo apt-get update -qq
+        sudo apt-get install -y --no-install-recommends "${packages[@]}"
+    fi
+    sudo update-alternatives --set php /usr/bin/php8.4
+}
+
+install_node() {
+    if command -v node >/dev/null && [[ $(node -p 'process.versions.node.split(".")[0]') == 22 ]]; then
+        return
+    fi
+    local arch archive
+    case "$(uname -m)" in
+        x86_64) arch=x64 ;;
+        aarch64) arch=arm64 ;;
+        *) printf 'Unsupported Node architecture\n' >&2; return 1 ;;
+    esac
+    curl -fsSL --retry 3 https://nodejs.org/dist/latest-v22.x/SHASUMS256.txt -o "$scratch/SHASUMS256.txt"
+    archive=$(awk -v suffix="linux-$arch.tar.xz" '$2 ~ suffix "$" {print $2}' "$scratch/SHASUMS256.txt")
+    [[ -n "$archive" ]]
+    curl -fsSL --retry 3 "https://nodejs.org/dist/latest-v22.x/$archive" -o "$scratch/$archive"
+    (cd "$scratch"; grep " $archive\$" SHASUMS256.txt | sha256sum --check)
+    sudo tar -xJf "$scratch/$archive" -C /usr/local --strip-components=1
+}
+
+install_composer() {
+    if command -v composer >/dev/null && composer --version --no-ansi | grep -q '^Composer version 2\.'; then
+        return
+    fi
+    curl -fsSL --retry 3 https://composer.github.io/installer.sig -o "$scratch/installer.sig"
+    curl -fsSL --retry 3 https://getcomposer.org/installer -o "$scratch/composer-setup.php"
+    printf '%s  %s\n' "$(cat "$scratch/installer.sig")" "$scratch/composer-setup.php" | sha384sum --check
+    php "$scratch/composer-setup.php" --2 --quiet --install-dir="$scratch" --filename=composer
+    sudo install -m 755 "$scratch/composer" /usr/local/bin/composer
+}
+
+scratch=$(mktemp -d)
+trap 'rm -rf "$scratch"' EXIT
+step 'PHP 8.4, PHP 8.2 floor lint, and system prerequisites' install_system_packages
+step 'Node 22 (matching CI)' install_node
+step 'Composer 2' install_composer
+step 'Locked PHP development dependencies' composer install --prefer-dist --no-progress
+step 'Locked integration harness dependencies' composer install --working-dir=tests/Integration --prefer-dist --no-progress
+step 'Locked stylesheet build dependencies' npm ci --ignore-scripts --no-audit --no-fund
+printf '\nOrb setup ready in %ss.\n' "$SECONDS"
