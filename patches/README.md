@@ -1,0 +1,59 @@
+# Temporary development dependency repairs
+
+Tracked by [UAMS-Web/UAMSWP-Logo-List#82](https://github.com/UAMS-Web/UAMSWP-Logo-List/issues/82).
+Retirement is tracked by [UAMS-Web/UAMSWP-Logo-List#85](https://github.com/UAMS-Web/UAMSWP-Logo-List/issues/85).
+
+These patches change development dependencies only. Their versions remain locked.
+Registration lives in root-only `patches.json`, not `extra.patches`, so installing
+this plugin as another project's dependency does not export these repairs.
+`patches.lock.json` pins the patch contents by SHA-256. GitHub downloads exclude
+all tooling and patches through the existing `.gitattributes` keep-list.
+
+## Patchwork directory delegation
+
+`patchwork-directory-wrapper.patch` repairs Patchwork 2.2.4 when it delegates
+directory operations to another file stream wrapper. Retain that wrapper object
+for subsequent reads and closes, rather than retaining its boolean open result.
+Native directory operations still retain their native resource.
+
+## Isolated mutation processes and missing test reports
+
+`pest-mutate-isolated-processes.patch` repairs Pest Mutate 5.0.2. Activate mutation
+source replacement through a package-owned Composer autoload file, which runs in
+both Pest and PHPUnit's isolated children. Remove the duplicate Pest-kernel boot
+activation. The root `autoload-dev.files` entry is necessary because modifying a
+dependency's manifest does not change the autoload metadata already in our lock.
+Do not substitute an edit to `vendor/composer/installed.json`.
+
+Each mutant gets a unique temporary JUnit report. An absent, invalid or empty
+report aborts with child diagnostics instead of being scored as a killed mutant.
+Normal completion, timeout and abandoned mutant objects remove the report.
+This check does not distinguish
+every possible infrastructure error from a test error inside a reported testcase;
+inspect error diagnostics during preflight before accepting mutation results.
+
+## Verification and retirement
+
+`composer test:unit` includes guards for the patched dependency installation.
+The mutation preflight must also prove that original source passes, a deliberate
+mutant fails the expected assertion in an isolated child, and a child that fails
+before reporting tests aborts rather than increasing the killed count. A zero
+mutation count is not a passing preflight.
+
+Retire each repair only when an installable upstream version provides equivalent
+behavior and the same positive and negative controls pass without its patch.
+Remove the patch registration before updating its package, then:
+
+- Remove the corresponding `.patch` file and installation guards.
+- Remove `tests/Unit/MutationCompatibilityTest.php` and its four
+  `tests/Fixtures/MutationProbe*.php` / `MutationReportProcess.php` fixtures
+  when neither repair needs them. Keep the shared isolated-test autoloader
+  constant in `tests/bootstrap.php` for other isolated tests.
+- Remove the root `autoload-dev.files` entry when Pest Mutate supplies its own
+  early autoload bootstrap.
+- Regenerate `patches.lock.json`; refresh `composer.lock` if the manifest changes.
+- If no patches remain, remove Composer Patches and its unused dependencies,
+  its `allow-plugins` entry, `patches.json` and `patches.lock.json`.
+- Cold-install, run the ordinary suites and mutation preflight, and verify the
+  runtime download still excludes development files.
+- Remove this narrative when both repairs retire.
