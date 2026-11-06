@@ -1,5 +1,19 @@
 # UAMSWP-Logo-List
 
+## Amp orbs
+
+`.agents/setup` installs PHP 8.4, PHP 8.2 for floor linting, Composer 2, Node 22,
+both locked Composer dependency trees, and the locked npm dependencies. Amp caches
+the prepared machine for fresh orbs; a stale snapshot reruns setup safely.
+
+Setup also downloads the WordPress version matching the integration test lockfile
+and creates a disposable MariaDB database. `.agents/resume` restarts MariaDB after
+activation or wake-up without reinstalling dependencies. New login shells receive
+the `WP_TESTS_*` configuration, so `composer test` can run directly. These settings
+are only for the orb's disposable test database, never a production database.
+
+The full stylesheet comparison still requires the sibling `uams-2020` theme and
+its dependencies, as described below. Setup does not fetch that separate project.
 
 ## Tests
 

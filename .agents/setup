@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+export DEBIAN_FRONTEND=noninteractive
+export COMPOSER_NO_INTERACTION=1
+started=$SECONDS
+database_started=false
+cleanup() {
+    status=$?
+    if "$database_started"; then
+        sudo service mariadb stop
+    fi
+    printf 'Orb setup finished after %ss (exit %s)\n' "$((SECONDS - started))" "$status"
+    exit "$status"
+}
+trap cleanup EXIT
+
+echo 'Preparing PHP 8.4, PHP 8.2 floor lint, and MariaDB'
+packages=(ca-certificates curl unzip xz-utils php8.4-cli php8.4-curl php8.4-mbstring
+    php8.4-xml php8.4-mysql php8.4-zip php8.2-cli mariadb-server mariadb-client)
+missing=()
+for package in "${packages[@]}"; do
+    if [[ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null || true) != 'install ok installed' ]]; then
+        missing+=("$package")
+    fi
+done
+if ((${#missing[@]})); then
+    if [[ ! -f /usr/share/keyrings/debsuryorg-archive-keyring.gpg ]]; then
+        keyring=$(mktemp)
+        curl --fail --silent --show-error --location --max-time 60 \
+            https://packages.sury.org/debsuryorg-archive-keyring.deb -o "$keyring"
+        sudo dpkg -i "$keyring"
+        rm "$keyring"
+    fi
+    echo 'deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ bookworm main' \
+        | sudo tee /etc/apt/sources.list.d/php.list >/dev/null
+    sudo apt-get update -qq
+    if [[ " ${missing[*]} " == *' mariadb-server '* ]]; then
+        database_started=true
+    fi
+    sudo -E apt-get install -y --no-install-recommends "${missing[@]}"
+fi
+# Only the orb supervisor should start MariaDB after restoring the snapshot.
+sudo systemctl disable mariadb.service
+sudo update-alternatives --set php /usr/bin/php8.4
+
+echo 'Preparing Node 22 and Composer 2'
+if ! command -v node >/dev/null || [[ $(node -p 'process.versions.node.split(".")[0]') != 22 ]]; then
+    scratch=$(mktemp -d)
+    arch=$(dpkg --print-architecture)
+    case "$arch" in
+        amd64) arch=x64 ;;
+        arm64) arch=arm64 ;;
+        *) echo "Unsupported Node architecture: $arch" >&2; exit 1 ;;
+    esac
+    curl -fsSL --max-time 60 https://nodejs.org/dist/latest-v22.x/SHASUMS256.txt -o "$scratch/SHASUMS256.txt"
+    archive=$(awk -v arch="$arch" '$2 ~ ("-linux-" arch "\\.tar\\.xz$") {print $2}' "$scratch/SHASUMS256.txt")
+    [[ -n "$archive" ]]
+    curl -fsSL --max-time 120 "https://nodejs.org/dist/latest-v22.x/$archive" -o "$scratch/$archive"
+    (cd "$scratch"; grep " $archive\$" SHASUMS256.txt | sha256sum --check -)
+    sudo tar -xJf "$scratch/$archive" -C /usr/local --strip-components=1
+    rm -rf "$scratch"
+fi
+if ! command -v composer >/dev/null || [[ $(composer --version --no-ansi) != 'Composer version 2.'* ]]; then
+    scratch=$(mktemp -d)
+    curl -fsSL --max-time 60 https://composer.github.io/installer.sig -o "$scratch/installer.sig"
+    curl -fsSL --max-time 60 https://getcomposer.org/installer -o "$scratch/composer-setup.php"
+    [[ $(php -r 'echo hash_file("sha384", $argv[1]);' "$scratch/composer-setup.php") == "$(cat "$scratch/installer.sig")" ]]
+    php "$scratch/composer-setup.php" --2 --install-dir="$scratch" --filename=composer
+    sudo install -m 755 "$scratch/composer" /usr/local/bin/composer
+    rm -rf "$scratch"
+fi
+php --version | head -1
+node --version
+composer --version
+
+echo "Installing locked dependencies (${SECONDS}s elapsed)"
+time composer install --no-progress --prefer-dist
+time composer install --working-dir=tests/Integration --no-progress --prefer-dist
+# The documented install skips preinstall, which otherwise rewrites the lockfile.
+time npm ci --ignore-scripts --no-audit --no-fund
+
+echo "Preparing disposable WordPress test installation (${SECONDS}s elapsed)"
+wordpress="$HOME/.cache/amp/logo-list/wordpress"
+version=$(php -r '$lock = json_decode(file_get_contents("tests/Integration/composer.lock"), true); foreach ($lock["packages-dev"] as $package) { if ($package["name"] === "wp-phpunit/wp-phpunit") { echo $package["version"]; } }')
+installed=''
+if [[ -f "$wordpress/wp-includes/version.php" ]]; then
+    installed=$(php -r 'require $argv[1]; echo $wp_version;' "$wordpress/wp-includes/version.php")
+fi
+if [[ "$installed" != "$version" ]]; then
+    scratch=$(mktemp -d)
+    curl -fsSL --max-time 120 "https://wordpress.org/wordpress-$version.tar.gz" -o "$scratch/wordpress.tar.gz"
+    tar -xzf "$scratch/wordpress.tar.gz" -C "$scratch"
+    mkdir -p "$(dirname "$wordpress")"
+    rm -rf "$wordpress"
+    mv "$scratch/wordpress" "$wordpress"
+    rm -rf "$scratch"
+fi
+
+# Only test configuration is persisted, never user or thread authentication.
+profile_marker='# UAMSWP Logo List orb test environment'
+touch "$HOME/.bash_profile"
+if ! grep -Fqx "$profile_marker" "$HOME/.bash_profile"; then
+    cat >> "$HOME/.bash_profile" <<'EOF'
+
+# UAMSWP Logo List orb test environment
+export WP_TESTS_ABSPATH="$HOME/.cache/amp/logo-list/wordpress"
+export WP_TESTS_DB_NAME=uamswp_logo_list_tests
+export WP_TESTS_DB_USER=logo_list_tests
+export WP_TESTS_DB_PASSWORD=''
+export WP_TESTS_DB_HOST=localhost
+EOF
+fi
+
+# Start the database only long enough to prepare its snapshot, then stop it.
+# Runtime database processes belong to the orb service supervisor.
+if ! sudo mariadb-admin ping --silent >/dev/null 2>&1; then
+    database_started=true
+    sudo service mariadb start
+fi
+sudo mariadb <<'SQL'
+CREATE DATABASE IF NOT EXISTS uamswp_logo_list_tests;
+CREATE USER IF NOT EXISTS 'logo_list_tests'@'localhost' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON uamswp_logo_list_tests.* TO 'logo_list_tests'@'localhost';
+SQL
+echo "Orb dependencies ready (${SECONDS}s elapsed)"

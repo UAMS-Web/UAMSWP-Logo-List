@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Setup daemons do not survive snapshot publication. Supervise the runtime DB.
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+amp orb services ensure
+sudo mariadb-admin --wait=5 ping --silent

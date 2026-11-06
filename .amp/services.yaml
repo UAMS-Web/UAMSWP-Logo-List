@@ -1,0 +1,7 @@
+services:
+  logo-list-db:
+    platforms: [linux]
+    command: >-
+      sudo install -d -o mysql -g mysql /run/mysqld &&
+      exec sudo mariadbd --user=mysql --bind-address=127.0.0.1 --port="$PORT"
+      --innodb-flush-log-at-trx-commit=0 --sync-binlog=0
