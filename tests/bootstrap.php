@@ -10,6 +10,11 @@
 
 declare(strict_types=1);
 
+// PHPUnit's isolated children need the autoloader before this bootstrap runs.
+if (! defined('PHPUNIT_COMPOSER_INSTALL')) {
+    define('PHPUNIT_COMPOSER_INSTALL', __DIR__.'/../vendor/autoload.php');
+}
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 /*
