@@ -1,5 +1,27 @@
 # UAMSWP-Logo-List
 
+## Amp orbs
+
+Amp runs the executable `.agents/setup` on a fresh orb and caches the result in
+the project snapshot. It installs PHP 8.4 and its test extensions, PHP 8.2 for
+floor linting, Composer 2, Node 22 (matching CI), both locked Composer dependency
+sets, and the locked npm dependencies.
+Run `.agents/setup` again after dependency lockfiles change.
+The script targets Debian 12 orbs with passwordless `sudo`.
+
+The npm install uses `--ignore-scripts`, as the build-test instructions below do,
+so the legacy `preinstall` hook cannot fetch an unpinned package or rewrite the
+lockfile. `.agents/resume` only checks tool availability; it never reinstalls
+dependencies or authenticates a user into the shared snapshot.
+
+Unit tests and stylesheet fixture tests need no services. The integration suite
+currently contains configuration and bootstrap files but no test cases. Its
+dependencies are ready, but running it still requires a separate WordPress core
+copy (`WP_TESTS_ABSPATH`) and a disposable MySQL database (`WP_TESTS_DB_*`, read
+by `tests/Integration/wp-tests-config.php`). Setup does not create a live site
+or start an unused database. The full stylesheet rebuild also needs the sibling
+`uams-2020` theme; without it, that one build test is skipped.
+
 
 ## Tests
 

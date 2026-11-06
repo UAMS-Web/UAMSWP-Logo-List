@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Dependencies live in the snapshot; waking an orb needs no installs or services.
+php --version | head -n 1
+composer --version --no-ansi
+node --version
