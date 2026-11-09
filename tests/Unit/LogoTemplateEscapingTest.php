@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UamswpLogoList\Tests\Unit;
 
+use DOMDocument;
+use DOMXPath;
 use Mockery;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -176,6 +178,52 @@ final class LogoTemplateEscapingTest extends TestCase
             '<a href="https://example.com/?a=1&#038;b=2" target=_blank data-moduletitle="Community partners" data-itemtitle="Acme" class="btn btn-primary" aria-describedby = "partners_2_title" id="partners_2_button">Visit &lt;b&gt;Acme&lt;/b&gt;</a>',
             $html
         );
+    }
+
+    /**
+     * An item with no stored target currently prints a bare `target=`, and a heading holding a space becomes an attribute of the link.
+     */
+    public function test_an_item_with_no_stored_target_currently_prints_a_bare_target_attribute(): void
+    {
+        $html = self::item([
+            'logo_title' => 'Acme onerror=alert(1)',
+            'logo_link' => 'https://example.com/',
+            'logo_link_target' => '',
+        ], [
+            'heading' => 'Partners onmouseover=alert(1)',
+            'links_query' => true,
+        ]);
+
+        self::assertStringContainsString(
+            '<a href="https://example.com/" target= data-moduletitle="Partners onmouseover=alert(1)" data-itemtitle="Acme onerror=alert(1)" class="stretched-link" aria-describedby="partners_2_button">',
+            $html
+        );
+        self::assertSame(['a@onmouseover'], self::eventHandlerAttributes($html));
+    }
+
+    /**
+     * List every `on*` attribute the parsed markup carries, as `tag@name`.
+     *
+     * @return list<string>
+     */
+    private static function eventHandlerAttributes(string $html): array
+    {
+        $document = new DOMDocument;
+        $previous = libxml_use_internal_errors(true);
+
+        try {
+            $document->loadHTML('<!DOCTYPE html><html><body>'.$html.'</body></html>');
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous);
+        }
+
+        $found = [];
+        foreach ((new DOMXPath($document))->query('//@*[starts-with(name(), "on")]') ?: [] as $attribute) {
+            $found[] = $attribute->ownerElement?->nodeName.'@'.$attribute->nodeName;
+        }
+
+        return $found;
     }
 
     /**
