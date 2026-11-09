@@ -3,8 +3,8 @@
 declare(strict_types=1);
 /*
 Plugin Name: UAMSWP Logo List
-Plugin URI: -
-Version: 2.0.1
+Plugin URI: https://github.com/UAMS-Web/UAMSWP-Logo-List
+Version: 2.0.2
 Requires PHP: 8.2
 Description: Logo list plugin for uams.edu & uamshealth.com
 Author: UAMS, Josh Daugherty
