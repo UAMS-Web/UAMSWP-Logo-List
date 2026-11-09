@@ -36,7 +36,7 @@ composer test:integration     # PHPUnit 9.6 over wp-phpunit, needs the test data
 
 The stylesheet build has its own tests, run with `npm ci --ignore-scripts` then `npm run test:build` (Node's built-in test runner, no extra packages). They feed fixtures through `gulpfile.js` stage by stage; one test also rebuilds `assets/css/app.css` and compares it byte for byte, and is skipped where the `uams-2020` theme that `assets/scss/app.scss` imports is not checked out beside the plugin.
 
-A floor lint (`lint-floor` in `local-ci.json`) runs `php -l` under PHP 8.2 over every shipped PHP file, outside `vendor/` and `tests/`.
+A floor lint (`lint-floor` in `local-ci.json`, `composer lint:floor`) runs `php -l` under PHP 8.2 over every shipped PHP file, the files the download keep-list in `.gitattributes` leaves in the archive.
 
 
 ## Local CI
@@ -51,4 +51,4 @@ The runner runs the same checks as `ci.yml` on a local machine, before a push.
 
 ## Remote CI
 
-`.github/workflows/ci.yml` runs the same checks in GitHub Actions and follows the shared template: the `CI` job `needs:` every other job, and `Attribution footer` and `Closing keywords` are their own workflows that read the pull request body. This repository is public, so the workflows run on every pull request at no cost. Every job in `ci.yml` is still gated on `vars.RUN_REMOTE_CI != 'false'`: with the variable unset the jobs run, and set to `false` they report `skipped`. `CI` is the check to require. The stylesheet build is not an Actions job: `assets/scss/app.scss` imports from the `uams-2020` theme and its `node_modules`, which sit outside this repository, so a runner with only this checkout cannot compile it.
+`.github/workflows/ci.yml` runs the checks in GitHub Actions. The lint and unit chain is the shared one in `UAMS-Web/uams-ci-workflows`, called by the `checks` job and pinned to a release tag; `guard` and `lint` stay as plain jobs beside it because the chain has no job for them. The `CI` job `needs:` the call and each plain job, and `Attribution footer` and `Closing keywords` are their own workflows that read the pull request body. This repository is public, so the workflows run on every pull request at no cost. `CI` is the check to require. The stylesheet build is not an Actions job: `assets/scss/app.scss` imports from the `uams-2020` theme and its `node_modules`, which sit outside this repository, so a runner with only this checkout cannot compile it.
