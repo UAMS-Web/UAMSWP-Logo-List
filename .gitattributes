@@ -1,6 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto eol=lf
 
+# Unified diff context uses a single space for an unchanged blank line.
+/patches/*.patch whitespace=-blank-at-eol,-blank-at-eof
+
 # The GitHub download keeps only what the plugin runs: every top-level entry
 # is left out, then each runtime path is put back. A new runtime folder needs
 # its own line here, in the same change. See the keep-the-download-to-what-runs
