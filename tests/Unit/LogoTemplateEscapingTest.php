@@ -175,15 +175,15 @@ final class LogoTemplateEscapingTest extends TestCase
         self::assertStringContainsString('<p>Makes things</p>alert(1)', $html);
         self::assertStringNotContainsString('<script>', $html);
         self::assertStringContainsString(
-            '<a href="https://example.com/?a=1&#038;b=2" target=_blank data-moduletitle="Community partners" data-itemtitle="Acme" class="btn btn-primary" aria-describedby = "partners_2_title" id="partners_2_button">Visit &lt;b&gt;Acme&lt;/b&gt;</a>',
+            '<a href="https://example.com/?a=1&#038;b=2" target="_blank" rel="noopener" data-moduletitle="Community partners" data-itemtitle="Acme" class="btn btn-primary" aria-describedby = "partners_2_title" id="partners_2_button">Visit &lt;b&gt;Acme&lt;/b&gt;</a>',
             $html
         );
     }
 
     /**
-     * An item with no stored target currently prints a bare `target=`, and a heading holding a space becomes an attribute of the link.
+     * An item with no stored target prints no `target` at all, so a heading or title holding a space stays inside its own quoted attribute.
      */
-    public function test_an_item_with_no_stored_target_currently_prints_a_bare_target_attribute(): void
+    public function test_an_item_with_no_stored_target_prints_no_target_attribute(): void
     {
         $html = self::item([
             'logo_title' => 'Acme onerror=alert(1)',
@@ -195,10 +195,30 @@ final class LogoTemplateEscapingTest extends TestCase
         ]);
 
         self::assertStringContainsString(
-            '<a href="https://example.com/" target= data-moduletitle="Partners onmouseover=alert(1)" data-itemtitle="Acme onerror=alert(1)" class="stretched-link" aria-describedby="partners_2_button">',
+            '<a href="https://example.com/" data-moduletitle="Partners onmouseover=alert(1)" data-itemtitle="Acme onerror=alert(1)" class="stretched-link" aria-describedby="partners_2_button">',
             $html
         );
-        self::assertSame(['a@onmouseover'], self::eventHandlerAttributes($html));
+        self::assertSame([], self::eventHandlerAttributes($html));
+    }
+
+    /**
+     * A stored target outside the field's choices prints no `target` either: only `_blank` does.
+     */
+    public function test_an_item_prints_a_target_only_for_blank(): void
+    {
+        $html = self::item([
+            'logo_title' => 'Acme',
+            'logo_link' => 'https://example.com/',
+            'logo_link_target' => '_top onmouseover=alert(1)',
+        ], [
+            'links_query' => true,
+        ]);
+
+        self::assertStringContainsString(
+            '<a href="https://example.com/" data-moduletitle="Community partners" data-itemtitle="Acme" class="stretched-link" aria-describedby="partners_2_button">',
+            $html
+        );
+        self::assertSame([], self::eventHandlerAttributes($html));
     }
 
     /**
