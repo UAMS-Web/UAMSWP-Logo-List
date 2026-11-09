@@ -236,7 +236,10 @@ if ($layout == 'grid') {
 // Create class attribute
 $className = '';
 if (! empty($block['className'])) {
-    $className .= ' '.$block['className']; // Add additional CSS class(es) from block
+    $block_classes = array_filter(array_map(sanitize_html_class(...), preg_split('/\s+/', trim((string) $block['className'])))); // Sanitize each additional CSS class from block, dropping any left empty
+    if ($block_classes !== []) {
+        $className .= ' '.implode(' ', $block_classes); // Add additional CSS class(es) from block
+    }
 }
 if (! empty($background_color)) {
     $className .= ' '.$background_color; // Add background color value from block input
@@ -296,14 +299,14 @@ if (! empty($is_preview) && (! $category_ids || ! $logo_list_query->have_posts()
 
 // Display the Block
 if ($category_ids && $logo_list_query->have_posts()) { ?>
-<section class="uams-module logo-list alignfull<?php echo $className; ?>" id="<?php echo $id; ?>">
+<section class="uams-module logo-list alignfull<?php echo esc_attr($className); ?>" id="<?php echo $id; ?>">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12<?php echo ($hide_heading && empty($description)) ? ' sr-only' : ''; ?>">
                 <h2 class="module-title<?php echo ($hide_heading && $description) ? ' sr-only' : ''; ?>">
-                    <span class="title"><?php echo $heading; ?></span>
+                    <span class="title"><?php echo esc_html($heading); ?></span>
                 </h2>
-                <?php echo $description ? '<div class="module-description"><p>'.$description.'</p></div>' : ''; ?>
+                <?php echo $description ? '<div class="module-description"><p>'.esc_html($description).'</p></div>' : ''; ?>
             </div>
             <div class="col-12">
             <div class="item-list-container<?php echo $width_class; ?>">
@@ -324,9 +327,9 @@ if ($category_ids && $logo_list_query->have_posts()) { ?>
                 // If all values aren't present, don't display the section
                 ?>
                 <div class="col-12 more">
-                    <p class="lead"><?php echo $more_text; ?></p>
+                    <p class="lead"><?php echo esc_html($more_text); ?></p>
                     <div class="cta-container">
-                        <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'.$more_button_target.'"' : '' ?>><?php echo $more_button_text; ?></a>
+                        <a href="<?php echo esc_url($more_button_link_url); ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo esc_attr($more_button_description_attr); ?>"<?php $more_button_target ? ' target="'.$more_button_target.'"' : '' ?>><?php echo esc_html($more_button_text); ?></a>
                     </div>
                 </div>
             <?php } // endif?>

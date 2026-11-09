@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\TestCase;
 
+use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
@@ -27,6 +28,9 @@ final class LogoTemplateEscapingTest extends TestCase
 {
     /**
      * Start a clean WordPress function boundary for each isolated process.
+     *
+     * The escaping stubs follow WordPress closely enough to show what each
+     * call does to a value; `wp_kses_post` is expected per test instead.
      */
     protected function setUp(): void
     {
@@ -35,6 +39,10 @@ final class LogoTemplateEscapingTest extends TestCase
         defined('UAMS_LOGO_PATH') || define('UAMS_LOGO_PATH', dirname(__DIR__, 2));
         when('get_post_meta')->justReturn('');
         when('wp_reset_postdata')->justReturn();
+        when('esc_html')->alias(fn (mixed $text): string => htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'));
+        when('esc_attr')->alias(fn (mixed $text): string => htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'));
+        when('esc_url')->alias(fn (mixed $url): string => preg_match('/^\s*javascript:/i', (string) $url) ? '' : str_replace('&', '&#038;', (string) $url));
+        when('sanitize_html_class')->alias(fn (string $class): string => preg_replace('/[^A-Za-z0-9_-]/', '', $class));
     }
 
     /**
@@ -51,9 +59,9 @@ final class LogoTemplateEscapingTest extends TestCase
     }
 
     /**
-     * The editor's "Additional CSS class(es)" value currently lands in the section's class attribute as typed.
+     * Each token of the editor's "Additional CSS class(es)" is sanitized on its own, and the attribute is escaped.
      */
-    public function test_the_block_currently_appends_the_editor_classes_verbatim(): void
+    public function test_the_block_sanitizes_each_editor_class_and_escapes_the_attribute(): void
     {
         $html = self::block(
             ['block_logo_list_filter_ids' => [13], 'block_logo_list_background_color' => 'bg-"dark'],
@@ -62,15 +70,32 @@ final class LogoTemplateEscapingTest extends TestCase
         );
 
         self::assertStringContainsString(
-            '<section class="uams-module logo-list alignfull promo "><b>x</b> partners bg-"dark logo-list-layout-grid" id="logo-list-abc123">',
+            '<section class="uams-module logo-list alignfull promo bxb partners bg-&quot;dark logo-list-layout-grid" id="logo-list-abc123">',
             $html
         );
     }
 
     /**
-     * The block's text fields currently reach the heading, description and more section as stored.
+     * Editor classes that sanitize to nothing add no class, not even a stray space.
      */
-    public function test_the_block_currently_echoes_its_text_fields_raw(): void
+    public function test_the_block_adds_no_class_when_every_editor_class_sanitizes_away(): void
+    {
+        $html = self::block(
+            ['block_logo_list_filter_ids' => [13]],
+            [47 => ['logo_title' => 'Partner']],
+            ['block' => ['id' => 'abc123', 'className' => ' "> ']],
+        );
+
+        self::assertStringContainsString(
+            '<section class="uams-module logo-list alignfull bg-auto logo-list-layout-grid" id="logo-list-abc123">',
+            $html
+        );
+    }
+
+    /**
+     * The block's text fields are escaped for the heading, description and more section, and the more link's URL is escaped.
+     */
+    public function test_the_block_escapes_its_text_fields_and_more_link(): void
     {
         $html = self::block(
             [
@@ -86,19 +111,19 @@ final class LogoTemplateEscapingTest extends TestCase
             [47 => ['logo_title' => 'Partner']],
         );
 
-        self::assertStringContainsString('<span class="title">Partners <b>& friends</b></span>', $html);
-        self::assertStringContainsString('<div class="module-description"><p>Groups we <i>work</i> with</p></div>', $html);
-        self::assertStringContainsString('<p class="lead">More <u>partners</u></p>', $html);
+        self::assertStringContainsString('<span class="title">Partners &lt;b&gt;&amp; friends&lt;/b&gt;</span>', $html);
+        self::assertStringContainsString('<div class="module-description"><p>Groups we &lt;i&gt;work&lt;/i&gt; with</p></div>', $html);
+        self::assertStringContainsString('<p class="lead">More &lt;u&gt;partners&lt;/u&gt;</p>', $html);
         self::assertStringContainsString(
-            '<a href="javascript:alert(1)" class="btn btn-outline-primary" aria-label="All \'partners\' listed">See <s>all</s></a>',
+            '<a href="" class="btn btn-outline-primary" aria-label="All &#039;partners&#039; listed">See &lt;s&gt;all&lt;/s&gt;</a>',
             $html
         );
     }
 
     /**
-     * A grid item's title, short description, label and link currently reach the markup as stored.
+     * A grid item escapes its title, short description and label, and its heading link's URL and data attributes.
      */
-    public function test_a_grid_item_currently_echoes_its_fields_raw(): void
+    public function test_a_grid_item_escapes_its_fields_and_heading_link(): void
     {
         when('get_term')->justReturn((object) ['name' => 'Gold <b>tier</b>']);
 
@@ -116,18 +141,23 @@ final class LogoTemplateEscapingTest extends TestCase
         ]);
 
         self::assertStringContainsString(
-            '<a href="javascript:alert(1)" data-moduletitle="Our "partners"" data-itemtitle="Acme <i>Corp</i>" class="stretched-link" aria-describedby="partners_2_button">Acme <i>Corp</i></a>',
+            '<a href="" data-moduletitle="Our &quot;partners&quot;" data-itemtitle="Acme &lt;i&gt;Corp&lt;/i&gt;" class="stretched-link" aria-describedby="partners_2_button">Acme &lt;i&gt;Corp&lt;/i&gt;</a>',
             $html
         );
-        self::assertStringContainsString('<p class="item-label">Gold <b>tier</b></p>', $html);
-        self::assertStringContainsString('<p class="item-text">Makes <b>things</b></p>', $html);
+        self::assertStringContainsString('<p class="item-label">Gold &lt;b&gt;tier&lt;/b&gt;</p>', $html);
+        self::assertStringContainsString('<p class="item-text">Makes &lt;b&gt;things&lt;/b&gt;</p>', $html);
     }
 
     /**
-     * A vertical item's long description and link text currently reach the markup as stored.
+     * A vertical item passes its long description through `wp_kses_post` and escapes its button link.
      */
-    public function test_a_vertical_item_currently_echoes_its_fields_raw(): void
+    public function test_a_vertical_item_filters_its_long_description_and_escapes_its_button_link(): void
     {
+        expect('wp_kses_post')
+            ->once()
+            ->with('<p>Makes things</p><script>alert(1)</script>')
+            ->andReturn('<p>Makes things</p>alert(1)');
+
         $html = self::item([
             'logo_title' => 'Acme',
             'logo_longdescr' => '<p>Makes things</p><script>alert(1)</script>',
@@ -140,9 +170,10 @@ final class LogoTemplateEscapingTest extends TestCase
             'links_query' => true,
         ]);
 
-        self::assertStringContainsString('<p>Makes things</p><script>alert(1)</script>', $html);
+        self::assertStringContainsString('<p>Makes things</p>alert(1)', $html);
+        self::assertStringNotContainsString('<script>', $html);
         self::assertStringContainsString(
-            '<a href="https://example.com/?a=1&b=2" target=_blank data-moduletitle="Community partners" data-itemtitle="Acme" class="btn btn-primary" aria-describedby = "partners_2_title" id="partners_2_button">Visit <b>Acme</b></a>',
+            '<a href="https://example.com/?a=1&#038;b=2" target=_blank data-moduletitle="Community partners" data-itemtitle="Acme" class="btn btn-primary" aria-describedby = "partners_2_title" id="partners_2_button">Visit &lt;b&gt;Acme&lt;/b&gt;</a>',
             $html
         );
     }

@@ -32,7 +32,7 @@ if (empty($item_image)) {
 }
 $item_title =
     (($titles_query || $item_title_query) ? '' : '<span class="sr-only">').
-    $item_title_val.
+    esc_html($item_title_val).
     (($titles_query || $item_title_query) ? '' : '</span>');
 if (function_exists('bis_get_attachment_image')) {
     $item_image_fly_xxs_1x = bis_get_attachment_image_src($item_image, [$image_width_xxs, $image_height_xxs]);
@@ -69,7 +69,7 @@ $item_link_target = ($item_link_target != 'inherit') ? $item_link_target : $link
 $item_link_target_attr = ($item_link_target != '_self') ? ' target='.$item_link_target : '';
 $item_heading_link_query = $layout == 'grid'; // Determine when to add link to heading
 $item_button_link_query = $layout != 'grid'; // Determine when to add button link
-$item_general_link_element = 'a href="'.$item_link.'"'.$item_link_target_attr.' data-moduletitle="'.$heading.'"'.' data-itemtitle="'.$item_title_val.'"';
+$item_general_link_element = 'a href="'.esc_url($item_link).'"'.$item_link_target_attr.' data-moduletitle="'.esc_attr($heading).'"'.' data-itemtitle="'.esc_attr($item_title_val).'"';
 $item_heading_link_element =
     (
         $item_heading_link_query ?
@@ -95,7 +95,7 @@ $item_button_link_element =
         'span style="display: none;" aria-hidden="true"'
     ).
     ' id="'.$item_button_id.'">'.
-        $item_link_text.
+        esc_html($item_link_text).
     '</'.
     ($item_button_link_query ? 'a' : 'span').
     '>';
@@ -150,14 +150,14 @@ if (! empty($item_image)) {
     <div class="item-body">
         <h3 class="<?php echo ($titles_query || $item_title_query) ? 'item-title' : 'item-title item-title-hidden'; ?>" id="<?php echo $item_title_id; ?>"><?php echo ($links_query && $item_link) ? $item_heading_link_element : $item_title; ?></h3>
         <?php if ($labels_query) { ?>
-            <p class="item-label"><?php echo $item_label_name; ?></p>
+            <p class="item-label"><?php echo esc_html($item_label_name); ?></p>
         <?php } // endif?>
         <?php if ($layout == 'grid') { ?>
             <?php if ($shortdescr_query) { ?>
-                <p class="item-text"><?php echo $item_shortdescr; ?></p>
+                <p class="item-text"><?php echo esc_html($item_shortdescr); ?></p>
             <?php } // endif?>
         <?php } elseif ($layout == 'vertical') { ?>
-            <?php echo $item_longdescr; ?>
+            <?php echo wp_kses_post($item_longdescr); ?>
         <?php } // endif?>
         <?php if ($links_query && $item_link) { ?>
             <div class="link-container">
