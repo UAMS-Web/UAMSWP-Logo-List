@@ -43,6 +43,7 @@
             "@test:integration"
         ],
         "test:unit": "pest",
+        "mutate": "pest --mutate --parallel --path=templates",
         "test:integration": "@php tests/Integration/vendor/bin/phpunit --configuration tests/Integration/phpunit.xml",
         "stan": "phpstan analyse --no-progress --memory-limit=2G",
         "lint:floor": "@php scripts/lint-floor.php",
