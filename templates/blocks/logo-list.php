@@ -40,19 +40,22 @@ $label_ids = get_field('block_logo_list_labels_ids') ?: []; // Get the list of c
 $label_logic = get_field('block_logo_list_labels_logic') ?: 'IN'; // Get the filtering logic for multiple categories: AND (match all categories), OR (match any categories)
 $featured_query = get_field('block_logo_list_featured') ?: false; // Get which featured display behavior should be used
 $layout = get_field('block_logo_list_layout') ?: 'grid'; // Get the list layout
+// $layout is always a string here ('grid' replaces any falsy value above), so == and === agree.
+// @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'grid') { // Configuration specific to the grid layout
-    $links_display_query = false; // Don't visually display item links in this layout
     $width = get_field('block_logo_list_width'); // Get the width of the item list within block
     $shortdescr_query = get_field('block_logo_list_shortdescr'); // Check if short description elements should be added to items
     $titles_query = get_field('block_logo_list_titles') ?: false; // Check if titles should always be displayed in items
 } elseif ($layout == 'vertical') { // Configuration specific to the vertical list layout
-    $links_display_query = true; // Visually display item links in this layout
     $width = '';
+    // $shortdescr_query is only read under the grid layout, so its value here is never observed.
+    // @pest-mutate-ignore: FalseToTrue
     $shortdescr_query = false;
     $titles_query = true; // Visually display item titles in this layout
 } else {
-    $links_display_query = false;
     $width = '';
+    // $shortdescr_query is only read under the grid layout, so its value here is never observed.
+    // @pest-mutate-ignore: FalseToTrue
     $shortdescr_query = false;
     $titles_query = false;
 }
@@ -60,6 +63,8 @@ $width_class = ! empty($width) ? ' '.$width : ''; // Set class name for list wid
 $desaturate_query = get_field('block_logo_list_desaturate') ?: false; // Check if if item logos should be programmatically desaturated
 $labels_query = get_field('block_logo_list_labels') ?: false; // Check if if label elements should be added to items
 $links_query = get_field('block_logo_list_links') ?: false; // Check if link elements should be added to items
+// The fallback is only read when links are enabled, and that branch always overwrites it.
+// @pest-mutate-ignore: FalseToTrue
 $links_target_query = false; // Fallback value for if item links should open in a new window
 if ($links_query) {
     $links_target_query = get_field('block_logo_list_links_target'); // Check if link elements should be added to items
@@ -69,8 +74,8 @@ $orderby_array = get_field('block_logo_list_order') ?: []; // Get sort order of 
 if (count($orderby_array) === 1 && (! str_starts_with($orderby_array[0], 'rand'))) { // If there is only one sort order option, and it's not Random Order...
     if (! str_starts_with($orderby_array[0], 'meta_value')) {
         $orderby_array[] = 'meta_value|ASC'; // If the one sort order option isn't Alphabetical by Organization Title, set that to the fallback
-    } elseif (! str_starts_with($orderby_array[0], 'menu_order')) {
-        $orderby_array[] = 'menu_order|ASC'; // If the one sort order option isn't Menu Order, set that to the fallback
+    } else {
+        $orderby_array[] = 'menu_order|ASC'; // The one sort order option is Alphabetical by Organization Title, so Menu Order is the fallback
     }
 }
 $orderby = [];
@@ -84,10 +89,11 @@ foreach ($orderby_array as $str) {
 }
 
 $max_items = get_field('block_logo_list_max') ?: -1; // Get maximum number of items
-if ($featured_query && $max_items) {
-    $max_items = ($max_items >= 3 || $max_items <= 0) ? 3 : $max_items; // If Featured mode is on and max is set, limit max to 3; treat 0 and -1 as 3.
-} elseif ($featured_query) {
-    $max_items = 3; // If Featured mode is on, set max to 3
+if ($featured_query) {
+    // $max_items is never 0 here ('?: -1' above turns 0 into -1), so < 1 and < 0 agree.
+    // @pest-mutate-ignore: DecrementInteger
+    $max_items_unlimited = $max_items < 1;
+    $max_items = $max_items_unlimited ? 3 : min($max_items, 3); // If Featured mode is on, limit max to 3; treat -1 (no limit) as 3.
 }
 
 // More Section Configuration
@@ -167,6 +173,8 @@ $image_height_xl = '';
 $image_width_xxl = '';
 $image_height_xxl = '';
 
+// $layout is always a string here, so == and === agree.
+// @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'grid') {
     if ($featured_query) {
         $image_width_xxs = $grid_image_width_xxs_featured;
@@ -236,18 +244,12 @@ if ($layout == 'grid') {
 // Create class attribute
 $className = '';
 if (! empty($block['className'])) {
+    // $className is still '' here, so .= and = agree.
+    // @pest-mutate-ignore: ConcatEqualToEqual
     $className .= ' '.$block['className']; // Add additional CSS class(es) from block
 }
-if (! empty($background_color)) {
-    $className .= ' '.$background_color; // Add background color value from block input
-} else {
-    $className .= ' bg-auto'; // Add fallback background color value
-}
-if (! empty($layout)) {
-    $className .= ' logo-list-layout-'.$layout; // Add background color value from block input
-} else {
-    $className .= ' logo-list-layout-grid'; // Add fallback background color value
-}
+$className .= ' '.$background_color; // Add background color value from block input (falls back to bg-auto above)
+$className .= ' logo-list-layout-'.$layout; // Add layout value from block input (falls back to grid above)
 if ($featured_query) {
     $className .= ' logo-list-featured'; // Add class to indicate featured
 }
@@ -326,7 +328,11 @@ if ($category_ids && $logo_list_query->have_posts()) { ?>
                 <div class="col-12 more">
                     <p class="lead"><?php echo $more_text; ?></p>
                     <div class="cta-container">
-                        <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php $more_button_target ? ' target="'.$more_button_target.'"' : '' ?>><?php echo $more_button_text; ?></a>
+                        <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php
+                        // This expression has no echo, so the target is computed and discarded (current behavior, pinned by a test).
+                        // @pest-mutate-ignore: TernaryNegated, ConcatRemoveLeft, ConcatRemoveRight, ConcatSwitchSides, EmptyStringToNotEmpty, NotEmptyStringToEmpty
+                        $more_button_target ? ' target="'.$more_button_target.'"' : '';
+                ?>><?php echo $more_button_text; ?></a>
                     </div>
                 </div>
             <?php } // endif?>

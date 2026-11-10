@@ -51,9 +51,6 @@ if (function_exists('bis_get_attachment_image')) {
     // $item_image_fly_xxl_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xxl*2, $image_height_xxl*2 ) );
     $item_image_fly_fallback = $item_image_fly_lg_1x;
 }
-$item_image_alt_native = get_post_meta($item_image, '_wp_attachment_image_alt', true);
-$item_image_alt_override = $item_title_val.' logo';
-// $item_image_alt = $item_image_alt_override ? $item_image_alt_override : $item_image_alt_native;
 $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorative in this context, only supporting the heading
 $item_label = get_field('logo_label', $item_id);
 $item_label_name = '';
@@ -65,9 +62,15 @@ $item_longdescr = get_field('logo_longdescr', $item_id);
 $item_link = get_field('logo_link', $item_id);
 $item_link_text = get_field('logo_link_text', $item_id) ?: 'Visit Their Website';
 $item_link_target = get_field('logo_link_target', $item_id);
+// $item_link_target is a string or false, and false differs from 'inherit' under both operators.
+// @pest-mutate-ignore: NotEqualToNotIdentical
 $item_link_target = ($item_link_target != 'inherit') ? $item_link_target : $links_target_value;
 $item_link_target_attr = ($item_link_target != '_self') ? ' target='.$item_link_target : '';
+// $layout is a string, so == and === agree.
+// @pest-mutate-ignore: EqualToIdentical
 $item_heading_link_query = $layout == 'grid'; // Determine when to add link to heading
+// $layout is a string, so != and !== agree.
+// @pest-mutate-ignore: NotEqualToNotIdentical
 $item_button_link_query = $layout != 'grid'; // Determine when to add button link
 $item_general_link_element = 'a href="'.$item_link.'"'.$item_link_target_attr.' data-moduletitle="'.$heading.'"'.' data-itemtitle="'.$item_title_val.'"';
 $item_heading_link_element =
@@ -101,14 +104,20 @@ $item_button_link_element =
     '>';
 $item_class_name = '';
 if ($titles_query || $item_title_query) {
+    // $item_class_name is still '' here, so .= and = agree.
+    // @pest-mutate-ignore: ConcatEqualToEqual
     $item_class_name .= ' item-has-title';
 }
 if ($labels_query) {
     $item_class_name .= ' item-has-label';
 }
+// $layout is a string, so == and === agree.
+// @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'grid' && $shortdescr_query) {
     $item_class_name .= ' item-has-shortdescr';
 }
+// $layout is a string, so == and === agree.
+// @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'vertical' && $item_longdescr) {
     $item_class_name .= ' item-has-longdescr';
 }
@@ -152,7 +161,10 @@ if (! empty($item_image)) {
         <?php if ($labels_query) { ?>
             <p class="item-label"><?php echo $item_label_name; ?></p>
         <?php } // endif?>
-        <?php if ($layout == 'grid') { ?>
+        <?php
+        // $layout is a string, so == and === agree (also for the elseif below).
+        // @pest-mutate-ignore: EqualToIdentical
+        if ($layout == 'grid') { ?>
             <?php if ($shortdescr_query) { ?>
                 <p class="item-text"><?php echo $item_shortdescr; ?></p>
             <?php } // endif?>
