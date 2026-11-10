@@ -471,9 +471,9 @@ final class LogoTemplatesTest extends TestCase
     public static function linkTargets(): array
     {
         return [
-            'inherit new window with default text' => ['inherit', '_blank', ' target=_blank', false, 'Visit Their Website'],
+            'inherit new window with default text' => ['inherit', '_blank', ' target="_blank" rel="noopener"', false, 'Visit Their Website'],
             'inherit same window with custom text' => ['inherit', '_self', '', 'Explore Delta', 'Explore Delta'],
-            'explicit new window' => ['_blank', '_self', ' target=_blank', 'Read more', 'Read more'],
+            'explicit new window' => ['_blank', '_self', ' target="_blank" rel="noopener"', 'Read more', 'Read more'],
             'explicit same window' => ['_self', '_blank', '', 'Read more', 'Read more'],
         ];
     }
@@ -601,7 +601,7 @@ final class LogoTemplatesTest extends TestCase
             'logo_longdescr' => '<p>Vertical detail</p>',
         ]]);
 
-        expect($result['html'])->toContain('logo-list-layout-'.$layout, 'target=_blank', '<source srcset=');
+        expect($result['html'])->toContain('logo-list-layout-'.$layout, 'target="_blank" rel="noopener"', '<source srcset=');
         expect(str_contains($result['html'], 'logo-list-featured'))->toBe($featured)
             ->and(str_contains($result['html'], 'Grid summary'))->toBe($layout === 'grid')
             ->and(str_contains($result['html'], 'Vertical detail'))->toBe($layout === 'vertical')
