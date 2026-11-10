@@ -65,6 +65,8 @@ $item_link_target = get_field('logo_link_target', $item_id);
 // $item_link_target is a string or false, and false differs from 'inherit' under both operators.
 // @pest-mutate-ignore: NotEqualToNotIdentical
 $item_link_target = ($item_link_target != 'inherit') ? $item_link_target : $links_target_value;
+// $item_link_target is a string or false, and false differs from '_self' under both operators.
+// @pest-mutate-ignore: NotEqualToNotIdentical
 $item_link_target_attr = ($item_link_target != '_self') ? ' target='.$item_link_target : '';
 // $layout is a string, so == and === agree.
 // @pest-mutate-ignore: EqualToIdentical
@@ -162,7 +164,7 @@ if (! empty($item_image)) {
             <p class="item-label"><?php echo $item_label_name; ?></p>
         <?php } // endif?>
         <?php
-        // $layout is a string, so == and === agree (also for the elseif below).
+        // $layout is a string, so == and === agree. The marker covers this if and its elseif, one mutant each.
         // @pest-mutate-ignore: EqualToIdentical
         if ($layout == 'grid') { ?>
             <?php if ($shortdescr_query) { ?>

@@ -41,6 +41,7 @@ $label_logic = get_field('block_logo_list_labels_logic') ?: 'IN'; // Get the fil
 $featured_query = get_field('block_logo_list_featured') ?: false; // Get which featured display behavior should be used
 $layout = get_field('block_logo_list_layout') ?: 'grid'; // Get the list layout
 // $layout is always a string here ('grid' replaces any falsy value above), so == and === agree.
+// The marker covers this if and its elseif, one mutant each.
 // @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'grid') { // Configuration specific to the grid layout
     $width = get_field('block_logo_list_width'); // Get the width of the item list within block
@@ -174,6 +175,7 @@ $image_width_xxl = '';
 $image_height_xxl = '';
 
 // $layout is always a string here, so == and === agree.
+// The marker covers this if and its elseif, one mutant each.
 // @pest-mutate-ignore: EqualToIdentical
 if ($layout == 'grid') {
     if ($featured_query) {
@@ -330,7 +332,8 @@ if ($category_ids && $logo_list_query->have_posts()) { ?>
                     <div class="cta-container">
                         <a href="<?php echo $more_button_link_url; ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo $more_button_description_attr; ?>"<?php
                         // This expression has no echo, so the target is computed and discarded (current behavior, pinned by a test).
-                        // @pest-mutate-ignore: TernaryNegated, ConcatRemoveLeft, ConcatRemoveRight, ConcatSwitchSides, EmptyStringToNotEmpty, NotEmptyStringToEmpty
+                        // Its two concatenations are both discarded, so the marker covers two of each Concat mutator.
+                        // @pest-mutate-ignore: TernaryNegated, ConcatRemoveLeft, ConcatRemoveRight, ConcatSwitchSides, EmptyStringToNotEmpty
                         $more_button_target ? ' target="'.$more_button_target.'"' : '';
                 ?>><?php echo $more_button_text; ?></a>
                     </div>
