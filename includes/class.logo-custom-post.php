@@ -277,3 +277,5 @@ function uamswp_logo_list_role_caps(): void
 }
 
 add_action('init', 'uamswp_logo_list_role_caps');
+
+// scratch touch

@@ -29,3 +29,5 @@ $plugin_version = $plugin_header['version'];
 define('UAMS_LOGO_VERSION', $plugin_version);
 require_once __DIR__.'/required-plugins.php';
 include_once __DIR__.'/includes/logo-list.php';
+
+// scratch touch

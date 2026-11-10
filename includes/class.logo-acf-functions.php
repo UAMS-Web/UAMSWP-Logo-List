@@ -41,3 +41,5 @@ function uamswp_logo_toolbars($toolbars)
 
     return $toolbars;
 }
+
+// scratch touch
