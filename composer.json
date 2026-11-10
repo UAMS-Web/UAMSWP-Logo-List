@@ -43,6 +43,7 @@
             "@test:integration"
         ],
         "test:unit": "pest",
+        "mutate": "pest --mutate --parallel --path=includes,templates,required-plugins.php,uamswp-logo-list.php",
         "test:integration": "@php tests/Integration/vendor/bin/phpunit --configuration tests/Integration/phpunit.xml",
         "stan": "phpstan analyse --no-progress --memory-limit=2G",
         "lint:floor": "@php scripts/lint-floor.php",
@@ -58,6 +59,7 @@
         "test": "Run both suites, each in its own process, so the Unit suite never sees WordPress.",
         "test:unit": "Run the Pest suite that needs no WordPress and no database.",
         "test:integration": "Run the PHPUnit 9.6 suite that boots WordPress through wp-phpunit against the test database.",
+        "mutate": "Run mutation testing over the first-party PHP (needs a coverage driver, PCOV in CI).",
         "lint:floor": "Parse every shipped PHP file with the PHP that runs the script (run it under PHP 8.2, the supported floor)."
     }
 }
