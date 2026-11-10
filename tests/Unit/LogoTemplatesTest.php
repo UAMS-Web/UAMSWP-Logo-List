@@ -293,7 +293,7 @@ final class LogoTemplatesTest extends TestCase
 
         expect($result['html'])
             ->toContain('id="partner-anchor"', '<span class="title">Caller heading</span>', '<p>Caller description</p>')
-            ->not->toContain('Ignored field', 'logo-list-unused');
+            ->not->toContain('Ignored field')->not->toContain('logo-list-unused');
     }
 
     /** Pin IDs for rendering outside an ACF block context. */
@@ -358,7 +358,7 @@ final class LogoTemplatesTest extends TestCase
             'block_logo_list_more_button_description' => 'All partners',
         ], $fields), [47 => ['logo_title' => 'Delta Alliance']]);
 
-        expect($result['html'])->not->toContain('col-12 more', 'cta-container');
+        expect($result['html'])->not->toContain('col-12 more')->not->toContain('cta-container');
     }
 
     /** @return array<string, array{array<string, mixed>}> */
@@ -401,7 +401,7 @@ final class LogoTemplatesTest extends TestCase
 
         expect($html)
             ->toContain('<div class="item item-has-title" id="partners-west_2">', '<h3 class="item-title" id="partners-west_2_title">Delta Alliance</h3>')
-            ->not->toContain('<picture>', 'item-title-hidden', '<span class="sr-only">', 'link-container', 'item-has-logo');
+            ->not->toContain('<picture>')->not->toContain('item-title-hidden')->not->toContain('<span class="sr-only">')->not->toContain('link-container')->not->toContain('item-has-logo');
     }
 
     /** @return array<string, array{int|false|null}> */
@@ -427,7 +427,7 @@ final class LogoTemplatesTest extends TestCase
         ], ['titles_query' => $titles, 'desaturate_query' => $desaturate]);
 
         expect($html)->toContain('<img src="/media/317-aspect-16-9.png" alt="" />', 'item-has-logo')
-            ->not->toContain('<source', 'Native attachment description');
+            ->not->toContain('<source')->not->toContain('Native attachment description');
         expect(str_contains($html, 'item-img-desaturate'))->toBe($desaturate)
             ->and(str_contains($html, 'item-title-hidden'))->toBe(! $titles)
             ->and(str_contains($html, '<span class="sr-only">Delta Alliance</span>'))->toBe(! $titles)
@@ -464,7 +464,7 @@ final class LogoTemplatesTest extends TestCase
             ->toContain('<a href="https://delta.example/visit"'.$attribute.' data-moduletitle="Community partners" data-itemtitle="Delta Alliance" class="stretched-link" aria-describedby="partners-west_2_button">Delta Alliance</a>')
             ->toContain('<span style="display: none;" aria-hidden="true" id="partners-west_2_button">'.$expectedText.'</span>')
             ->toContain('item-has-shortdescr', 'item-has-link', '<p class="item-text">Local support</p>')
-            ->not->toContain('class="btn btn-', 'item-has-longdescr');
+            ->not->toContain('class="btn btn-')->not->toContain('item-has-longdescr');
     }
 
     /** @return array<string, array{string, string, string, string|false, string}> */
@@ -498,7 +498,7 @@ final class LogoTemplatesTest extends TestCase
             ->toContain('<h3 class="item-title" id="partners-west_2_title">Delta Alliance</h3>')
             ->toContain('<p class="item-label">Founding partner</p>', '<p>Serving the delta since 1987.</p>')
             ->toContain('<a href="/delta" data-moduletitle="Community partners" data-itemtitle="Delta Alliance" class="btn btn-white" aria-describedby = "partners-west_2_title" id="partners-west_2_button">Explore Delta</a>')
-            ->not->toContain('stretched-link', 'item-has-shortdescr', 'Do not display this short description', 'target=');
+            ->not->toContain('stretched-link')->not->toContain('item-has-shortdescr')->not->toContain('Do not display this short description')->not->toContain('target=');
     }
 
     /** Require both a configured link and permission to show it. */
@@ -513,7 +513,7 @@ final class LogoTemplatesTest extends TestCase
             'logo_link_target' => '_blank',
         ], ['links_query' => $enabled]);
 
-        expect($html)->not->toContain('item-has-link', '<a ', 'link-container', 'partners-west_2_button');
+        expect($html)->not->toContain('item-has-link')->not->toContain('<a ')->not->toContain('link-container')->not->toContain('partners-west_2_button');
     }
 
     /** @return array<string, array{bool, string|false}> */
@@ -533,7 +533,7 @@ final class LogoTemplatesTest extends TestCase
         $html = LogoTemplateRenderer::item(['logo_title' => 'Delta Alliance'], ['labels_query' => true, 'layout' => 'vertical']);
 
         expect($html)->toContain('item-has-label', '<p class="item-label"></p>')
-            ->not->toContain('item-has-longdescr', 'item-text');
+            ->not->toContain('item-has-longdescr')->not->toContain('item-text');
     }
 
     /** Keep nonstandard layouts free of grid and vertical descriptions. */
@@ -551,7 +551,7 @@ final class LogoTemplatesTest extends TestCase
         ], ['layout' => 'experimental', 'links_query' => true, 'shortdescr_query' => true]);
 
         expect($html)->toContain('class="btn btn-primary"', '>Visit Their Website</a>')
-            ->not->toContain('item-has-label', 'item-label', 'item-has-shortdescr', 'item-has-longdescr', 'Hidden label', 'Hidden short text', 'Hidden long text');
+            ->not->toContain('item-has-label')->not->toContain('item-label')->not->toContain('item-has-shortdescr')->not->toContain('item-has-longdescr')->not->toContain('Hidden label')->not->toContain('Hidden short text')->not->toContain('Hidden long text');
     }
 
     /** Preserve each breakpoint source and use the large image as fallback. */
@@ -645,7 +645,7 @@ final class LogoTemplatesTest extends TestCase
         expect($result['html'])
             ->toContain('item-has-title item-has-label item-has-link item-has-logo', 'item-img-desaturate', '<p class="item-label">Supporting partner</p>')
             ->toContain('<h3 class="item-title"', 'class="stretched-link"')
-            ->not->toContain('item-title-hidden', 'Disabled grid summary', 'target=', 'item-has-shortdescr');
+            ->not->toContain('item-title-hidden')->not->toContain('Disabled grid summary')->not->toContain('target=')->not->toContain('item-has-shortdescr');
     }
 
     /** Pin the nonstandard layout fallback rather than silently treating it as grid. */
@@ -668,7 +668,7 @@ final class LogoTemplatesTest extends TestCase
 
         expect($result['html'])
             ->toContain('logo-list-layout-experimental', '<span class="sr-only">Delta Alliance</span>', '<div class="item-list-container">')
-            ->not->toContain('item-has-title', 'width-narrow', 'Disabled short description', 'Disabled long description');
+            ->not->toContain('item-has-title')->not->toContain('width-narrow')->not->toContain('Disabled short description')->not->toContain('Disabled long description');
     }
 
     /** The image service is currently consulted even for a missing attachment. */
@@ -680,6 +680,211 @@ final class LogoTemplatesTest extends TestCase
         $html = LogoTemplateRenderer::item(['logo_title' => 'Delta Alliance']);
 
         expect($html)->toContain('<h3 class="item-title" id="partners-west_2_title">Delta Alliance</h3>')
-            ->not->toContain('/must-not-display.png', '<picture>', '<source', 'item-has-logo');
+            ->not->toContain('/must-not-display.png')->not->toContain('<picture>')->not->toContain('<source')->not->toContain('item-has-logo');
+    }
+
+    /** Keep the vertical list container free of the grid-only width class. */
+    public function test_omits_the_width_class_from_vertical_lists(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+            'block_logo_list_layout' => 'vertical',
+            'block_logo_list_width' => 'width-narrow',
+        ], [47 => ['logo_title' => 'Delta Alliance']]);
+
+        expect($result['html'])->toContain('<div class="item-list-container">');
+    }
+
+    /** Default every disabled block option to off when the block leaves it unset. */
+    public function test_leaves_desaturation_labels_and_links_off_by_default(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+        when('get_term')->justReturn((object) ['name' => 'Unused label']);
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+        ], [47 => [
+            'logo_title' => 'Delta Alliance',
+            'logo_image' => 317,
+            'logo_label' => 71,
+            'logo_link' => '/delta',
+            'logo_link_target' => '_self',
+        ]]);
+
+        expect($result['html'])
+            ->toContain('<div class="item-img">', 'item item-has-logo')
+            ->not->toContain('item-img-desaturate')
+            ->not->toContain('Unused label')
+            ->not->toContain('item-label')
+            ->not->toContain('item-has-label')
+            ->not->toContain('link-container')
+            ->not->toContain('item-has-link');
+    }
+
+    /** Decode ampersands and accented characters in the more-button label. */
+    public function test_decodes_entities_in_the_more_button_label(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+            'block_logo_list_more' => true,
+            'block_logo_list_more_text' => 'More partners',
+            'block_logo_list_more_button_text' => 'Meet them',
+            'block_logo_list_more_button_url' => ['url' => '/partners', 'target' => ''],
+            'block_logo_list_more_button_description' => "Caf\u{00E9} & Bar partners",
+        ], [47 => ['logo_title' => 'Delta Alliance']]);
+
+        expect($result['html'])->toContain("aria-label=\"Caf\u{00E9} & Bar partners\"");
+    }
+
+    /** Pass empty dimensions to the image service for unrecognized layouts. */
+    public function test_requests_unsized_images_for_other_layouts(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+        when('bis_get_attachment_image')->justReturn('available');
+        Functions\expect('bis_get_attachment_image_src')->times(7)->with(317, ['', ''])->andReturn(['src' => '/unsized.png']);
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+            'block_logo_list_layout' => 'experimental',
+        ], [47 => ['logo_title' => 'Delta Alliance', 'logo_image' => 317]]);
+
+        expect($result['html'])->toContain('<img src="/unsized.png" alt="" />');
+    }
+
+    /** Apply a chosen background color to the section and fall back to automatic. */
+    #[DataProvider('sectionBackgrounds')]
+    public function test_applies_the_background_color_to_the_section(
+        mixed $background,
+        string $expected,
+    ): void {
+        Functions\expect('wp_reset_postdata')->once();
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+            'block_logo_list_background_color' => $background,
+        ], [47 => ['logo_title' => 'Delta Alliance']]);
+
+        expect($result['html'])->toContain('<section class="uams-module logo-list alignfull '.$expected.' logo-list-layout-grid"');
+    }
+
+    /** @return array<string, array{string|false, string}> */
+    public static function sectionBackgrounds(): array
+    {
+        return [
+            'chosen color' => ['bg-blue', 'bg-blue'],
+            'automatic fallback' => [false, 'bg-auto'],
+        ];
+    }
+
+    /** Leave the heading wrapper with no description markup when none is set. */
+    public function test_renders_no_description_markup_without_a_description(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+
+        $result = LogoTemplateRenderer::block(['block_logo_list_filter_ids' => [13], 'block_logo_list_heading' => 'Partners'], [47 => ['logo_title' => 'Delta Alliance']]);
+
+        expect($result['html'])->toMatch('#<span class="title">Partners</span>\s*</h2>\s*</div>#')
+            ->not->toContain('module-description');
+    }
+
+    /** Combine every grid class when titles and short descriptions are both on. */
+    public function test_combines_title_and_short_description_classes_in_grids(): void
+    {
+        $html = LogoTemplateRenderer::item([
+            'logo_title' => 'Delta Alliance',
+            'logo_image' => 317,
+            'logo_shortdescr' => 'Local support',
+        ], ['titles_query' => true, 'labels_query' => true, 'shortdescr_query' => true]);
+
+        expect($html)->toContain('<div class="item item-has-title item-has-label item-has-shortdescr item-has-logo" id="partners-west_2">');
+    }
+
+    /** Mark long descriptions only for vertical items that have one. */
+    #[DataProvider('longDescriptionLayouts')]
+    public function test_marks_long_descriptions_only_in_vertical_lists_with_text(
+        string $layout,
+        mixed $longDescription,
+    ): void {
+        $html = LogoTemplateRenderer::item([
+            'logo_title' => 'Delta Alliance',
+            'logo_longdescr' => $longDescription,
+        ], ['layout' => $layout]);
+
+        expect($html)->not->toContain('item-has-longdescr');
+    }
+
+    /** @return array<string, array{string, string|false}> */
+    public static function longDescriptionLayouts(): array
+    {
+        return [
+            'grid with text' => ['grid', '<p>Detail</p>'],
+            'vertical without text' => ['vertical', false],
+        ];
+    }
+
+    /** Require both the block option and an item link for every link surface. */
+    public function test_omits_every_link_surface_when_the_block_disables_links(): void
+    {
+        $html = LogoTemplateRenderer::item([
+            'logo_title' => 'Delta Alliance',
+            'logo_image' => 317,
+            'logo_link' => '/delta',
+            'logo_link_target' => '_self',
+        ], ['links_query' => false]);
+
+        expect($html)
+            ->toContain('<h3 class="item-title item-title-hidden" id="partners-west_2_title">')
+            ->not->toContain('item-has-link')
+            ->not->toContain('stretched-link')
+            ->not->toContain('<a ')
+            ->not->toContain('link-container');
+    }
+
+    /** Render the plain image class when desaturation is off. */
+    public function test_renders_the_plain_image_class_without_desaturation(): void
+    {
+        $html = LogoTemplateRenderer::item(['logo_title' => 'Delta Alliance', 'logo_image' => 317], ['desaturate_query' => false]);
+
+        expect($html)->toContain('<div class="item-img">');
+    }
+
+    /** Pin the more-button target, which is currently computed and never printed. */
+    public function test_discards_the_more_button_target(): void
+    {
+        Functions\expect('wp_reset_postdata')->once();
+
+        $result = LogoTemplateRenderer::block([
+            'block_logo_list_filter_ids' => [13],
+            'block_logo_list_more' => true,
+            'block_logo_list_more_text' => 'More partners',
+            'block_logo_list_more_button_text' => 'Meet them',
+            'block_logo_list_more_button_url' => ['url' => '/partners', 'target' => '_blank'],
+            'block_logo_list_more_button_description' => 'All partners',
+        ], [47 => ['logo_title' => 'Delta Alliance']]);
+
+        expect($result['html'])->toContain('aria-label="All partners">Meet them</a>')
+            ->not->toContain('target=');
+    }
+
+    /** Keep a missing image value unchanged when the attachment lookup finds nothing. */
+    public function test_passes_a_missing_image_value_to_the_image_service_unchanged(): void
+    {
+        when('wp_get_attachment_image')->justReturn('');
+        when('bis_get_attachment_image')->justReturn('available');
+        $received = [];
+        when('bis_get_attachment_image_src')->alias(function (mixed $image) use (&$received): array {
+            $received[] = $image;
+
+            return ['src' => '/unused.png'];
+        });
+
+        LogoTemplateRenderer::item(['logo_title' => 'Delta Alliance', 'logo_image' => false]);
+
+        expect($received)->toHaveCount(7)
+            ->and(array_filter($received, static fn (mixed $image): bool => $image !== false))->toBe([]);
     }
 }
