@@ -246,7 +246,7 @@ if ($layout == 'grid') {
 // Create class attribute
 $className = '';
 if (! empty($block['className'])) {
-    $block_classes = array_filter(array_map(sanitize_html_class(...), preg_split('/\s+/', trim((string) $block['className'])))); // Sanitize each additional CSS class from block, dropping any left empty
+    $block_classes = array_filter(array_map(sanitize_html_class(...), preg_split('/\s+/', $block['className']))); // Sanitize each additional CSS class from block, dropping any left empty
     if ($block_classes !== []) {
         // $className is still '' here, so .= and = agree.
         // @pest-mutate-ignore: ConcatEqualToEqual
