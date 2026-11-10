@@ -33,6 +33,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # The full mutation pass, weekly (Sunday 06:00 UTC, on the default branch). It catches decay no
+  # pull request touches; a pull request mutates only its changed files.
+  schedule:
+    - cron: '0 6 * * 0'
   # Lets the workflow be run on demand against a branch.
   workflow_dispatch:
 
