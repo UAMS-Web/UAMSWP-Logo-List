@@ -13,6 +13,36 @@
  *      $image_width
  *      $image_width_xxs
  */
+/**
+ * Variables the block template sets before it includes this file.
+ *
+ * @var string $id
+ * @var int $item_id
+ * @var int $logo_item_count
+ * @var string $heading
+ * @var string $layout
+ * @var bool $titles_query
+ * @var bool $labels_query
+ * @var bool $shortdescr_query
+ * @var bool $links_query
+ * @var string $links_target_value
+ * @var bool $desaturate_query
+ * @var string $button_color
+ * @var int|string $image_width_xxs
+ * @var int|string $image_height_xxs
+ * @var int|string $image_width_xs
+ * @var int|string $image_height_xs
+ * @var int|string $image_width_sm
+ * @var int|string $image_height_sm
+ * @var int|string $image_width_md
+ * @var int|string $image_height_md
+ * @var int|string $image_width_lg
+ * @var int|string $image_height_lg
+ * @var int|string $image_width_xl
+ * @var int|string $image_height_xl
+ * @var int|string $image_width_xxl
+ * @var int|string $image_height_xxl
+ */
 $item_element_id = $id.'_'.$logo_item_count;
 $item_title_id = $item_element_id.'_title';
 $item_button_id = $item_element_id.'_button';

@@ -98,6 +98,14 @@ if ($featured_query) {
 }
 
 // More Section Configuration
+/**
+ * The caller may preset these; the block fills in any it did not.
+ *
+ * @var string $more_button_text
+ * @var string $more_button_link_url
+ * @var string $more_button_target
+ * @var string $more_button_description_attr
+ */
 $more_query = get_field('block_logo_list_more') ?: false; // Check for if the 'more' section should be added
 if ($more_query) {
     // If 'more' section is enabled, load values
