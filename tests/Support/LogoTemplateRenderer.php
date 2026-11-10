@@ -30,6 +30,7 @@ final class LogoTemplateRenderer
         // Keep each field associated with its own post rather than its call order.
         self::fields($fields, $posts);
         stubTranslationFunctions();
+        self::passEscapingThrough();
         \defined('UAMS_LOGO_PATH') || define('UAMS_LOGO_PATH', dirname(__DIR__, 2));
 
         // Model query iteration, including the pre-loop have_posts checks.
@@ -59,6 +60,19 @@ final class LogoTemplateRenderer
     }
 
     /**
+     * Return every value the templates escape unchanged.
+     *
+     * These tests characterize layout and field handling; the escaping itself is
+     * pinned in `LogoTemplateEscapingTest`, so the escapers are identities here.
+     */
+    private static function passEscapingThrough(): void
+    {
+        foreach (['esc_html', 'esc_attr', 'esc_url', 'sanitize_html_class', 'wp_kses_post'] as $escaper) {
+            when($escaper)->returnArg();
+        }
+    }
+
+    /**
      * Render one item with deliberately distinct dimensions at every breakpoint.
      *
      * @param  array<string, mixed>  $fields  ACF item values for post 47.
@@ -70,6 +84,7 @@ final class LogoTemplateRenderer
         array $variables = [],
     ): string {
         self::fields([], [47 => $fields]);
+        self::passEscapingThrough();
 
         return self::capture('loops/logo-list-item.php', array_replace([
             'id' => 'partners-west',
