@@ -478,6 +478,16 @@ final class LogoTemplatesTest extends TestCase
         ];
     }
 
+    /** Leave the label empty when the stored term cannot be read. */
+    public function test_leaves_the_label_empty_when_the_term_is_missing(): void
+    {
+        Functions\expect('get_term')->once()->with(71)->andReturn((object) []);
+
+        $html = LogoTemplateRenderer::item(['logo_title' => 'Delta Alliance', 'logo_label' => 71], ['labels_query' => true]);
+
+        expect($html)->toContain('<p class="item-label"></p>');
+    }
+
     /** Render vertical descriptions and buttons without grid-only presentation. */
     public function test_uses_a_visible_button_and_long_description_in_vertical_lists(): void
     {
