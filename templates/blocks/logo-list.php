@@ -129,7 +129,7 @@ if ($more_query) {
     if (empty($more_button_description)) {
         $more_button_description = get_field('block_logo_list_more_button_description'); // Button link description in 'more' section
         $more_button_description_attr = str_replace('"', "'", $more_button_description); // Convert double quotes to single quotes in button link description
-        $more_button_description_attr = html_entity_decode(str_replace('&nbsp;', ' ', htmlentities($more_button_description_attr, null, 'utf-8'))); // Sanitize button link description value
+        $more_button_description_attr = html_entity_decode(str_replace('&nbsp;', ' ', htmlentities($more_button_description_attr, ENT_NOQUOTES, 'utf-8'))); // Sanitize button link description value
     }
 }
 
