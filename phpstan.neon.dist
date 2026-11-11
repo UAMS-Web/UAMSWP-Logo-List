@@ -17,7 +17,6 @@
 # and uncomment the `scanFiles` block below. wp-cli-stubs needs wordpress-stubs
 # 6.x as well, so the pin above covers both.
 includes:
-    - phpstan-baseline.neon
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
     # PHPStan's opt-in preview channel: turns on rules and stricter analysis
     # that become default in the next major. Ships inside phpstan/phpstan (no
@@ -40,6 +39,7 @@ parameters:
     bootstrapFiles:
         - phpstan-bootstrap.php
     scanFiles:
+        - phpstan-stubs.php
         - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
         - vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
         - vendor/php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
