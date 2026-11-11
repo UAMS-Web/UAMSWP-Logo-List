@@ -1,5 +1,14 @@
 # UAMSWP-Logo-List
 
+## Credits
+
+Developed and maintained by UAMS Web Services.
+
+Developers:
+
+- Josh Daugherty
+- Brent Passmore
+
 ## Amp orbs
 
 Amp runs the executable `.agents/setup` on a fresh orb and caches the result in
