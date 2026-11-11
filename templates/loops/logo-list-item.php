@@ -85,7 +85,8 @@ $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorat
 $item_label = get_field('logo_label', $item_id);
 $item_label_name = '';
 if ($item_label) {
-    $item_label_name = get_term($item_label)->name;
+    $item_label_term = get_term($item_label);
+    $item_label_name = isset($item_label_term->name) ? $item_label_term->name : ''; // A missing term (a WP_Error or null) leaves the label empty
 }
 $item_shortdescr = get_field('logo_shortdescr', $item_id);
 $item_longdescr = get_field('logo_longdescr', $item_id);
