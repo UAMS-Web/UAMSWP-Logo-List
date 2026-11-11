@@ -862,8 +862,8 @@ final class LogoTemplatesTest extends TestCase
         expect($html)->toContain('<div class="item-img">');
     }
 
-    /** Pin the more-button target, which is currently computed and never printed. */
-    public function test_discards_the_more_button_target(): void
+    /** Pin that the more button prints no target attribute, whatever target the link field holds. */
+    public function test_prints_no_target_on_the_more_button(): void
     {
         Functions\expect('wp_reset_postdata')->once();
 
