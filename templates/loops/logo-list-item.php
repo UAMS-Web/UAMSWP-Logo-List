@@ -47,7 +47,9 @@ $item_element_id = $id.'_'.$logo_item_count;
 $item_title_id = $item_element_id.'_title';
 $item_button_id = $item_element_id.'_button';
 
+/** @var string $item_title_val */
 $item_title_val = get_field('logo_title', $item_id);
+/** @var int|false|null $item_image */
 $item_image = get_field('logo_image', $item_id);
 // Check if image ID exists in the media library
 // If the image was assigned to the item but later deleted from the library, $item_image would still return an ID.
@@ -65,32 +67,45 @@ $item_title =
     esc_html($item_title_val).
     (($titles_query || $item_title_query) ? '' : '</span>');
 if (function_exists('bis_get_attachment_image')) {
+    /** @var array{src: string} $item_image_fly_xxs_1x */
     $item_image_fly_xxs_1x = bis_get_attachment_image_src($item_image, [$image_width_xxs, $image_height_xxs]);
     // $item_image_fly_xxs_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xxs*2, $image_height_xxs*2 ) );
+    /** @var array{src: string} $item_image_fly_xs_1x */
     $item_image_fly_xs_1x = bis_get_attachment_image_src($item_image, [$image_width_xs, $image_height_xs]);
     // $item_image_fly_xs_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xs*2, $image_height_xs*2 ) );
+    /** @var array{src: string} $item_image_fly_sm_1x */
     $item_image_fly_sm_1x = bis_get_attachment_image_src($item_image, [$image_width_sm, $image_height_sm]);
     // $item_image_fly_sm_2x = bis_get_attachment_image_src( $item_image, array( $image_width_sm*2, $image_height_sm*2 ) );
+    /** @var array{src: string} $item_image_fly_md_1x */
     $item_image_fly_md_1x = bis_get_attachment_image_src($item_image, [$image_width_md, $image_height_md]);
     // $item_image_fly_md_2x = bis_get_attachment_image_src( $item_image, array( $image_width_md*2, $image_height_md*2 ) );
+    /** @var array{src: string} $item_image_fly_lg_1x */
     $item_image_fly_lg_1x = bis_get_attachment_image_src($item_image, [$image_width_lg, $image_height_lg]);
     // $item_image_fly_lg_2x = bis_get_attachment_image_src( $item_image, array( $image_width_lg*2, $image_height_lg*2 ) );
+    /** @var array{src: string} $item_image_fly_xl_1x */
     $item_image_fly_xl_1x = bis_get_attachment_image_src($item_image, [$image_width_xl, $image_height_xl]);
     // $item_image_fly_xl_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xl*2, $image_height_xl*2 ) );
+    /** @var array{src: string} $item_image_fly_xxl_1x */
     $item_image_fly_xxl_1x = bis_get_attachment_image_src($item_image, [$image_width_xxl, $image_height_xxl]);
     // $item_image_fly_xxl_2x = bis_get_attachment_image_src( $item_image, array( $image_width_xxl*2, $image_height_xxl*2 ) );
     $item_image_fly_fallback = $item_image_fly_lg_1x;
 }
 $item_image_alt = ''; // Setting alt text value as empty, as the logo is decorative in this context, only supporting the heading
+/** @var int $item_label */
 $item_label = get_field('logo_label', $item_id);
 $item_label_name = '';
 if ($item_label) {
     $item_label_term = get_term($item_label);
+    /** @var string $item_label_name */
     $item_label_name = $item_label_term->name ?? ''; // A missing term (a WP_Error or null) leaves the label empty
 }
+/** @var string $item_shortdescr */
 $item_shortdescr = get_field('logo_shortdescr', $item_id);
+/** @var string $item_longdescr */
 $item_longdescr = get_field('logo_longdescr', $item_id);
+/** @var string $item_link */
 $item_link = get_field('logo_link', $item_id);
+/** @var string $item_link_text */
 $item_link_text = get_field('logo_link_text', $item_id) ?: 'Visit Their Website';
 $item_link_target = get_field('logo_link_target', $item_id);
 // $item_link_target is a string or false, and false differs from 'inherit' under both operators.

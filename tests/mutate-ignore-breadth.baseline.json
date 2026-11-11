@@ -13,12 +13,6 @@
             "detail": "EqualToIdentical=2"
         },
         {
-            "path": "templates/blocks/logo-list.php",
-            "marker": "// @pest-mutate-ignore: TernaryNegated, ConcatRemoveLeft, ConcatRemoveRight, ConcatSwitchSides, EmptyStringToNotEmpty",
-            "finding": "removes MORE than one mutant of a named mutator",
-            "detail": "TernaryNegated=1, ConcatRemoveLeft=2, ConcatRemoveRight=2, ConcatSwitchSides=2, EmptyStringToNotEmpty=1"
-        },
-        {
             "path": "templates/loops/logo-list-item.php",
             "marker": "// @pest-mutate-ignore: EqualToIdentical",
             "finding": "removes MORE than one mutant of a named mutator",
