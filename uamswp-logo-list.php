@@ -7,8 +7,8 @@ Plugin URI: https://github.com/UAMS-Web/UAMSWP-Logo-List
 Version: 2.0.2
 Requires PHP: 8.2
 Description: Logo list plugin for uams.edu & uamshealth.com
-Author: UAMS, Josh Daugherty
-Author URI: http://www.uams.edu/
+Author: UAMS Web Services
+Author URI: https://communications.uams.edu/web/
 */
 
 // If this file is called directly, abort.
