@@ -120,6 +120,9 @@ if ($featured_query) {
  * @var string $more_button_link_url
  * @var string $more_button_description_attr
  */
+// The button renders only when the link field is set, and that same condition assigns the attribute, so the initial value is never printed.
+// @pest-mutate-ignore: EmptyStringToNotEmpty
+$more_button_target_attr = '';
 $more_query = get_field('block_logo_list_more') ?: false; // Check for if the 'more' section should be added
 if ($more_query) {
     // If 'more' section is enabled, load values
@@ -139,6 +142,8 @@ if ($more_query) {
         if (empty($more_button_link_url)) {
             $more_button_link_url = $more_button_link['url']; // Get button URL value in 'more' section
         }
+        // Only `_blank` prints a target; any other stored value, including an empty one, prints none, so the attribute never carries an unquoted value
+        $more_button_target_attr = $more_button_link['target'] === '_blank' ? ' target="_blank" rel="noopener"' : '';
     }
     if (empty($more_button_description)) {
         /** @var string $more_button_description */
@@ -356,7 +361,7 @@ if ($category_ids && $logo_list_query->have_posts()) { ?>
                 <div class="col-12 more">
                     <p class="lead"><?php echo esc_html($more_text); ?></p>
                     <div class="cta-container">
-                        <a href="<?php echo esc_url($more_button_link_url); ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo esc_attr($more_button_description_attr); ?>"><?php echo esc_html($more_button_text); ?></a>
+                        <a href="<?php echo esc_url($more_button_link_url); ?>" class="btn btn-outline-<?php echo $button_color; ?>" aria-label="<?php echo esc_attr($more_button_description_attr); ?>"<?php echo $more_button_target_attr; ?>><?php echo esc_html($more_button_text); ?></a>
                     </div>
                 </div>
             <?php } // endif?>
