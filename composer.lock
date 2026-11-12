@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d991048253fd0f0ca620058e0719388c",
+    "content-hash": "64b16b4b004441c4ad8e7be8e0ce655f",
     "packages": [],
     "packages-dev": [
         {
@@ -4902,6 +4902,57 @@
                 "source": "https://github.com/UAMS-Web/patches-patchwork"
             },
             "time": "2026-11-11T21:02:16+00:00"
+        },
+        {
+            "name": "uams-web/patches-pest-plugin-mutate",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UAMS-Web/patches-pest-plugin-mutate.git",
+                "reference": "a0ea20914c398b23138b1475948f3324bc7d001a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UAMS-Web/patches-pest-plugin-mutate/zipball/a0ea20914c398b23138b1475948f3324bc7d001a",
+                "reference": "a0ea20914c398b23138b1475948f3324bc7d001a",
+                "shasum": ""
+            },
+            "require": {
+                "pestphp/pest-plugin-mutate": "5.0.2"
+            },
+            "type": "library",
+            "extra": {
+                "patches": {
+                    "pestphp/pest-plugin-mutate": {
+                        "Launch each mutant child process so a run cannot score every mutant killed without executing one (temporary; see #2322)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-mutant-process-launch.patch",
+                        "Stop three silent @pest-mutate-ignore parsing defects suppressing nothing or the wrong set (temporary; see #2327)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-annotation-parsing.patch",
+                        "Let a mutant child on Windows run its tests and write files, so its failure is a real kill (temporary; see #2524)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-windows-mutant-child.patch",
+                        "Drop the run's own --filter from each mutant child so a filtered run cannot score every mutant killed (temporary; see #2570)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-drop-run-filter.patch",
+                        "Widen or refuse a mutant child's filter that PCRE cannot compile, or that would pass cmd.exe's command-line limit on Windows, so it cannot score a kill without running a test (temporary; see #2578, #3114)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-windows-filter-length.patch",
+                        "Create the mutations directory and fail on a mutated source that cannot be written, so a run cannot score mutants it never applied (temporary; see #2812)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-write-mutated-source.patch",
+                        "Drop the parallel runner's options (--passthru-php, --processes and the rest) from each mutant child so a parallel run given one cannot score every mutant killed (temporary; see #2926, #2947)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-drop-parallel-runner-options.patch",
+                        "Select tests for a mutated scalar function default, so it is not scored without a test running it (temporary; see UAMS-Web/uams-2020#673)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-function-defaults.patch",
+                        "Propagate a mutation into isolated test processes and reject a test report that ran no tests, so an isolated run cannot score a mutant killed without running a test (temporary; see UAMS-Web/UAMSWP-Logo-List#82)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-isolated-processes.patch",
+                        "Map a class constant mutant to the tests covering its containing class, since a constant initializer has no executable coverage line (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-class-constant-coverage.patch",
+                        "Skip a node whose own comment carries a matching @pest-mutate-ignore marker, including when the traverser still leaves that node (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-ignore-annotated-statement.patch"
+                    }
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Patches UAMS-Web repositories apply to pestphp/pest-plugin-mutate",
+            "keywords": [
+                "composer",
+                "mutation-testing",
+                "patches",
+                "pest"
+            ],
+            "support": {
+                "issues": "https://github.com/UAMS-Web/patches-pest-plugin-mutate/issues",
+                "source": "https://github.com/UAMS-Web/patches-pest-plugin-mutate"
+            },
+            "time": "2026-11-12T01:30:35+00:00"
         },
         {
             "name": "webmozart/assert",
