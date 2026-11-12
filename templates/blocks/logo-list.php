@@ -1,6 +1,6 @@
 <?php
 /*
- *
+ * Scratch touch.
  * UAMS Logo List Block
  *
  */
