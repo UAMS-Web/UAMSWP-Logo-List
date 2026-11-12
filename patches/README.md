@@ -27,7 +27,18 @@ and its `repositories` entry.
 
 ## Isolated mutation processes and missing test reports
 
-`pest-mutate-isolated-processes.patch` repairs Pest Mutate 5.0.2. Activate mutation
+The repairs to Pest Mutate 5.0.2 come from the development dependency
+[`uams-web/patches-pest-plugin-mutate`](https://github.com/UAMS-Web/patches-pest-plugin-mutate),
+read through the `vcs` entry in `composer.json`'s `repositories`. The package applies
+its eleven patches as an ordered set (a later patch is cut against the output of the
+earlier ones), so `patches.json` registers all eleven at
+`vendor/uams-web/patches-pest-plugin-mutate/patches/`, in the package's order. A change
+arrives through a version bump, then `composer patches-relock` and
+`composer patches-repatch`. The repair this repository added is the package's
+`pest-plugin-mutate-isolated-processes.patch`, described below; the other ten are the
+package's other repairs.
+
+`pest-plugin-mutate-isolated-processes.patch` repairs Pest Mutate 5.0.2. Activate mutation
 source replacement through a package-owned Composer autoload file, which runs in
 both Pest and PHPUnit's isolated children. Remove the duplicate Pest-kernel boot
 activation. The root `autoload-dev.files` entry is necessary because modifying a
@@ -53,7 +64,7 @@ Retire each repair only when an installable upstream version provides equivalent
 behavior and the same positive and negative controls pass without its patch.
 Remove the patch registration before updating its package, then:
 
-- Remove the corresponding `.patch` file (for Patchwork, the package instead) and
+- Remove the corresponding `.patch` file (for Patchwork and Pest Mutate, the package instead) and
   installation guards.
 - Remove `tests/Unit/MutationCompatibilityTest.php` and its four
   `tests/Fixtures/MutationProbe*.php` / `MutationReportProcess.php` fixtures

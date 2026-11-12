@@ -16,7 +16,8 @@
         "phpstan/phpstan": "^2.2",
         "rector/rector": "^2.6",
         "szepeviktor/phpstan-wordpress": "^2.0",
-        "uams-web/patches-patchwork": "^1.0"
+        "uams-web/patches-patchwork": "^1.0",
+        "uams-web/patches-pest-plugin-mutate": "^1.1"
     },
     "autoload-dev": {
         "files": [
@@ -67,6 +68,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/UAMS-Web/patches-patchwork.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/UAMS-Web/patches-pest-plugin-mutate.git"
         }
     ]
 }
