@@ -1,7 +1,7 @@
 {
     "patches": {
         "antecedent/patchwork": {
-            "Retain delegated directory wrappers (temporary; see #82)": "patches/patchwork-directory-wrapper.patch"
+            "Retain delegated directory wrappers (temporary; see #82)": "vendor/uams-web/patches-patchwork/patches/patchwork-directory-wrapper.patch"
         },
         "pestphp/pest-plugin-mutate": {
             "Propagate isolated mutations and reject missing test reports (temporary; see #82)": "patches/pest-mutate-isolated-processes.patch"
