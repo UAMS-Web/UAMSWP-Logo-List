@@ -306,12 +306,12 @@ final class LogoTemplatesTest extends TestCase
         expect($result['html'])->toContain('id=""', 'id="_0"');
     }
 
-    /** Pin button colors and the current omission of the more-link target. */
+    /** Pin button colors. */
     #[DataProvider('backgroundColors')]
     public function test_renders_the_more_section_with_background_button_color(
         mixed $background,
         string $color,
-        string $target = '_blank',
+        string $target = '',
     ): void {
         Functions\expect('wp_reset_postdata')->once();
 
@@ -340,7 +340,6 @@ final class LogoTemplatesTest extends TestCase
             'gray background' => ['bg-gray', 'primary'],
             'automatic background' => ['bg-auto', 'primary'],
             'colored background' => ['bg-red', 'white'],
-            'same-window more link' => ['bg-white', 'primary', ''],
         ];
     }
 
@@ -384,12 +383,11 @@ final class LogoTemplatesTest extends TestCase
             'more_button_text' => 'Caller button',
             'more_button_link' => ['url' => '/ignored-url', 'target' => '_blank'],
             'more_button_link_url' => '/caller-url',
-            'more_button_target' => '_self',
             'more_button_description' => 'Caller description',
             'more_button_description_attr' => 'Caller accessible label',
         ]);
 
-        expect($result['html'])->toContain('<p class="lead">Caller more text</p>', 'href="/caller-url"', 'aria-label="Caller accessible label">Caller button</a>')
+        expect($result['html'])->toContain('<p class="lead">Caller more text</p>', 'href="/caller-url"', 'aria-label="Caller accessible label" target="_blank" rel="noopener">Caller button</a>')
             ->not->toContain('/ignored-url');
     }
 
@@ -862,8 +860,9 @@ final class LogoTemplatesTest extends TestCase
         expect($html)->toContain('<div class="item-img">');
     }
 
-    /** Pin that the more button prints no target attribute, whatever target the link field holds. */
-    public function test_prints_no_target_on_the_more_button(): void
+    /** Print the target only when the link field opens in a new tab; nothing stored reaches the attribute. */
+    #[DataProvider('moreButtonTargets')]
+    public function test_prints_the_target_on_the_more_button_only_for_a_new_tab(string $stored, string $attributes): void
     {
         Functions\expect('wp_reset_postdata')->once();
 
@@ -872,12 +871,22 @@ final class LogoTemplatesTest extends TestCase
             'block_logo_list_more' => true,
             'block_logo_list_more_text' => 'More partners',
             'block_logo_list_more_button_text' => 'Meet them',
-            'block_logo_list_more_button_url' => ['url' => '/partners', 'target' => '_blank'],
+            'block_logo_list_more_button_url' => ['url' => '/partners', 'target' => $stored],
             'block_logo_list_more_button_description' => 'All partners',
         ], [47 => ['logo_title' => 'Delta Alliance']]);
 
-        expect($result['html'])->toContain('aria-label="All partners">Meet them</a>')
-            ->not->toContain('target=');
+        expect($result['html'])->toContain('aria-label="All partners"'.$attributes.'>Meet them</a>');
+    }
+
+    /** @return array<string, array{string, string}> */
+    public static function moreButtonTargets(): array
+    {
+        return [
+            'new tab' => ['_blank', ' target="_blank" rel="noopener"'],
+            'same window' => ['_self', ''],
+            'empty' => ['', ''],
+            'unexpected value' => ['" onclick="x', ''],
+        ];
     }
 
     /** Keep a missing image value unchanged when the attachment lookup finds nothing. */
