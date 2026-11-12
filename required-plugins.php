@@ -210,3 +210,5 @@ function uamswp_logo_register_required_plugins(): void
 
     tgmpa($plugins, $config);
 }
+
+// scratch touch
