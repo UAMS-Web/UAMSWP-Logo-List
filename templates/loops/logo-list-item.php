@@ -1,5 +1,6 @@
 <?php
 /**
+ *  Scratch touch.
  *  Template Name: Location Loop - Card layout
  *  Designed for UAMS Find-a-Doc
  *
