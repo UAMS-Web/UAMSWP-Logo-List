@@ -16,6 +16,15 @@ directory operations to another file stream wrapper. Retain that wrapper object
 for subsequent reads and closes, rather than retaining its boolean open result.
 Native directory operations still retain their native resource.
 
+The file is carried by the development dependency
+[`uams-web/patches-patchwork`](https://github.com/UAMS-Web/patches-patchwork), read
+through the `vcs` entry in `composer.json`'s `repositories`, and `patches.json`
+registers it at `vendor/uams-web/patches-patchwork/patches/`. A change to the
+patch is made in that package and arrives here through a version bump, then
+`composer patches-relock` and `composer patches-repatch`: bumping the package alone
+does not repatch Patchwork. When it retires, remove the package from `require-dev`
+and its `repositories` entry.
+
 ## Isolated mutation processes and missing test reports
 
 `pest-mutate-isolated-processes.patch` repairs Pest Mutate 5.0.2. Activate mutation
@@ -44,7 +53,8 @@ Retire each repair only when an installable upstream version provides equivalent
 behavior and the same positive and negative controls pass without its patch.
 Remove the patch registration before updating its package, then:
 
-- Remove the corresponding `.patch` file and installation guards.
+- Remove the corresponding `.patch` file (for Patchwork, the package instead) and
+  installation guards.
 - Remove `tests/Unit/MutationCompatibilityTest.php` and its four
   `tests/Fixtures/MutationProbe*.php` / `MutationReportProcess.php` fixtures
   when neither repair needs them. Keep the shared isolated-test autoloader

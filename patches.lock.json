@@ -1,11 +1,11 @@
 {
-    "_hash": "3ce9f7593696b55e0094f9f653d1cac8aa7cbd522aa651a071321bcff7758842",
+    "_hash": "824ae9829d8bb2a73fa3913fad7ab8c469936cd80bdb7fda49a8c65e0723ccf3",
     "patches": {
         "antecedent/patchwork": [
             {
                 "package": "antecedent/patchwork",
                 "description": "Retain delegated directory wrappers (temporary; see #82)",
-                "url": "patches/patchwork-directory-wrapper.patch",
+                "url": "vendor/uams-web/patches-patchwork/patches/patchwork-directory-wrapper.patch",
                 "sha256": "756b894b061e999b848b821a4130a0ae79451a3ed96ed932e5afc6bb65a312a3",
                 "depth": 1,
                 "extra": {

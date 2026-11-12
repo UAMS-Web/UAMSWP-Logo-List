@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "534e1eebd0e9112015128a0ed7755cb7",
+    "content-hash": "d991048253fd0f0ca620058e0719388c",
     "packages": [],
     "packages-dev": [
         {
@@ -1999,7 +1999,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-03T12:14:22+00:00"
+            "time": "2026-11-03T12:14:22+00:00",
+            "published-time": "2026-11-03T12:14:36+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4861,6 +4862,46 @@
                 "source": "https://github.com/ta-tikoma/phpunit-architecture-test/tree/0.8.7"
             },
             "time": "2026-02-17T17:25:14+00:00"
+        },
+        {
+            "name": "uams-web/patches-patchwork",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UAMS-Web/patches-patchwork.git",
+                "reference": "37ac0b03dc0047213b4bd96c59ac9d1272c80a0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UAMS-Web/patches-patchwork/zipball/37ac0b03dc0047213b4bd96c59ac9d1272c80a0d",
+                "reference": "37ac0b03dc0047213b4bd96c59ac9d1272c80a0d",
+                "shasum": ""
+            },
+            "require": {
+                "antecedent/patchwork": "2.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "patches": {
+                    "antecedent/patchwork": {
+                        "Retain delegated directory wrappers (temporary; see UAMS-Web/UAMSWP-Logo-List#82)": "vendor/uams-web/patches-patchwork/patches/patchwork-directory-wrapper.patch"
+                    }
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Patches UAMS-Web repositories apply to antecedent/patchwork",
+            "keywords": [
+                "composer",
+                "patches",
+                "patchwork"
+            ],
+            "support": {
+                "issues": "https://github.com/UAMS-Web/patches-patchwork/issues",
+                "source": "https://github.com/UAMS-Web/patches-patchwork"
+            },
+            "time": "2026-11-11T21:02:16+00:00"
         },
         {
             "name": "webmozart/assert",
