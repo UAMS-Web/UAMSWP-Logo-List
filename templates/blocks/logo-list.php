@@ -1,4 +1,5 @@
 <?php
+// scratch touch
 /*
  *
  * UAMS Logo List Block
@@ -369,4 +370,3 @@ if ($category_ids && $logo_list_query->have_posts()) { ?>
     </div>
 </section>
 <?php } // endif?>
-// scratch touch
