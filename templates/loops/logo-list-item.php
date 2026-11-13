@@ -225,3 +225,4 @@ if (! empty($item_image)) {
         <?php } // endif?>
     </div>
 </div>
+// scratch touch

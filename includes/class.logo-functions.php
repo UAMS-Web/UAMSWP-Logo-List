@@ -9,3 +9,5 @@ function logo_script_register(): void
 }
 
 add_action('wp_enqueue_scripts', 'logo_script_register');
+
+// scratch touch
