@@ -1,4 +1,5 @@
 <?php
+// scratch touch
 /**
  *  Template Name: Location Loop - Card layout
  *  Designed for UAMS Find-a-Doc
@@ -225,4 +226,3 @@ if (! empty($item_image)) {
         <?php } // endif?>
     </div>
 </div>
-// scratch touch
