@@ -18,3 +18,5 @@ function bootstrap(): void
     include_once __DIR__.'/class.logo-functions.php';
     include_once __DIR__.'/class.logo-acf-blocks.php';
 }
+
+// scratch touch
