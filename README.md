@@ -46,17 +46,17 @@ composer test:integration     # PHPUnit 9.6 over wp-phpunit, needs the test data
 
 The stylesheet build has its own tests, run with `npm ci --ignore-scripts` then `npm run test:build` (Node's built-in test runner, no extra packages). They feed fixtures through `gulpfile.js` stage by stage; one test also rebuilds `assets/css/app.css` and compares it byte for byte, and is skipped where the `uams-2020` theme that `assets/scss/app.scss` imports is not checked out beside the plugin.
 
-A floor lint (`lint-floor` in `local-ci.json`, `composer lint:floor`) runs `php -l` under PHP 8.2 over every shipped PHP file, the files the download keep-list in `.gitattributes` leaves in the archive.
+A floor lint (`composer lint:floor`, and the `floor-lint` input of the `checks` job in `ci.yml`) runs `php -l` under PHP 8.2 over every shipped PHP file, the files the download keep-list in `.gitattributes` leaves in the archive.
 
 
-## Local CI
+## Before a push
 
 ```bash
-node .claude/skills/local-ci/local-ci.mjs --dry-run
-node .claude/skills/local-ci/local-ci.mjs --all
+composer test:unit
+composer lint:floor
 ```
 
-The runner runs the same checks as `ci.yml` on a local machine, before a push.
+These run the unit suite and the floor lint on a local machine. Remote CI, below, is the gate.
 
 
 ## Remote CI

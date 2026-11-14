@@ -26,8 +26,6 @@ name: CI
 # What the plugin carries for the call, because the called jobs check out this repository:
 # `.github/actions/setup/action.yml`, the synced `.claude/skills` scripts, the Composer
 # scripts `test:pint`, `test:refactor`, `stan`, `test:unit` and `mutate`, and `scripts/lint-floor.php`.
-#
-# The local CI runner (.claude/skills/local-ci/) runs the same checks from `local-ci.json`.
 
 on:
   pull_request:
