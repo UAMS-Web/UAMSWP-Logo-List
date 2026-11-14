@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e746c489dce1841a63fd3d55577a626f",
+    "content-hash": "37595269532b3f2b189194b34dc1ca8c",
     "packages": [],
     "packages-dev": [
         {
@@ -274,8 +274,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-12T04:58:58+00:00",
-            "published-time": "2023-02-12T05:06:43+00:00"
+            "time": "2023-02-12T04:58:58+00:00"
         },
         {
             "name": "cweagans/composer-patches",
@@ -342,8 +341,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-30T23:44:22+00:00",
-            "published-time": "2025-10-31T01:21:00+00:00"
+            "time": "2025-10-30T23:44:22+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1999,8 +1997,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-03T12:14:22+00:00",
-            "published-time": "2026-11-03T12:14:36+00:00"
+            "time": "2026-11-03T12:14:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4905,16 +4902,16 @@
         },
         {
             "name": "uams-web/patches-pest-plugin-mutate",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UAMS-Web/patches-pest-plugin-mutate.git",
-                "reference": "76509d1440bc4201692aed8cc7b12b4552aeff84"
+                "reference": "6091433589d65c8741c409d37066aa137641dc91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UAMS-Web/patches-pest-plugin-mutate/zipball/76509d1440bc4201692aed8cc7b12b4552aeff84",
-                "reference": "76509d1440bc4201692aed8cc7b12b4552aeff84",
+                "url": "https://api.github.com/repos/UAMS-Web/patches-pest-plugin-mutate/zipball/6091433589d65c8741c409d37066aa137641dc91",
+                "reference": "6091433589d65c8741c409d37066aa137641dc91",
                 "shasum": ""
             },
             "require": {
@@ -4936,7 +4933,8 @@
                         "Map a class constant mutant to the tests covering its containing class, since a constant initializer has no executable coverage line (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-class-constant-coverage.patch",
                         "Skip a node whose own comment carries a matching @pest-mutate-ignore marker, including when the traverser still leaves that node (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-ignore-annotated-statement.patch",
                         "Size a mutant child's time limit from the serial work the initial suite stands for, so a --parallel run cannot score a mutant a timeout that no test caused (temporary; see UAMS-Web/patches-pest-plugin-mutate#2)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-mutant-timeout.patch",
-                        "Keep Patchwork in front of the mutation stream wrapper after a pass-through read, so a function a test mocks is still redefined in a mutant child that logs to junit (temporary; see UAMS-Web/patches-pest-plugin-mutate#31)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-stream-wrapper-patchwork.patch"
+                        "Keep Patchwork in front of the mutation stream wrapper after a pass-through read, so a function a test mocks is still redefined in a mutant child that logs to junit (temporary; see UAMS-Web/patches-pest-plugin-mutate#31)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-stream-wrapper-patchwork.patch",
+                        "Run a mutant child again when it times out once, and score a timeout only when the second attempt times out too, so a transient slowdown of the machine cannot keep --min=100 out of reach (temporary; see UAMS-Web/patches-pest-plugin-mutate#30)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-mutant-timeout-retry.patch"
                     }
                 }
             },
@@ -4954,7 +4952,7 @@
                 "issues": "https://github.com/UAMS-Web/patches-pest-plugin-mutate/issues",
                 "source": "https://github.com/UAMS-Web/patches-pest-plugin-mutate"
             },
-            "time": "2026-11-13T20:06:05+00:00"
+            "time": "2026-11-14T04:35:19+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -5035,5 +5033,5 @@
     "platform-overrides": {
         "php": "8.4.27"
     },
-    "plugin-api-version": "2.11.0"
+    "plugin-api-version": "2.9.0"
 }

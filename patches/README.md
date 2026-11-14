@@ -30,8 +30,8 @@ and its `repositories` entry.
 The repairs to Pest Mutate 5.0.2 come from the development dependency
 [`uams-web/patches-pest-plugin-mutate`](https://github.com/UAMS-Web/patches-pest-plugin-mutate),
 read through the `vcs` entry in `composer.json`'s `repositories`. The package applies
-its thirteen patches as an ordered set (a later patch is cut against the output of the
-earlier ones), so `patches.json` registers all thirteen at
+its fourteen patches as an ordered set (a later patch is cut against the output of the
+earlier ones), so `patches.json` registers all fourteen at
 `vendor/uams-web/patches-pest-plugin-mutate/patches/`, in the package's order. A change
 arrives through a version bump, then `composer patches-relock` and
 `composer patches-repatch`. The repair this repository added is the package's
