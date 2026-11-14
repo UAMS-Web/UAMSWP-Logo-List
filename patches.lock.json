@@ -1,5 +1,5 @@
 {
-    "_hash": "9f16347130a699bffc81d3e3eb64d2757112fe3d537c0b08a90acb094d756bf7",
+    "_hash": "3a74b22ba460c71c26074847c0f4cf13402f3eeb36f39314da90fcbe12f8c551",
     "patches": {
         "antecedent/patchwork": [
             {
@@ -98,7 +98,7 @@
                 "package": "pestphp/pest-plugin-mutate",
                 "description": "Propagate a mutation into isolated test processes and reject a test report that ran no tests, so an isolated run cannot score a mutant killed without running a test (temporary; see UAMS-Web/UAMSWP-Logo-List#82)",
                 "url": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-isolated-processes.patch",
-                "sha256": "c3ad8886c67831829d58eddf55b52a359c5833d4e8a47012b9c9f224cc192eaa",
+                "sha256": "6dd578588121b5291568bf26d001bd865a3a7e74d93f236a31ce93326dc0f3d2",
                 "depth": 1,
                 "extra": {
                     "provenance": "patches-file:patches.json"
@@ -139,6 +139,16 @@
                 "description": "Keep Patchwork in front of the mutation stream wrapper after a pass-through read, so a function a test mocks is still redefined in a mutant child that logs to junit (temporary; see UAMS-Web/patches-pest-plugin-mutate#31)",
                 "url": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-stream-wrapper-patchwork.patch",
                 "sha256": "c4e064cf26f7f9daaa21f06b0f71c68993faa178813672188562cc54b7bf6827",
+                "depth": 1,
+                "extra": {
+                    "provenance": "patches-file:patches.json"
+                }
+            },
+            {
+                "package": "pestphp/pest-plugin-mutate",
+                "description": "Run a mutant child again when it times out once, and score a timeout only when the second attempt times out too, so a transient slowdown of the machine cannot keep --min=100 out of reach (temporary; see UAMS-Web/patches-pest-plugin-mutate#30)",
+                "url": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-mutant-timeout-retry.patch",
+                "sha256": "2516b97553a04990fbdfd51a2651b7dc24e372f885d9ebd2f247742f2fa94f19",
                 "depth": 1,
                 "extra": {
                     "provenance": "patches-file:patches.json"
