@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64b16b4b004441c4ad8e7be8e0ce655f",
+    "content-hash": "e746c489dce1841a63fd3d55577a626f",
     "packages": [],
     "packages-dev": [
         {
@@ -4905,16 +4905,16 @@
         },
         {
             "name": "uams-web/patches-pest-plugin-mutate",
-            "version": "v1.1.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UAMS-Web/patches-pest-plugin-mutate.git",
-                "reference": "a0ea20914c398b23138b1475948f3324bc7d001a"
+                "reference": "76509d1440bc4201692aed8cc7b12b4552aeff84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UAMS-Web/patches-pest-plugin-mutate/zipball/a0ea20914c398b23138b1475948f3324bc7d001a",
-                "reference": "a0ea20914c398b23138b1475948f3324bc7d001a",
+                "url": "https://api.github.com/repos/UAMS-Web/patches-pest-plugin-mutate/zipball/76509d1440bc4201692aed8cc7b12b4552aeff84",
+                "reference": "76509d1440bc4201692aed8cc7b12b4552aeff84",
                 "shasum": ""
             },
             "require": {
@@ -4934,7 +4934,9 @@
                         "Select tests for a mutated scalar function default, so it is not scored without a test running it (temporary; see UAMS-Web/uams-2020#673)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-function-defaults.patch",
                         "Propagate a mutation into isolated test processes and reject a test report that ran no tests, so an isolated run cannot score a mutant killed without running a test (temporary; see UAMS-Web/UAMSWP-Logo-List#82)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-isolated-processes.patch",
                         "Map a class constant mutant to the tests covering its containing class, since a constant initializer has no executable coverage line (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-class-constant-coverage.patch",
-                        "Skip a node whose own comment carries a matching @pest-mutate-ignore marker, including when the traverser still leaves that node (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-ignore-annotated-statement.patch"
+                        "Skip a node whose own comment carries a matching @pest-mutate-ignore marker, including when the traverser still leaves that node (temporary)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-ignore-annotated-statement.patch",
+                        "Size a mutant child's time limit from the serial work the initial suite stands for, so a --parallel run cannot score a mutant a timeout that no test caused (temporary; see UAMS-Web/patches-pest-plugin-mutate#2)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-mutant-timeout.patch",
+                        "Keep Patchwork in front of the mutation stream wrapper after a pass-through read, so a function a test mocks is still redefined in a mutant child that logs to junit (temporary; see UAMS-Web/patches-pest-plugin-mutate#31)": "vendor/uams-web/patches-pest-plugin-mutate/patches/pest-plugin-mutate-stream-wrapper-patchwork.patch"
                     }
                 }
             },
@@ -4952,7 +4954,7 @@
                 "issues": "https://github.com/UAMS-Web/patches-pest-plugin-mutate/issues",
                 "source": "https://github.com/UAMS-Web/patches-pest-plugin-mutate"
             },
-            "time": "2026-11-12T01:30:35+00:00"
+            "time": "2026-11-13T20:06:05+00:00"
         },
         {
             "name": "webmozart/assert",
