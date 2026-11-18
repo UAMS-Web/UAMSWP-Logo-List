@@ -1,5 +1,17 @@
 # UAMSWP-Logo-List
 
+A WordPress plugin for uams.edu and uamshealth.com that adds a **UAMS Logo List** block: a section showing the logos of partner organizations, chosen by category and label, as a grid or a vertical list. Each organization is kept as a **Logo List Item**.
+
+The [wiki](https://github.com/UAMS-Web/UAMSWP-Logo-List/wiki) holds the documentation: a walkthrough, task guides, the block and field reference, permissions and troubleshooting.
+
+## Requirements and installation
+
+- WordPress 6.8 or later and PHP 8.2 or later.
+- Advanced Custom Fields PRO, Advanced Custom Fields: Extended and Advanced Custom Fields: Mask Field, all active. Until they are, an admin notice from TGM Plugin Activation lists them. Advanced Custom Fields: Extended can be installed from **Plugins**, then **Install Plugins**; install ACF PRO and Mask Field by hand, since the bundled copies that screen expects are not in this repository.
+- The block's stylesheet is built against the `uams-2020` theme, which sets the look it relies on.
+
+Install the plugin like any other: put this repository's release download in `wp-content/plugins/` (or deploy it from GitHub with a deployment plugin), then activate **UAMSWP Logo List** under **Plugins**. [Your first logo list](https://github.com/UAMS-Web/UAMSWP-Logo-List/wiki/Your-first-logo-list) walks through a first use.
+
 ## Credits
 
 Developed and maintained by UAMS Web Services.
