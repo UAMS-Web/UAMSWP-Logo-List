@@ -14,10 +14,10 @@ The category is what a block uses to choose its logos, so every list starts with
 
 Open **Logo List Items**, then **Add New**. For each organization:
 
-1. Enter a post title. It is used only in the dashboard and for one sort order.
+1. Enter a post title. The block does not show it, though the item's own public page does.
 2. Fill in **Name of Organization**, for example `Example Health Partner`.
 3. Upload a PNG logo with a transparent background under **Logo of Organization**.
-4. Tick the `Example Partners` category under **Categories**.
+4. Select `Example Partners` in **Categories**.
 5. Select **Publish**.
 
 The organizations now appear in the **Logo List Items** list, with their category in its own column. [Adding an organization](Adding-an-organization.md) covers the other fields.

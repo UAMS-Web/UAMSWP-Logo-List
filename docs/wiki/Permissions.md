@@ -17,6 +17,6 @@ The plugin gives Logo List Items and their two taxonomies their own capabilities
 
 ## Granting access to another role
 
-Grant the capabilities above with a role editor. A role that should only add organizations needs `edit_logo_list_items` (and `publish_logo_list_items` to publish them); managing categories and labels also needs `manage_logo_list_taxonomies`.
+Grant the capabilities above with a role editor. A role that should only add organizations needs `edit_logo_list_items` (and `publish_logo_list_items` to publish them), plus WordPress's own `upload_files` to upload logos; managing categories and labels also needs `manage_logo_list_taxonomies`.
 
 **Note:** removing a capability from Administrator or Editor does not last, because the plugin adds the full set back to both roles on the next request.
