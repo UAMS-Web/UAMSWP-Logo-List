@@ -39,6 +39,12 @@
         "sort-packages": true
     },
     "scripts": {
+        "post-install-cmd": [
+            "@php .claude/skills/upstream-patch-lifecycle/scripts/ensure-patches-applied.php"
+        ],
+        "post-update-cmd": [
+            "@php .claude/skills/upstream-patch-lifecycle/scripts/ensure-patches-applied.php"
+        ],
         "setup:integration": "@composer install --working-dir=tests/Integration",
         "test": [
             "@test:unit",
